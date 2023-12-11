@@ -13,6 +13,18 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.confirmation"
+            android:exported="false" />
+        <activity
+            android:name=".ui.plates_order"
+            android:exported="false" />
+        <activity
+            android:name=".ui.plates_page"
+            android:exported="false" />
+        <activity
+            android:name=".plates_page"
+            android:exported="false" />
+        <activity
             android:name=".ui.home"
             android:exported="true">
             <intent-filter>

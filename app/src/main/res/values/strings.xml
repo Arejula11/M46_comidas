@@ -1,12 +1,20 @@
 <resources>
-    <string name="app_name">M46_comidas</string>
-    <string name="hint_title">Type title ...</string>
-    <string name="hint_body">Type body ...</string>
+    <string name="app_name">Comidas_M46</string>
     <string name="button_save">Save</string>
-    <string name="empty_not_saved">Note not saved because title is empty.</string>
-    <string name="add_note">Add note</string>
-    <string name="menu_delete">Delete Note</string>
-    <string name="menu_edit">Edit Note</string>
-    <string name="title">Title</string>
-    <string name="body">Body</string>
+    <string name="mas">+</string>
+    <string name="confirm_dialog_text">¿ESTÁS SEGURO?</string>
+    <string name="confirm_no">NO</string>
+    <string name="confirm_si">SI</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="platos">Platos</string>
+    <string name="now">NOW</string>
+    <string name="order">ORDER</string>
+    <string name="ordenar">ORDENAR</string>
+    <string name="nombre">NOMBRE</string>
+    <string name="categoria">CATEGORIA</string>
+    <string name="ambas">AMBAS</string>
+    <string name="volver">VOLVER</string>
+    <string name="home">HOME</string>
+    <string name="mis_pedidos">Mis pedidos</string>
+    <string name="mis_platos">Mis platos</string>
 </resources>
