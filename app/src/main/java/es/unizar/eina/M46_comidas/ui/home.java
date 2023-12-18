@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 
 import es.unizar.eina.M46_comidas.R;
 
@@ -17,7 +18,8 @@ public class home extends AppCompatActivity {
         buttonPlatos = findViewById(R.id.buttonPlatos);
 
         buttonPlatos.setOnClickListener(view -> {
-
+              Intent intent = new Intent(this, plates_page.class);                            intent = Intent(this@home, SecondActivity::class.java);
+              startActivity(intent);
         });
 
 
