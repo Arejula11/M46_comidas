@@ -20,12 +20,14 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder {
 
     private PlatoViewHolder(View itemView) {
         super(itemView);
-        mPlatoItemView = itemView.findViewById(R.id.textView2);
+        mPlatoItemView = itemView.findViewById(R.id.textViewName);
 
     }
 
     public void bind(String text) {
-        mPlatoItemView.setText(text);
+        if (text != null && mPlatoItemView != null) {
+            mPlatoItemView.setText(text);
+        }
     }
 
     static PlatoViewHolder create(ViewGroup parent) {
