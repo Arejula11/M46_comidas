@@ -28,11 +28,21 @@ public interface PlatoDao {
     @Query("SELECT * FROM plato")
     LiveData<List<Plato>> getPlatos(); //cambiar query
 
-    @Query("SELECT * FROM plato ORDER BY Nombre DESC")
+    @Query("SELECT * FROM plato ORDER BY Nombre ASC")
     LiveData<List<Plato>> getOrderedPlatosNombre(); //cambiar query
-    @Query("SELECT * FROM plato ORDER BY Categoria DESC")
+    @Query("SELECT * FROM plato ORDER BY\n " +
+            "CASE\n" +
+            "    WHEN categoria = 'PRIMERO' THEN 1\n" +
+            "    WHEN categoria = 'SEGUNDO' THEN 2\n" +
+            "    WHEN categoria = 'POSTRE' THEN 3\n" +
+            "  END")
     LiveData<List<Plato>> getOrderedPlatosCategoria(); //cambiar query
 
-    @Query("SELECT * FROM plato ORDER BY Nombre DESC, Categoria DESC")
+    @Query("SELECT * FROM plato ORDER BY\n " +
+            "CASE\n" +
+            "    WHEN categoria = 'PRIMERO' THEN 1\n" +
+            "    WHEN categoria = 'SEGUNDO' THEN 2\n" +
+            "    WHEN categoria = 'POSTRE' THEN 3\n" +
+            "  END, Nombre ASC")
     LiveData<List<Plato>> getOrderedPlatosNombreCategoria(); //cambiar query
 }

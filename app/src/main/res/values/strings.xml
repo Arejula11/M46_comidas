@@ -17,4 +17,6 @@
     <string name="home">HOME</string>
     <string name="mis_pedidos">Mis pedidos</string>
     <string name="mis_platos">Mis platos</string>
+    <string name="selecciona_categoria">Selecciona una categoria</string>
+
 </resources>

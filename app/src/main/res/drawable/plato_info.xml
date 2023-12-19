@@ -1,0 +1,9 @@
+<!-- res/drawable/border_blue.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- Fondo blanco -->
+    <stroke
+        android:width="5dp"
+        android:color="#163172" /> <!-- Borde azul -->
+    <corners android:radius="8dp" /> <!-- Radio de las esquinas (ajusta según sea necesario) -->
+
+</shape>

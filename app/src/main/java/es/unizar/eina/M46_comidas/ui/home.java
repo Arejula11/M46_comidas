@@ -20,7 +20,9 @@ public class home extends AppCompatActivity {
         buttonPlatos = findViewById(R.id.buttonPlatos);
 
         buttonPlatos.setOnClickListener(view -> {
+
               Intent intent = new Intent(this, plates_page.class);
+              intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
               startActivity(intent);
         });
 
