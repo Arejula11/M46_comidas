@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import androidx.lifecycle.ViewModelProvider;
+
 
 
 public class add_plate extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class add_plate extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
+        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonAdd = findViewById(R.id.buttonAdd);
@@ -58,6 +61,9 @@ public class add_plate extends AppCompatActivity {
 
             Plato plato = new Plato(nombre,ingredientes,categoriaSeleccionada,precio);
             mPlatoViewModel.insert(plato);
+            Intent intent = new Intent(this, plates_page.class);
+            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
         });
 
 
