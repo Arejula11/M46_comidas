@@ -26,6 +26,9 @@ public interface PedidoDao {
     @Query("DELETE FROM pedido")
     void deleteAll();
 
+    @Query("SELECT * FROM pedido")
+    LiveData<List<Pedido>> getPedidos();
+
     @Query("SELECT * FROM pedido ORDER BY NombreCliente DESC")
     LiveData<List<Pedido>> getOrderedPedidosNombreCliente();
     @Query("SELECT * FROM pedido ORDER BY NumeroTelefono DESC")

@@ -25,6 +25,8 @@ public interface PlatoDao {
 
     @Query("DELETE FROM plato")
     void deleteAll();
+    @Query("SELECT * FROM plato")
+    LiveData<List<Plato>> getPlatos(); //cambiar query
 
     @Query("SELECT * FROM plato ORDER BY Nombre DESC")
     LiveData<List<Plato>> getOrderedPlatosNombre(); //cambiar query

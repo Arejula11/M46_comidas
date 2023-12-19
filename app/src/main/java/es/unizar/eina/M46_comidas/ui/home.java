@@ -11,6 +11,8 @@ import es.unizar.eina.M46_comidas.R;
 
 public class home extends AppCompatActivity {
       Button buttonPlatos;
+      Button buttonPedidos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +20,7 @@ public class home extends AppCompatActivity {
         buttonPlatos = findViewById(R.id.buttonPlatos);
 
         buttonPlatos.setOnClickListener(view -> {
-              Intent intent = new Intent(this, plates_page.class);                            intent = Intent(this@home, SecondActivity::class.java);
+              Intent intent = new Intent(this, plates_page.class);
               startActivity(intent);
         });
 

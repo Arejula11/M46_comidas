@@ -10,24 +10,25 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.time.LocalDateTime;
 
-@Database(entities = {Pedido.class}, version = 1, exportSchema = false)
-public abstract class PedidoRoomDatabase extends RoomDatabase {
+@Database(entities = {Plato.class, Pedido.class}, version = 1, exportSchema = false)
+public abstract class ComidasRoomDatabase extends RoomDatabase {
 
+    public abstract PlatoDao platoDao();
     public abstract PedidoDao pedidoDao();
 
-    private static volatile PedidoRoomDatabase INSTANCE;
+
+    private static volatile ComidasRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static PedidoRoomDatabase getDatabase(final Context context) {
+    static ComidasRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (PedidoRoomDatabase.class) {
+            synchronized (ComidasRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    PedidoRoomDatabase.class, "pedido_database")
+                                    ComidasRoomDatabase.class, "comidas_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -46,18 +47,22 @@ public abstract class PedidoRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more notes, just add them.
-                PedidoDao dao = INSTANCE.pedidoDao();
-                dao.deleteAll();
-                LocalDateTime fecha = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    fecha = LocalDateTime.now();
-                }
+                PlatoDao daoPlatos = INSTANCE.platoDao();
+                PedidoDao daoPedidos = INSTANCE.pedidoDao();
+                daoPlatos.deleteAll();
+
+                Plato plato = new Plato("Plato 1's nombre", "Plato 1's ingredientes", "Plato 1's categoria", 1);
+                daoPlatos.insert(plato);
+                plato = new Plato("Plato 2's nombre", "Plato 2's ingredientes", "Plato 2's categoria", 2);
+                daoPlatos.insert(plato);
+
                 Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado");
-                dao.insert(pedido);
+                daoPedidos.insert(pedido);
                 pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado");
-                dao.insert(pedido);
+                daoPedidos.insert(pedido);
             });
         }
     };
+
 
 }

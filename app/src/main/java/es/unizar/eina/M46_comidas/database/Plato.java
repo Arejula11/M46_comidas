@@ -6,7 +6,11 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "plato")
 public class Plato {
-    @PrimaryKey(autoGenerate = false)
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "ID")
+    private int id;
     @NonNull
     @ColumnInfo(name = "Nombre")
     private String nombre ;
@@ -34,14 +38,20 @@ public class Plato {
     }
 
     /** Devuelve el identificador del pedido */
+    public int getId(){
+        return this.id;
+    }
+
+    /** Permite actualizar el identificador del pedido */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /** Devuelve el identificador del pedido */
     public String getNombre(){
         return this.nombre;
     }
 
-    /** Permite actualizar el identificador del pedido */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     /** Devuelve los ingredientes del pedido */
     public String getIngredientes(){
