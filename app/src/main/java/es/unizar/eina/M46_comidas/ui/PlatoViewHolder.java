@@ -14,20 +14,29 @@ import es.unizar.eina.M46_comidas.database.Plato;
 
 public class PlatoViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView mPlatoItemView;
+    private final TextView mNombreTextView;
+    private final TextView mIngredienteTextView;
+    private final TextView mPrecioTextView;
+    private final TextView mCategoriaTextView;
+
+
+
 
 
 
     private PlatoViewHolder(View itemView) {
         super(itemView);
-        mPlatoItemView = itemView.findViewById(R.id.textViewName);
-
+        mNombreTextView = itemView.findViewById(R.id.textViewNombre);
+        mIngredienteTextView = itemView.findViewById(R.id.textViewIngrediente);
+        mPrecioTextView = itemView.findViewById(R.id.textViewPrecio);
+        mCategoriaTextView = itemView.findViewById(R.id.textViewCategoria);
     }
 
-    public void bind(String text) {
-        if (text != null && mPlatoItemView != null) {
-            mPlatoItemView.setText(text);
-        }
+    public void bind(Plato plato) {
+        mNombreTextView.setText("Nombre del plato: " + plato.getNombre());
+        mIngredienteTextView.setText("Ingredientes: " + plato.getIngredientes());
+        mPrecioTextView.setText("Precio: " + plato.getPrecio() + "€");
+        mCategoriaTextView.setText("Categoría: " + plato.getCategoria());
     }
 
     static PlatoViewHolder create(ViewGroup parent) {

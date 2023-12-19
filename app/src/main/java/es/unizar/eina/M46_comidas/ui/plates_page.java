@@ -25,6 +25,7 @@ public class plates_page extends AppCompatActivity {
 
 
     Button buttonHome;
+    Button buttonOrdenar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,14 @@ public class plates_page extends AppCompatActivity {
             mAdapter.submitList(platos);
         });
         buttonHome = findViewById(R.id.buttonHome);
+        buttonOrdenar = findViewById(R.id.buttonOrdenar);
 
         buttonHome.setOnClickListener(view -> {
             Intent intent = new Intent(this, home.class);
+            startActivity(intent);
+        });
+        buttonOrdenar.setOnClickListener(view -> {
+            Intent intent = new Intent(this, plates_order.class);
             startActivity(intent);
         });
     }

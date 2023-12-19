@@ -37,7 +37,7 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
     public void onBindViewHolder(PlatoViewHolder holder, int position) {
 
         Plato current = getItem(position);
-        holder.bind(current.getNombre());
+        holder.bind(current);
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

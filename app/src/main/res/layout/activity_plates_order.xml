@@ -64,12 +64,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="#163172"
                 android:text="@string/categoria"
                 android:textColor="#FFF"
-                android:textSize="30sp"
-                app:cornerRadius="@dimen/material_emphasis_high_type"
-                app:iconTint="#163172" />
+                android:textSize="30sp" />
 
             <!-- Botón 2 -->
             <Button
@@ -80,12 +77,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="#163172"
                 android:text="@string/nombre"
                 android:textColor="#FFF"
-                android:textSize="30sp"
-                app:cornerRadius="@dimen/material_emphasis_high_type"
-                app:iconTint="#163172" />
+                android:textSize="30sp" />
 
             <!-- Botón 3 -->
             <Button
@@ -96,12 +90,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="#163172"
                 android:text="@string/ambas"
                 android:textColor="#FFF"
-                android:textSize="30sp"
-                app:cornerRadius="@dimen/material_emphasis_high_type"
-                app:iconTint="#163172" />
+                android:textSize="30sp" />
         </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
