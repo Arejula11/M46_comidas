@@ -28,12 +28,17 @@ public class Pedido {
     @ColumnInfo(name = "Estado")
     private String estado;
 
+    @NonNull
+    @ColumnInfo(name = "Precio")
+    private double precio;
 
-    public Pedido(@NonNull String nombrecliente, @NonNull Integer tel, @NonNull Long fecha, @NonNull String estado) {
+
+    public Pedido(@NonNull String nombrecliente, @NonNull Integer tel, @NonNull Long fecha, @NonNull String estado, @NonNull double precio) {
         this.nombrecliente = nombrecliente;
         this.tel = tel;
         this.fecha = fecha;
         this.estado = estado;
+        this.precio = precio;
     }
 
     /** Devuelve el identificador del pedido */
@@ -64,6 +69,11 @@ public class Pedido {
     /** Devuelve el estado del pedido */
     public String getEstado(){
         return this.estado;
+    }
+
+    /** Devuelve el estado del pedido */
+    public Double getPrecio(){
+        return this.precio;
     }
 
 

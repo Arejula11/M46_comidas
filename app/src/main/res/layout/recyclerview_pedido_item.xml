@@ -45,11 +45,10 @@
 
     </LinearLayout>
 
-
     <View
-        android:layout_width="3dp"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:background="#163172" />
+        android:background="@drawable/dashed_line2" />
     <!-- Segunda columna -->
     <LinearLayout
         android:layout_width="0dp"

@@ -30,6 +30,11 @@
     <string name="eliminar">ELIMINAR</string>
     <string name="editar">EDITAR</string>
     <string name="enviar">ENVIAR</string>
+    <string name="guardar">GUARDAR</string>
+    <string name="cliente">CLIENTE</string>
+    <string name="fecha">FECHA</string>
+    <string name="numTelefono">TELEFONO</string>
+    <string name="add">AÑADIR</string>
 
 
 </resources>

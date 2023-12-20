@@ -29,12 +29,23 @@ public interface PedidoDao {
     @Query("SELECT * FROM pedido")
     LiveData<List<Pedido>> getPedidos();
 
-    @Query("SELECT * FROM pedido ORDER BY NombreCliente DESC")
+    @Query("SELECT * FROM pedido ORDER BY NombreCliente ASC")
     LiveData<List<Pedido>> getOrderedPedidosNombreCliente();
-    @Query("SELECT * FROM pedido ORDER BY NumeroTelefono DESC")
+
+    @Query("SELECT * FROM pedido ORDER BY NumeroTelefono ASC")
     LiveData<List<Pedido>> getOrderedPedidosNumTlfn();
-    @Query("SELECT * FROM pedido ORDER BY Fecha ASC")
+
+    @Query("SELECT * FROM pedido ORDER BY Fecha DESC")
     LiveData<List<Pedido>> getOrderedPedidosFecha();
+
+    @Query("SELECT * FROM pedido WHERE Estado = :estado ORDER BY NombreCliente ASC")
+    LiveData<List<Pedido>> getOrderedPedidosNombreClienteAndFilter(String estado);
+
+    @Query("SELECT * FROM pedido WHERE Estado = :estado ORDER BY NumeroTelefono ASC")
+    LiveData<List<Pedido>> getOrderedPedidosNumTlfnAndFilter(String estado);
+
+    @Query("SELECT * FROM pedido WHERE Estado = :estado ORDER BY Fecha DESC")
+    LiveData<List<Pedido>> getOrderedPedidosFechaAndFilter(String estado);
 
     @Query("SELECT * FROM pedido WHERE Estado = :estado")
     LiveData<List<Pedido>> getPedidosBy(String estado);

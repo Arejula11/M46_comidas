@@ -17,9 +17,7 @@ public class PlatoViewModel extends AndroidViewModel{
     private ComidasRepository mRepository;
 
     private final LiveData<List<Plato>> mAllPlatos;
-    private final LiveData<List<Plato>> mAllPlatosNombre;
-    private final LiveData<List<Plato>> mAllPlatosCategoria;
-    private final LiveData<List<Plato>> mAllPlatosNombreCategoria;
+
 
 
 
@@ -27,16 +25,13 @@ public class PlatoViewModel extends AndroidViewModel{
         super(application);
         mRepository = new ComidasRepository(application);
         mAllPlatos = mRepository.getAllPlatos();
-        mAllPlatosNombre = mRepository.getAllPlatosNombre();
-        mAllPlatosCategoria  = mRepository.getAllPlatosCategoria();
-        mAllPlatosNombreCategoria = mRepository.getAllPlatosNombreCategoria();
 
     }
 
     LiveData<List<Plato>> getAllPlatos() { return mAllPlatos; }
-    LiveData<List<Plato>> getAllPlatosNombre() { return mAllPlatosNombre; }
-    LiveData<List<Plato>> getAllPlatosCategoria() { return mAllPlatosCategoria; }
-    LiveData<List<Plato>> getAllPlatosNombreCategoria() { return mAllPlatosNombreCategoria; }
+    LiveData<List<Plato>> getAllPlatosNombre() { return mRepository.getAllPlatosNombre(); }
+    LiveData<List<Plato>> getAllPlatosCategoria() { return mRepository.getAllPlatosCategoria(); }
+    LiveData<List<Plato>> getAllPlatosNombreCategoria() { return mRepository.getAllPlatosNombreCategoria(); }
 
     public void insert(Plato plato) { mRepository.insert(plato); }
 

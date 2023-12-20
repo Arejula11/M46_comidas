@@ -11,11 +11,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plato.class, Pedido.class}, version = 1, exportSchema = false)
+@Database(entities = {Plato.class, Pedido.class, Racion.class}, version = 1, exportSchema = false)
 public abstract class ComidasRoomDatabase extends RoomDatabase {
 
     public abstract PlatoDao platoDao();
     public abstract PedidoDao pedidoDao();
+    public abstract RacionDao racionDao();
 
 
     private static volatile ComidasRoomDatabase INSTANCE;
@@ -49,7 +50,11 @@ public abstract class ComidasRoomDatabase extends RoomDatabase {
                 // If you want to start with more notes, just add them.
                 PlatoDao daoPlatos = INSTANCE.platoDao();
                 PedidoDao daoPedidos = INSTANCE.pedidoDao();
+                RacionDao daoRaciones = INSTANCE.racionDao();
                 daoPlatos.deleteAll();
+                daoPedidos.deleteAll();
+                daoRaciones.deleteAll();
+
 
                 Plato plato = new Plato("Arroz", "arroz", "SEGUNDO", 1);
                 daoPlatos.insert(plato);
@@ -60,10 +65,13 @@ public abstract class ComidasRoomDatabase extends RoomDatabase {
                 plato = new Plato("Hamburguesa", "hamburguesa", "SEGUNDO", 4);
                 daoPlatos.insert(plato);
 
-                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado");
+                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado", 11);
                 daoPedidos.insert(pedido);
-                pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado");
+                pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado", 22);
                 daoPedidos.insert(pedido);
+
+                Racion racion = new Racion(pedido.getId(), plato.getId(), 2);
+                daoRaciones.insert(racion);
             });
         }
     };
