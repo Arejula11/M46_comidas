@@ -1,5 +1,6 @@
 package es.unizar.eina.M46_comidas.ui;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,6 +45,11 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
             public boolean onLongClick(View v) {
                 setPosition(holder.getAdapterPosition());
                 return false;
+            }
+            public void onClick(View v) {
+                /*Intent intent = new Intent(this, add_plate.class);
+                intent.putExtra("Objeto", current);
+                startActivity(intent);*/
             }
         });
     }
