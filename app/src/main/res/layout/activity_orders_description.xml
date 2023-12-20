@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.orders_description">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F6F6"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="41dp"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/textViewNombreClientePedidoDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+
+            android:textColor="#163172"
+            android:textSize="38sp" />
+
+
+        <Button
+            android:id="@+id/buttonAtras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewNombreClientePedidoDes"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-50dp"
+            android:background="@drawable/custom_button2"
+            android:text="atras"
+            android:textColor="#FFF" />
+
+        <LinearLayout
+            android:id="@+id/placeDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/plato_info"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+                         />
+
+            <TextView
+                android:id="@+id/textViewNombreCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Cliente" />
+
+            <TextView
+                android:id="@+id/textViewNombreClienteFill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/textViewPrecioPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio:" />
+            <TextView
+                android:id="@+id/textViewPrecioFill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/textViewTelefonoPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teléfono:" />
+            <TextView
+                android:id="@+id/textViewTelefonoFill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/textViewFechaPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha recogida:" />
+            <TextView
+                android:id="@+id/textViewFechaFill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dashed_line" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/buttonEliminarPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/placeDes"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/custom_button2"
+
+            android:text="@string/eliminar" />
+
+        <Button
+            android:id="@+id/buttonEditarPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/placeDes"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/custom_button2"
+            android:text="@string/editar" />
+
+        <Button
+            android:id="@+id/buttonEnviarPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/placeDes"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/custom_button2"
+            android:text="@string/enviar" />
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

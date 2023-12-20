@@ -1,0 +1,9 @@
+
+
+<!-- custom_button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#FFF" /> <!-- Color de fondo del botón -->
+    <corners android:radius="10dp" /> <!-- Radio de las esquinas -->
+    <stroke android:width="3dp" android:color="#163172"/>
+</shape>

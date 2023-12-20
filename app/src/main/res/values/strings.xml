@@ -18,5 +18,18 @@
     <string name="mis_pedidos">Mis pedidos</string>
     <string name="mis_platos">Mis platos</string>
     <string name="selecciona_categoria">Selecciona una categoria</string>
+    <string name="telefono">Nª Telefono:</string>
+    <string name="precio">Precio:</string>
+    <string name="nombreCliente">Cliente:</string>
+    <string name="recogida">Recogida:</string>
+    <string name="racion">Ración:</string>
+    <string name="cantidad">x</string>
+    <string name="solicitado">SOLICITADO</string>
+    <string name="preparado">PREPARADO</string>
+    <string name="recogido">RECOGIDO</string>
+    <string name="eliminar">ELIMINAR</string>
+    <string name="editar">EDITAR</string>
+    <string name="enviar">ENVIAR</string>
+
 
 </resources>

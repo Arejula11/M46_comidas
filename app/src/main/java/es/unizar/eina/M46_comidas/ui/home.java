@@ -26,6 +26,15 @@ public class home extends AppCompatActivity {
               startActivity(intent);
         });
 
+        buttonPedidos = findViewById(R.id.buttonPedidos);
+
+        buttonPedidos.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, orders_page.class);
+            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
+
 
     }
 }

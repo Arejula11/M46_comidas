@@ -1,33 +1,55 @@
 <!-- row_layout.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+
+    android:padding="10dp"
+    android:visibility="visible"
+    tools:visibility="visible"
     android:orientation="horizontal">
 
     <!-- Primera columna -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="2dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Aquí añade TextViews para nombre, fecha, precio y número de teléfono -->
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/textViewNameCliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre cliente"/>
+            android:text="@string/nombreCliente"/>
         <TextView
-            android:id="@+id/textViewFecha"
+            android:id="@+id/textViewFechaPedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha y hora"/>
+            android:text="@string/recogida"/>
+        <TextView
+            android:id="@+id/textViewPecioPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/precio"/>
+        <TextView
+            android:id="@+id/textViewTfn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/telefono"/>
 
         <!-- Añade más TextViews según tus datos -->
 
     </LinearLayout>
 
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="#163172" />
     <!-- Segunda columna -->
     <LinearLayout
         android:layout_width="0dp"
@@ -39,7 +61,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlates"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/recyclerview_raciones"
+            />
 
     </LinearLayout>
 

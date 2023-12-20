@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.orders_page">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F6F6F6"
@@ -22,7 +21,8 @@
             android:layout_marginTop="32dp"
             android:text="@string/mis_pedidos"
             android:textColor="#163172"
-            android:textSize="38sp" />
+            android:textSize="38sp"
+            android:textStyle=""/>
 
         <Button
             android:id="@+id/buttonHome"
@@ -57,14 +57,56 @@
             android:background="@drawable/custom_button2"
             android:text="@string/ordenar" />
 
+
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/buttonOrdenar"
+            android:id="@+id/radioGr"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioSolicitado"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/solicitado"
+                android:textColor="#163172"
+                android:textStyle="bold"
+                android:padding="5dp"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioPreparado"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/preparado"
+                android:textColor="#163172"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioRecogido"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/recogido"
+                android:textColor="#163172"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+        </RadioGroup>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/buttonHome"
-            android:layout_marginTop="16dp"
+            android:layout_below="@id/radioGr"
+            android:layout_marginTop="-10dp"
             android:padding="@dimen/big_padding"
-            tools:listitem="@layout/recyclerview_plato_item" />
+            tools:listitem="@layout/recyclerview_pedido_item" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
