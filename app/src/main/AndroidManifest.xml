@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.edit_plate"
+            android:exported="false" />
+        <activity
             android:name=".ui.plato_description"
             android:exported="false" />
         <activity

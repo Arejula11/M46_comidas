@@ -36,7 +36,7 @@ public class add_plate extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-
+        Intent intentaux = getIntent();
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonAdd = findViewById(R.id.buttonAdd);
 
@@ -44,6 +44,7 @@ public class add_plate extends AppCompatActivity {
         buttonAtras.setOnClickListener(view -> {
 
             Intent intent = new Intent(this, plates_page.class);
+            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
 
@@ -62,7 +63,7 @@ public class add_plate extends AppCompatActivity {
             Plato plato = new Plato(nombre,ingredientes,categoriaSeleccionada,precio);
             mPlatoViewModel.insert(plato);
             Intent intent = new Intent(this, plates_page.class);
-            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
 

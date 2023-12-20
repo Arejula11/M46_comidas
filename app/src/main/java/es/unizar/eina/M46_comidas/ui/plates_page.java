@@ -27,21 +27,23 @@ public class plates_page extends AppCompatActivity {
     Button buttonHome;
     Button buttonOrdenar;
     Button buttonMas;
+    String operacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plates_page);
         mRecyclerView = findViewById(R.id.recyclerView);
-        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff());
+        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(), getIntent());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
         Intent intentAnterior = getIntent();
         if (intentAnterior != null && intentAnterior.hasExtra("operacion")) {
-            String operacion = intentAnterior.getStringExtra("operacion");
+            operacion = intentAnterior.getStringExtra("operacion");
             if ("getAllPlatos".equals(operacion)) {
                 // Realizar la operación getAllPlatos
+
                 mPlatoViewModel.getAllPlatos().observe(this, platos -> {
                     // Update the cached copy of the notes in the adapter.
                     mAdapter.submitList(platos);
@@ -77,10 +79,13 @@ public class plates_page extends AppCompatActivity {
         });
         buttonOrdenar.setOnClickListener(view -> {
             Intent intent = new Intent(this, plates_order.class);
+            intent.putExtra("operacion", operacion);
             startActivity(intent);
         });
         buttonMas.setOnClickListener(view -> {
             Intent intent = new Intent(this, add_plate.class);
+            intent.putExtra("operacion", operacion);
+
             startActivity(intent);
         });
     }

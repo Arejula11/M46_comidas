@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "plato")
-public class Plato {
+public class Plato implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull

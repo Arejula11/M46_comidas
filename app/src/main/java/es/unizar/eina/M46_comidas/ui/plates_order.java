@@ -13,6 +13,10 @@ public class plates_order extends AppCompatActivity {
     Button buttonNombre;
     Button buttonCategoria;
     Button buttonAmbas;
+    Button buttonVolver;
+    Button buttonHome;
+
+    String orden;
 
 
     @Override
@@ -22,6 +26,10 @@ public class plates_order extends AppCompatActivity {
         buttonNombre = findViewById(R.id.buttonNombre);
         buttonCategoria = findViewById(R.id.buttonCategoria);
         buttonAmbas = findViewById(R.id.buttonAmbas);
+        buttonVolver = findViewById(R.id.buttonVolver);
+        buttonHome = findViewById(R.id.buttonHome);
+
+        Intent intentaux = getIntent();
 
         buttonNombre.setOnClickListener(view -> {
 
@@ -41,5 +49,16 @@ public class plates_order extends AppCompatActivity {
             intent.putExtra("operacion", "getAllPlatosNombreCategoria"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
+        buttonVolver.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, plates_page.class);
+            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });buttonHome.setOnClickListener(view -> {
+
+            Intent intent = new Intent(this, home.class);
+            startActivity(intent);
+        });
+
     }
 }

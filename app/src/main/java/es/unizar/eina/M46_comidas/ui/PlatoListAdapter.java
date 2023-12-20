@@ -12,6 +12,7 @@ import es.unizar.eina.M46_comidas.database.Plato;
 
 public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
     private int position;
+    private Intent intent;
 
     public int getPosition() {
         return position;
@@ -21,8 +22,9 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
         this.position = position;
     }
 
-    public PlatoListAdapter(@NonNull DiffUtil.ItemCallback<Plato> diffCallback) {
+    public PlatoListAdapter(@NonNull DiffUtil.ItemCallback<Plato> diffCallback, Intent intentAux) {
         super(diffCallback);
+        intent = intentAux;
     }
 
     @Override
@@ -46,12 +48,21 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 setPosition(holder.getAdapterPosition());
                 return false;
             }
+
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(this, add_plate.class);
-                intent.putExtra("Objeto", current);
-                startActivity(intent);*/
+                Intent intent2 = new Intent(v.getContext(), plato_description.class);
+                if (intent != null && intent.hasExtra("operacion")) {
+
+                    intent2.putExtra("operacion", intent.getStringExtra("operacion"));
+                }
+                    intent2.putExtra("Objeto", current);
+                v.getContext().startActivity(intent2);
             }
         });
+
     }
 
 
