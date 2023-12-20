@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-
+            android:text="@string/editar"
             android:textColor="#163172"
             android:textSize="38sp" />
 
@@ -55,6 +55,9 @@
                 android:id="@+id/textViewNombreCliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#163172"
+                android:textStyle="bold"
                 android:text="Nombre del Cliente" />
 
             <EditText
@@ -76,6 +79,9 @@
                 android:id="@+id/textViewPrecioPedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#163172"
+                android:textStyle="bold"
                 android:text="Precio:" />
             <EditText
                 android:id="@+id/editTextPrecioEdit"
@@ -96,6 +102,9 @@
                 android:id="@+id/textViewTelefonoPedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#163172"
+                android:textStyle="bold"
                 android:text="Teléfono:" />
             <EditText
                 android:id="@+id/editTextTelefonoEdit"
@@ -112,9 +121,38 @@
 
                 />
             <TextView
+                android:id="@+id/textViewCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Categoría: "
+                android:textSize="14sp"
+                android:textColor="#163172"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/categorias"
+                android:paddingLeft="10dp"
+                android:textSize="18sp"
+
+                android:layout_marginBottom="10dp"
+                android:minHeight="35dp"
+                android:minWidth="340dp"
+                android:prompt="@string/selecciona_categoria"
+                android:spinnerMode="dropdown"
+                />
+            <TextView
                 android:id="@+id/textViewFechaPedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#163172"
+                android:textStyle="bold"
                 android:text="Fecha recogida:" />
             <!-- FECHA-->
 

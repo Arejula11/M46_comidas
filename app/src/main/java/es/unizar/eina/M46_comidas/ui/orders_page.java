@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class orders_page extends AppCompatActivity {
 
     Button buttonHome;
+    Button buttonOrdenar;
+    Button buttonMas;
+
 
     private PedidoViewModel mPedidoViewModel;
 
@@ -58,10 +61,23 @@ public class orders_page extends AppCompatActivity {
             }
         }
         buttonHome = findViewById(R.id.buttonHome);
+        buttonOrdenar = findViewById(R.id.buttonOrdenar);
+        buttonMas = findViewById(R.id.buttonMas);
         
         buttonHome.setOnClickListener(view -> {
             Intent intent = new Intent(this, home.class);
             intent.putExtra("operacion", operacion);
+            startActivity(intent);
+        });
+        buttonOrdenar.setOnClickListener(view -> {
+            Intent intent = new Intent(this, orders_order.class);
+            intent.putExtra("operacion", operacion);
+            startActivity(intent);
+        });
+        buttonMas.setOnClickListener(view -> {
+            Intent intent = new Intent(this, add_order.class);
+            intent.putExtra("operacion", operacion);
+
             startActivity(intent);
         });
         

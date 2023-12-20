@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-            android:text="@string/platos"
+            android:text="@string/editar"
             android:textColor="#163172"
             android:textSize="38sp" />
 
