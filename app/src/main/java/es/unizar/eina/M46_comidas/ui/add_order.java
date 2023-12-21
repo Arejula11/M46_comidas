@@ -8,12 +8,17 @@ import android.os.Bundle;
 
 import es.unizar.eina.M46_comidas.R;
 import es.unizar.eina.M46_comidas.database.Pedido;
+import es.unizar.eina.M46_comidas.database.Plato;
+import es.unizar.eina.M46_comidas.database.Racion;
 
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
@@ -26,32 +31,37 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
+import java.util.List;
 
 
 public class add_order extends AppCompatActivity implements View.OnClickListener{
 
     private PedidoViewModel mPedidoViewModel;
+    private RacionViewModel mRacionViewModel;
     Button buttonAtras;
-    Button buttonAdd;
+    Button buttonAddPedido;
+    Button buttonAddRacion;
+
+
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    Pedido pedido;
+
+    RacionesAddPedido racionesSingleton;
+
+    List<Racion> raciones;
+    RacionListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_order);
 
-        Spinner spinner = findViewById(R.id.spinnerCategorias);
-
-        String[] opciones = {"SOLICITADO", "PREPARADO", "RECOGIDO"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
 
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
@@ -60,29 +70,38 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
-
-
+        pedido = new Pedido("", 0, (long)0, "Solicitado", 8.0);
+        racionesSingleton = RacionesAddPedido.getInstance(pedido);
+        raciones = racionesSingleton.getRaciones();
+        mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
+
         Intent intentaux = getIntent();
-        buttonAdd = findViewById(R.id.buttonAdd);
-        // buttonAdd. setOnClickListener(view -> {
-        //     EditText editTextNombre = findViewById(R.id.editTextNombreClienteAdd);
-        //     EditText editTextPrecio = findViewById(R.id.editTextPrecioAdd);
-        //     EditText textViewTelefono = findViewById(R.id.textViewTelefonoPedidoAdd);
-        //     Spinner spinnerCategoria = findViewById(R.id.spinnerCategorias);
+            // Update the cached copy of the notes in the adapter.
+        RecyclerView mRecyclerView;
+        mRecyclerView = findViewById(R.id.recyclerViewPlates);
+        mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        buttonAddRacion = findViewById(R.id.buttonAddRacion);
+        buttonAddRacion.setOnClickListener(view -> {
 
-        //     String nombre = editTextNombre.getText().toString();
-        //     String ingredientes = editTextIngrediente.getText().toString();
-        //     int precio = Integer.parseInt(editTextPrecio.getText().toString());
-        //     String categoriaSeleccionada = spinnerCategoria.getSelectedItem().toString();
+            Intent intent = new Intent(this, plates_for_order.class);
+            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
+        buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
+        buttonAddPedido.setOnClickListener(view -> {
 
+            Intent intent = new Intent(this, orders_page.class);
 
-        //     Pedido pedido = new Pedido(nombre,ingredientes,categoriaSeleccionada,precio);
-        //     mPedidoViewModel.insert(plato);
-        //     Intent intent = new Intent(this, orders_page_page.class);
-        //     intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
-        //     startActivity(intent);
-        // });
+            mPedidoViewModel.insert(pedido);
+            for(Racion racion : racionesSingleton.getRaciones()){
+                mRacionViewModel.insert(racion);
+            }
+            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
 
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonAtras.setOnClickListener(view -> {
@@ -91,6 +110,18 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
+
+        if(intentaux.hasExtra("Objeto")){
+            Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
+            Racion racion = new Racion(plato.getId(), pedido.getId(), 4);
+            racionesSingleton.agregarRacion(racion);
+            raciones = racionesSingleton.getRaciones();
+            mAdapter.submitList(raciones);
+
+        }
+
+        EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteAdd);
+        EditText editTextTelefono = findViewById(R.id.editTextTelefonoAdd);
     }
 
     @Override

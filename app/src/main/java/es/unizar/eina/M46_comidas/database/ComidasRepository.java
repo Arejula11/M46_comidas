@@ -50,6 +50,7 @@ public class ComidasRepository {
         /*mAllPlatosNombre = mPlatoDao.getOrderedPlatosNombre();
         mAllPlatosCategoria = mPlatoDao.getOrderedPlatosCategoria();
         mAllPlatosNombreCategoria = mPlatoDao.getOrderedPlatosNombreCategoria();*/
+        mRacionDao = db.racionDao();
     }
 
     // Room executes all queries on a separate thread.
@@ -97,6 +98,14 @@ public class ComidasRepository {
     }
     public LiveData<List<Plato>> getAllPlatosNombreCategoria() {
         return mPlatoDao.getOrderedPlatosNombreCategoria();
+    }
+
+    public String getNombrePlatoId(int id){
+        return mPlatoDao.getNombrePlatoId(id);
+    }
+
+    public LiveData<List<Racion>> getAllRaciones(int id){
+        return mRacionDao.getRaciones(id);
     }
 
 

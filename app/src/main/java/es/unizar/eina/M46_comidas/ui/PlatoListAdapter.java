@@ -53,13 +53,25 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(v.getContext(), plato_description.class);
-                if (intent != null && intent.hasExtra("operacion")) {
+                String origen = intent.getStringExtra("origen");
+                if(origen.equals("plates_page")){
+                    Intent intent2 = new Intent(v.getContext(), plato_description.class);
+                    if (intent != null && intent.hasExtra("operacion")) {
 
-                    intent2.putExtra("operacion", intent.getStringExtra("operacion"));
-                }
+                        intent2.putExtra("operacion", intent.getStringExtra("operacion"));
+                    }
                     intent2.putExtra("Objeto", current);
-                v.getContext().startActivity(intent2);
+                    v.getContext().startActivity(intent2);
+                }else if(origen.equals("plates_for_order")){
+                    Intent intent2 = new Intent(v.getContext(), add_order.class);
+                    if (intent != null && intent.hasExtra("operacion")) {
+
+                        intent2.putExtra("operacion", intent.getStringExtra("operacion"));
+                    }
+                    intent2.putExtra("Objeto", current);
+                    v.getContext().startActivity(intent2);
+                }
+
             }
         });
 

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 /** Concrete implementor utilizando la aplicación de WhatsApp. No funciona en el emulador si no se ha configurado previamente */
 public class WhatsAppImplementor implements SendImplementor{

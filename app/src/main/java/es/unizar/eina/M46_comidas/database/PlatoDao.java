@@ -45,4 +45,7 @@ public interface PlatoDao {
             "    WHEN categoria = 'POSTRE' THEN 3\n" +
             "  END, Nombre ASC")
     LiveData<List<Plato>> getOrderedPlatosNombreCategoria(); //cambiar query
+
+    @Query("SELECT plato.Nombre FROM plato WHERE plato.ID == :id")
+    String getNombrePlatoId(int id); //cambiar query
 }
