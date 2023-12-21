@@ -5,8 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+
+import java.util.function.Function;
 
 import es.unizar.eina.M46_comidas.database.Plato;
 import es.unizar.eina.M46_comidas.database.Racion;
@@ -42,7 +45,10 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
     public void onBindViewHolder(RacionViewHolder holder, int position) {
 
         Racion current = getItem(position);
+
         holder.bind(current);
+
+
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -52,27 +58,7 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
             }
 
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String origen = intent.getStringExtra("origen");
-                if(origen.equals("plates_page")) {
-                    Intent intent2 = new Intent(v.getContext(), plato_description.class);
-                    if (intent != null && intent.hasExtra("operacion")) {
 
-                        intent2.putExtra("operacion", intent.getStringExtra("operacion"));
-                    }
-                    intent2.putExtra("Objeto", current);
-                    v.getContext().startActivity(intent2);
-                }else if(origen.equals("plates_for_order")){
-                    Intent intent2 = new Intent(v.getContext(), add_order.class);
-                    intent2.putExtra("Objeto", current);
-                    v.getContext().startActivity(intent2);
-
-                }
-
-            }
-        });
 
     }
 

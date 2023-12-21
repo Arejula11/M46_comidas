@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.M46_comidas.R;
+import es.unizar.eina.M46_comidas.database.ComidasRepository;
 import es.unizar.eina.M46_comidas.database.Plato;
 import es.unizar.eina.M46_comidas.database.Racion;
 
@@ -27,6 +28,8 @@ public class RacionViewHolder extends RecyclerView.ViewHolder {
 
 
 
+
+
     private RacionViewHolder(View itemView) {
         super(itemView);
         mRacionTextView = itemView.findViewById(R.id.textViewRacion);
@@ -35,6 +38,7 @@ public class RacionViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Racion racion) {
+
         mRacionTextView.setText(String.valueOf(racion.getPlatoId()));
         mCantidadEditText.setText(String.valueOf(racion.getCantidad()));
     }

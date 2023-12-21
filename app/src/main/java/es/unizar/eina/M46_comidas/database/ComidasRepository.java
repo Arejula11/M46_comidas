@@ -4,6 +4,7 @@ package es.unizar.eina.M46_comidas.database;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class ComidasRepository {
         return mPlatoDao.getOrderedPlatosNombreCategoria();
     }
 
-    public String getNombrePlatoId(int id){
+    public LiveData<String> getNombrePlatoId(int id){
         return mPlatoDao.getNombrePlatoId(id);
     }
 
@@ -113,14 +114,17 @@ public class ComidasRepository {
      * @param pedido
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
-    public long insert(Pedido pedido) {
+    public LiveData<Long> insert(Pedido pedido) {
         final long[] result = {0};
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
         // that you're not doing any long running operations on the main thread, blocking the UI.
+        MutableLiveData<Long> insertedId = new MutableLiveData<>();
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPedidoDao.insert(pedido);
-        });
-        return result[0];
+            insertedId.postValue(result[0]);
+
+    });
+        return insertedId;
     }
 
     /** Inserta una nota

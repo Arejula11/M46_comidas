@@ -47,5 +47,5 @@ public interface PlatoDao {
     LiveData<List<Plato>> getOrderedPlatosNombreCategoria(); //cambiar query
 
     @Query("SELECT plato.Nombre FROM plato WHERE plato.ID == :id")
-    String getNombrePlatoId(int id); //cambiar query
+    LiveData<String> getNombrePlatoId(int id); //cambiar query
 }

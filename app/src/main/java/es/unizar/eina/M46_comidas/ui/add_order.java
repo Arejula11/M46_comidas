@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,10 +97,12 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
             Intent intent = new Intent(this, orders_page.class);
 
-            mPedidoViewModel.insert(pedido);
-            for(Racion racion : racionesSingleton.getRaciones()){
-                mRacionViewModel.insert(racion);
-            }
+            mPedidoViewModel.insert(pedido).observe(this, insertedId -> {
+                        for (Racion racion : racionesSingleton.getRaciones()) {
+                            racion.setPedidoId(insertedId.intValue());
+                            mRacionViewModel.insert(racion);
+                        }
+            });
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
@@ -107,13 +111,13 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         buttonAtras.setOnClickListener(view -> {
 
             Intent intent = new Intent(this, orders_page.class);
-            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
 
         if(intentaux.hasExtra("Objeto")){
             Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
-            Racion racion = new Racion(plato.getId(), pedido.getId(), 4);
+            Racion racion = new Racion(plato.getId(), 0, 4);
             racionesSingleton.agregarRacion(racion);
             raciones = racionesSingleton.getRaciones();
             mAdapter.submitList(raciones);

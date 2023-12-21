@@ -40,7 +40,7 @@ public class PedidoViewModel extends AndroidViewModel{
     LiveData<List<Pedido>> getAllPedidosFecha() { return mAllPedidosFecha; }
     LiveData<List<Pedido>> getAllPedidosNombreCliente() { return mAllPedidosNombreCliente; }
 
-    public void insert(Pedido pedido) { mRepository.insert(pedido); }
+    public LiveData<Long> insert(Pedido pedido) { return mRepository.insert(pedido); }
 
     public void update(Pedido pedido) { mRepository.update(pedido); }
     public void delete(Pedido pedido) { mRepository.delete(pedido); }
