@@ -32,6 +32,7 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
         intent = intentAux;
     }
 
+
     @Override
     public RacionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return RacionViewHolder.create(parent);
@@ -57,7 +58,10 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
                 return false;
             }
 
+
         });
+
+
 
 
     }

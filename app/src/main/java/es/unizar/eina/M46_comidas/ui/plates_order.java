@@ -36,6 +36,7 @@ public class plates_order extends AppCompatActivity {
             Intent intent = new Intent(this, plates_page.class);
             intent.putExtra("operacion", "getAllPlatosNombre"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
+
         });
         buttonCategoria.setOnClickListener(view -> {
 

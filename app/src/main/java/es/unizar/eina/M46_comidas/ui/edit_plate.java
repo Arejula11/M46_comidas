@@ -73,7 +73,7 @@ public class edit_plate extends AppCompatActivity {
 
             String nombre = editTextNombreMod.getText().toString();
             String ingredientes = editTextIngredienteMod.getText().toString();
-            int precio = Integer.parseInt(editTextPrecioMod.getText().toString());
+            Double precio = Double.parseDouble(editTextPrecioMod.getText().toString());
             String categoriaSeleccionada = spinnerCategoriaMod.getSelectedItem().toString();
 
 

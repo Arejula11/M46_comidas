@@ -23,7 +23,8 @@ public class home extends AppCompatActivity {
 
               Intent intent = new Intent(this, plates_page.class);
               intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-              startActivity(intent);
+              intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
         });
 
         buttonPedidos = findViewById(R.id.buttonPedidos);

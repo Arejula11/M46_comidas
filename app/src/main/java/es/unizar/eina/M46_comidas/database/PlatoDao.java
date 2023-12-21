@@ -48,4 +48,7 @@ public interface PlatoDao {
 
     @Query("SELECT plato.Nombre FROM plato WHERE plato.ID == :id")
     LiveData<String> getNombrePlatoId(int id); //cambiar query
+
+    @Query("SELECT plato.Precio FROM plato WHERE plato.ID == :id")
+    LiveData<Double> getPrecioPlatoId(int id); //cambiar query
 }

@@ -43,6 +43,8 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
     private PedidoViewModel mPedidoViewModel;
     private RacionViewModel mRacionViewModel;
+
+    private PlatoViewModel mPlatoViewModel;
     Button buttonAtras;
     Button buttonAddPedido;
     Button buttonAddRacion;
@@ -58,6 +60,11 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
     List<Racion> raciones;
     RacionListAdapter mAdapter;
 
+    Double precioTotal;
+    int telefono;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +79,22 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
-        pedido = new Pedido("", 0, (long)0, "Solicitado", 8.0);
+        EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteAdd);
+        EditText editTextTelefono = findViewById(R.id.editTextTelefonoAdd);
+
+        String nombreCliente = editTextNombreCliente.getText().toString();
+        telefono = 0;
+        precioTotal = 0.0;
+        String tel = editTextTelefono.getText().toString();
+        if(!tel.isEmpty()){
+            telefono = Integer.parseInt(tel);
+        }
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
         raciones = racionesSingleton.getRaciones();
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
+        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+
 
         Intent intentaux = getIntent();
             // Update the cached copy of the notes in the adapter.
@@ -95,8 +113,9 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
 
+            precioTotal = racionesSingleton.getPrecio();
             Intent intent = new Intent(this, orders_page.class);
-
+            pedido = new Pedido(nombreCliente, telefono, (long)1, "Solicitado", precioTotal);
             mPedidoViewModel.insert(pedido).observe(this, insertedId -> {
                         for (Racion racion : racionesSingleton.getRaciones()) {
                             racion.setPedidoId(insertedId.intValue());
@@ -117,15 +136,16 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         if(intentaux.hasExtra("Objeto")){
             Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
-            Racion racion = new Racion(plato.getId(), 0, 4);
+            Racion racion = new Racion(plato.getId(), 0, 1);
+            racionesSingleton.agregarPlato(plato);
             racionesSingleton.agregarRacion(racion);
             raciones = racionesSingleton.getRaciones();
             mAdapter.submitList(raciones);
 
         }
 
-        EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteAdd);
-        EditText editTextTelefono = findViewById(R.id.editTextTelefonoAdd);
+
+
     }
 
     @Override

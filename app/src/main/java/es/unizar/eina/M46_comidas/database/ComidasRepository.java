@@ -109,6 +109,7 @@ public class ComidasRepository {
         return mRacionDao.getRaciones(id);
     }
 
+    public LiveData<Double> getPrecioPlatoId(int id) {return mPlatoDao.getPrecioPlatoId(id);}
 
     /** Inserta una nota
      * @param pedido

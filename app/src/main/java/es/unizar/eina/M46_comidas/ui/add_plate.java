@@ -45,6 +45,8 @@ public class add_plate extends AppCompatActivity {
 
             Intent intent = new Intent(this, plates_page.class);
             intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
+
             startActivity(intent);
         });
 
@@ -56,7 +58,7 @@ public class add_plate extends AppCompatActivity {
 
             String nombre = editTextNombre.getText().toString();
             String ingredientes = editTextIngrediente.getText().toString();
-            int precio = Integer.parseInt(editTextPrecio.getText().toString());
+            Double precio = Double.parseDouble(editTextPrecio.getText().toString());
             String categoriaSeleccionada = spinnerCategoria.getSelectedItem().toString();
 
 
@@ -64,6 +66,8 @@ public class add_plate extends AppCompatActivity {
             mPlatoViewModel.insert(plato);
             Intent intent = new Intent(this, plates_page.class);
             intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
+
             startActivity(intent);
         });
 

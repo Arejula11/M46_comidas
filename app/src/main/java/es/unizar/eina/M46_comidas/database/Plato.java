@@ -27,12 +27,12 @@ public class Plato implements Serializable {
 
     @NonNull
     @ColumnInfo(name = "Precio")
-    private int precio;
+    private Double precio;
 
 
 
 
-    public Plato(@NonNull String nombre, @NonNull String ingredientes, @NonNull String categoria, @NonNull int precio) {
+    public Plato(@NonNull String nombre, @NonNull String ingredientes, @NonNull String categoria, @NonNull Double precio) {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.categoria = categoria;
@@ -66,7 +66,7 @@ public class Plato implements Serializable {
     }
 
     /** Devuelve el precio del pedido */
-    public int getPrecio(){
+    public Double getPrecio(){
         return this.precio;
     }
 

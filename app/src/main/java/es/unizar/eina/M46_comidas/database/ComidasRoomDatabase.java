@@ -56,18 +56,18 @@ public abstract class ComidasRoomDatabase extends RoomDatabase {
                 daoRaciones.deleteAll();
 
 
-                Plato plato = new Plato("Arroz", "arroz", "SEGUNDO", 1);
+                Plato plato = new Plato("Arroz", "arroz", "SEGUNDO", 1.0);
                 daoPlatos.insert(plato);
-                plato = new Plato("Pollo", "pollo", "PRIMERO", 2);
+                plato = new Plato("Pollo", "pollo", "PRIMERO", 2.0);
                 daoPlatos.insert(plato);
-                plato = new Plato("Helado", "helado", "POSTRE", 3);
+                plato = new Plato("Helado", "helado", "POSTRE", 3.0);
                 daoPlatos.insert(plato);
-                plato = new Plato("Hamburguesa", "hamburguesa", "SEGUNDO", 4);
+                plato = new Plato("Hamburguesa", "hamburguesa", "SEGUNDO", 4.0);
                 daoPlatos.insert(plato);
 
-                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado", 11);
+                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado", 11.0);
                 daoPedidos.insert(pedido);
-                pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado", 22);
+                pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado", 22.0);
                 daoPedidos.insert(pedido);
 
                 Racion racion = new Racion(pedido.getId(), plato.getId(), 2);
