@@ -71,10 +71,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
 
-        editTextNombreCliente.setText(racionesSingleton.getNombre());
-        editTextTelefono.setText(String.valueOf(racionesSingleton.getTelefono()));
-        editTextDate.setText(racionesSingleton.getDate());
-        editTextTime.setText(racionesSingleton.getTime());
+
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
 
@@ -93,6 +90,10 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         editTextNombreCliente.setText(pedido.getNombrecliente().toString());
         editTextPrecio.setText(String.valueOf(pedido.getPrecio()));
         editTextTelefono.setText(pedido.getTel().toString());
+        editTextDate.setText(pedido.getFecha().toString().substring(0,4)+'-'+
+                pedido.getFecha().toString().substring(4,6)+'-'+pedido.getFecha().toString().substring(6,8));
+        editTextTime.setText(pedido.getFecha().toString().substring(8,10)+':'+
+                pedido.getFecha().toString().substring(10,12));
 
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
