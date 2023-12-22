@@ -1,8 +1,11 @@
 package es.unizar.eina.M46_comidas.ui;
 
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -60,6 +63,34 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
 
         });
+
+        EditText editTextCantidad = holder.getEditText();
+        editTextCantidad.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().isEmpty()) {
+                    // Actualiza el modelo con el nuevo texto
+                    current.setCantidad(Integer.parseInt(charSequence.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+        });
+
+
+
+
+
 
 
 

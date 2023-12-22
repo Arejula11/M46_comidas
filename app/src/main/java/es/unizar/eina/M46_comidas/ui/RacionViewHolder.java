@@ -43,6 +43,9 @@ public class RacionViewHolder extends RecyclerView.ViewHolder {
         mCantidadEditText.setText(String.valueOf(racion.getCantidad()));
     }
 
+    public EditText getEditText(){
+        return mCantidadEditText;
+    }
     static RacionViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_edit_raciones, parent, false);

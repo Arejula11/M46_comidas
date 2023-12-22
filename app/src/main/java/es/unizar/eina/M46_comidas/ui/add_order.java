@@ -113,9 +113,11 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
             List<Racion> raciones = mAdapter.getCurrentList();
+            int i=0;
             for(Racion aux : raciones){
 
-                precioTotal = racionesSingleton.getPrecio();
+                precioTotal += racionesSingleton.getPrecio(i) * aux.getCantidad();
+                i++;
 
             }
             Intent intent = new Intent(this, orders_page.class);

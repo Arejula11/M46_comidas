@@ -57,6 +57,10 @@ public class Racion implements Serializable {
         public int getCantidad(){
             return this.cantidad;
         }
+        public void setCantidad(int cant){
+            cantidad = cant;
+        }
+
 
 
 }
