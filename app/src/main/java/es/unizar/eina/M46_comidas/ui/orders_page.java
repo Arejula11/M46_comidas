@@ -58,6 +58,27 @@ public class orders_page extends AppCompatActivity {
                     // Update the cached copy of the notes in the adapter.
                     mAdapter.submitList(pedidos);
                 });
+            }else if ("getAllPedidosNombreCliente".equals(operacion)) {
+                // Realizar la operación getAllPlatos
+
+                mPedidoViewModel.getAllPedidosNombreCliente().observe(this, pedidos -> {
+                    // Update the cached copy of the notes in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
+            }else if ("getAllPedidosNumTlfn".equals(operacion)) {
+                // Realizar la operación getAllPlatos
+
+                mPedidoViewModel.getAllPedidosNumTlfn().observe(this, pedidos -> {
+                    // Update the cached copy of the notes in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
+            }else if ("getAllPedidosFecha".equals(operacion)) {
+                // Realizar la operación getAllPlatos
+
+                mPedidoViewModel.getAllPedidosFecha().observe(this, pedidos -> {
+                    // Update the cached copy of the notes in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
             }
         }
         buttonHome = findViewById(R.id.buttonHome);

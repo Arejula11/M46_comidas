@@ -38,7 +38,7 @@ public class orders_order extends AppCompatActivity {
         buttonTelefono.setOnClickListener(view -> {
 
             Intent intent = new Intent(this, orders_page.class);
-            intent.putExtra("operacion", "getAllPedidosNumTlfnAndFilter"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("operacion", "getAllPedidosNumTlfn"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
         buttonCliente.setOnClickListener(view -> {

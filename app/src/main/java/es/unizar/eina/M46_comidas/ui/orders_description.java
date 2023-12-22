@@ -80,7 +80,7 @@ public class orders_description extends AppCompatActivity {
             });
             mPedidoViewModel.delete(pedido);
             Intent intent = new Intent(this, orders_page.class);
-            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
 

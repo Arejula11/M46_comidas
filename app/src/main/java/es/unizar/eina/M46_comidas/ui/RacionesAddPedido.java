@@ -15,11 +15,19 @@ public class RacionesAddPedido {
         private List<Racion> raciones;
         private List<Plato> platos;
 
+        private String nombre;
+        private int telefono;
+
+        private String date;
+        private String time;
+
 
     private RacionesAddPedido(Pedido pedido2) {
             raciones = new ArrayList<>();
         platos = new ArrayList<>();
         pedido = pedido2;
+        nombre = "";
+        telefono = 0;
         }
 
         public static synchronized RacionesAddPedido getInstance(Pedido pedido2) {
@@ -57,6 +65,36 @@ public class RacionesAddPedido {
         public Double getPrecio(int i){
             return platos.get(i).getPrecio();
         }
+
+        public void reset(){instance = null;}
+
+    public String getNombre(){
+        return nombre;
+    }
+    public void setNombre(String nombre2){
+        nombre = nombre2;
+    }
+
+    public int getTelefono(){
+        return telefono;
+    }
+    public void setTelefono(int telefono2){
+        telefono = telefono2;
+    }
+
+    public String getDate(){
+        return date;
+    }
+    public void setDate(String date2){
+        date = date2;
+    }
+
+    public String getTime(){
+        return time;
+    }
+    public void setTime(String time2){
+        time = time2;
+    }
 
 
 

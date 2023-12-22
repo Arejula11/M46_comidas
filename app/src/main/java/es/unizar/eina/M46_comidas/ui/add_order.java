@@ -35,7 +35,11 @@ import android.widget.TimePicker;
 
 import org.w3c.dom.Text;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -81,19 +85,23 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         btnTimePicker.setOnClickListener(this);
         EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteAdd);
         EditText editTextTelefono = findViewById(R.id.editTextTelefonoAdd);
+        EditText editTextDate = findViewById(R.id.in_date);
+        EditText editTextTime = findViewById(R.id.in_time);
 
-        String nombreCliente = editTextNombreCliente.getText().toString();
-        telefono = 0;
-        precioTotal = 0.0;
-        String tel = editTextTelefono.getText().toString();
-        if(!tel.isEmpty()){
-            telefono = Integer.parseInt(tel);
-        }
+
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
         raciones = racionesSingleton.getRaciones();
+        editTextNombreCliente.setText(racionesSingleton.getNombre());
+        editTextTelefono.setText(String.valueOf(racionesSingleton.getTelefono()));
+        editTextDate.setText(racionesSingleton.getDate());
+        editTextTime.setText(racionesSingleton.getTime());
+
+
+
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+
 
 
         Intent intentaux = getIntent();
@@ -105,6 +113,44 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         buttonAddRacion = findViewById(R.id.buttonAddRacion);
         buttonAddRacion.setOnClickListener(view -> {
+            String nombreCliente = editTextNombreCliente.getText().toString();
+            telefono = 0;
+            precioTotal = 0.0;
+            String tel = editTextTelefono.getText().toString();
+            long fechaYhora = 0;
+            if(!tel.isEmpty()){
+                telefono = Integer.parseInt(tel);
+            }
+            String date = editTextDate.getText().toString();
+            if(!date.isEmpty()){
+                SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    Date aux = input.parse(date);
+                    SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+                    date = output.format(aux);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            String time = editTextTime.getText().toString();
+            if(!time.isEmpty()){
+                SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+                try {
+                    Date aux = input2.parse(time);
+                    SimpleDateFormat output = new SimpleDateFormat("HHmm");
+                    time = output.format(aux);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+
+            racionesSingleton.setNombre(nombreCliente);
+            racionesSingleton.setTelefono(telefono);
+            racionesSingleton.setDate(date);
+            racionesSingleton.setTime(time);
 
             Intent intent = new Intent(this, plates_for_order.class);
             intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
@@ -112,6 +158,34 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         });
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
+            racionesSingleton.reset();
+
+            String nombreCliente2 = editTextNombreCliente.getText().toString();
+            telefono = 0;
+            precioTotal = 0.0;
+            String tel2 = editTextTelefono.getText().toString();
+            if(!tel2.isEmpty()){
+                telefono = Integer.parseInt(tel2);
+            }
+            long fechaYhora = 0;
+            String date = editTextDate.getText().toString();
+            SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date aux = input.parse(date);
+                SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+                date = output.format(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            String time = editTextDate.getText().toString();
+            SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+            try {
+                Date aux = input2.parse(time);
+                SimpleDateFormat output = new SimpleDateFormat("HHmm");
+                time = output.format(time);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             List<Racion> raciones = mAdapter.getCurrentList();
             int i=0;
             for(Racion aux : raciones){
@@ -121,7 +195,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
             }
             Intent intent = new Intent(this, orders_page.class);
-            pedido = new Pedido(nombreCliente, telefono, (long)1, "Solicitado", precioTotal);
+            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal);
             mPedidoViewModel.insert(pedido).observe(this, insertedId -> {
                         for (Racion racion : racionesSingleton.getRaciones()) {
                             racion.setPedidoId(insertedId.intValue());
@@ -134,7 +208,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonAtras.setOnClickListener(view -> {
-
+            racionesSingleton.reset();
             Intent intent = new Intent(this, orders_page.class);
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
