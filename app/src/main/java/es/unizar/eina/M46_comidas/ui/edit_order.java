@@ -83,6 +83,12 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
             // Update the cached copy of the notes in the adapter.
+            if(racionesSingleton.getRaciones().size() == 0){
+                for(Racion racion : raciones){
+                    racionesSingleton.agregarRacion(racion);
+                }
+            }
+
             mAdapter.submitList(raciones);
         });
 
