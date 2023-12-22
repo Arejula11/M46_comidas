@@ -65,13 +65,11 @@ public abstract class ComidasRoomDatabase extends RoomDatabase {
                 plato = new Plato("Hamburguesa", "hamburguesa", "SEGUNDO", 4.0);
                 daoPlatos.insert(plato);
 
-                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 0, "Pedido 1's estado", 11.0);
+                Pedido pedido = new Pedido("Pedido 1's nombrecliente", 000000001, (long) 202104251345, "Pedido 1's estado", 11.0);
                 daoPedidos.insert(pedido);
-                pedido = new Pedido("Pedido 2's title", 000000002, (long) 0, "Pedido 2's estado", 22.0);
+                pedido = new Pedido("Pedido 2's nombrecliente", 000000002, (long) 202104211345, "Pedido 2's estado", 22.0);
                 daoPedidos.insert(pedido);
 
-                Racion racion = new Racion(pedido.getId(), plato.getId(), 2);
-                daoRaciones.insert(racion);
             });
         }
     };

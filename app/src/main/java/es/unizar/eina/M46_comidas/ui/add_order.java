@@ -122,28 +122,10 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
                 telefono = Integer.parseInt(tel);
             }
             String date = editTextDate.getText().toString();
-            if(!date.isEmpty()){
-                SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
-                try {
-                    Date aux = input.parse(date);
-                    SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
-                    date = output.format(aux);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+
 
             String time = editTextTime.getText().toString();
-            if(!time.isEmpty()){
-                SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
-                try {
-                    Date aux = input2.parse(time);
-                    SimpleDateFormat output = new SimpleDateFormat("HHmm");
-                    time = output.format(aux);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+
 
 
 
@@ -173,16 +155,16 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
             try {
                 Date aux = input.parse(date);
                 SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
-                date = output.format(date);
+                date = output.format(aux);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            String time = editTextDate.getText().toString();
+            String time = editTextTime.getText().toString();
             SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
             try {
                 Date aux = input2.parse(time);
                 SimpleDateFormat output = new SimpleDateFormat("HHmm");
-                time = output.format(time);
+                time = output.format(aux);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

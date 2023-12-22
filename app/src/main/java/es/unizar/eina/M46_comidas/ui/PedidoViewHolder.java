@@ -28,7 +28,9 @@ public class PedidoViewHolder extends RecyclerView.ViewHolder {
     public void bind(Pedido pedido) {
         mNombreClienteTextView.setText("Nombre del cliente: " + pedido.getNombrecliente());
         mTelefonoTextView.setText("Teléfono: " + pedido.getTel());
-        mFechaTextView.setText("Fecha: " + pedido.getFecha());
+        mFechaTextView.setText("Fecha: " + pedido.getFecha().toString().substring(0,4) + '-'
+                + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
+                + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
         mPrecioTextView.setText("Precio: " + pedido.getPrecio());
        // mRacionesTextView.setText("Raciones: " + pedido.getRaciones());
     }
