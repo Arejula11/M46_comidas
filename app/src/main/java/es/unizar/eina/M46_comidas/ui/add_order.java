@@ -106,6 +106,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         Intent intentaux = getIntent();
             // Update the cached copy of the notes in the adapter.
+        intentaux.putExtra("invisible", false);
         RecyclerView mRecyclerView;
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());

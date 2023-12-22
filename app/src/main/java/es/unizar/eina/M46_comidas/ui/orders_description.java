@@ -35,6 +35,7 @@ public class orders_description extends AppCompatActivity {
 
         Intent intentaux = getIntent();
         Pedido pedido = (Pedido) intentaux.getSerializableExtra("Objeto");
+        intentaux.putExtra("invisible", true);
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);

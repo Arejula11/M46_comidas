@@ -34,6 +34,7 @@ public class RacionViewHolder extends RecyclerView.ViewHolder {
         mRacionTextView = itemView.findViewById(R.id.textViewRacion);
         mCantidadEditText = itemView.findViewById(R.id.editTextCantidad);
         mEliminarButton = itemView.findViewById(R.id.borrarRacion);
+
     }
 
     public void bind(Racion racion) {

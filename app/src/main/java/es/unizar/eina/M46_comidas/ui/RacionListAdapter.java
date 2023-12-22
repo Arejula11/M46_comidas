@@ -25,6 +25,7 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
     private OnItemClickListener listener;
 
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -62,7 +63,15 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
         Racion current = getItem(position);
 
         holder.bind(current);
+        Button eliminar = holder.getButton();
 
+        if(intent.hasExtra("invisible")){
+            Boolean invisible = false;
+            invisible = intent.getBooleanExtra("invisible", false);
+            if(invisible){
+                eliminar.setVisibility(View.GONE);
+            }
+        }
 
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -75,18 +84,6 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
         });
 
-        Button eliminar = holder.getButton();
-        /*eliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Eliminar el elemento de la lista de datos
-                getCurrentList().remove(holder.getAdapterPosition());
-
-                // Notificar al adaptador que se ha eliminado un elemento en la posición dada
-                notifyItemRemoved(holder.getAdapterPosition());
-            }
-        });*/
 
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
