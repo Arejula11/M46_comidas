@@ -64,12 +64,16 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
         holder.bind(current);
         Button eliminar = holder.getButton();
+        EditText editTextCantidad = holder.getEditText();
+
 
         if(intent.hasExtra("invisible")){
             Boolean invisible = false;
             invisible = intent.getBooleanExtra("invisible", false);
             if(invisible){
                 eliminar.setVisibility(View.GONE);
+                editTextCantidad.setFocusable(false);
+                editTextCantidad.setFocusableInTouchMode(false);
             }
         }
 
@@ -97,7 +101,6 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
 
 
-        EditText editTextCantidad = holder.getEditText();
         editTextCantidad.addTextChangedListener(new TextWatcher() {
 
             @Override
