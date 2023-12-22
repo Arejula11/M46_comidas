@@ -78,15 +78,15 @@ public class ComidasRepository {
         return mPedidoDao.getOrderedPedidosNumTlfnAndFilter(estado);
     }
 
-    /*public LiveData<List<Pedido>> getAllPedidosFechaAndFilter(String estado) {
-        return mAllPedidosFecha;
+    public LiveData<List<Pedido>> getAllPedidosFechaAndFilter(String estado) {
+        return mPedidoDao.getOrderedPedidosFechaAndFilter(estado);
     }
     public LiveData<List<Pedido>> getAllPedidosNombreClienteAndFilter(String estado) {
-        return mAllPedidosNombreCliente;
+        return mPedidoDao.getOrderedPedidosNombreClienteAndFilter(estado);
     }
     public LiveData<List<Pedido>> getAllPedidosFiltradosAndFilter(String estado) {
         return mPedidoDao.getPedidosBy(estado);
-    }*/
+    }
 
     public LiveData<List<Plato>> getAllPlatos() {
         return mAllPlatos;
