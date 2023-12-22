@@ -67,43 +67,66 @@ public class orders_page extends AppCompatActivity {
                         // Realizar la operación getAllPlatos
                         if(intentAnterior != null && intentAnterior.hasExtra("filter")) {
                             String filter = intentAnterior.getStringExtra("filter");
+                            mPedidoViewModel.getAllPedidosAndFilter(filter).observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
+                        }else{
+                            mPedidoViewModel.getAllPedidos().observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
                         }
 
 
-                        mPedidoViewModel.getAllPedidos().observe(orders_page.this, pedidos -> {
-                            // Update the cached copy of the notes in the adapter.
-                            mAdapter.submitList(pedidos);
-                        });
+
                     }else if ("getAllPedidosNombreCliente".equals(operacion)) {
                         // Realizar la operación getAllPlatos
                         if(intentAnterior != null && intentAnterior.hasExtra("filter")) {
                             String filter = intentAnterior.getStringExtra("filter");
+                            mPedidoViewModel.getAllPedidosNombreClienteAndFilter(filter).observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
+                        }else{
+                            mPedidoViewModel.getAllPedidosNombreCliente().observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
                         }
 
-                        mPedidoViewModel.getAllPedidosNombreCliente().observe(orders_page.this, pedidos -> {
-                            // Update the cached copy of the notes in the adapter.
-                            mAdapter.submitList(pedidos);
-                        });
+
                     }else if ("getAllPedidosNumTlfn".equals(operacion)) {
                         // Realizar la operación getAllPlatos
                         if(intentAnterior != null && intentAnterior.hasExtra("filter")) {
                             String filter = intentAnterior.getStringExtra("filter");
+                            mPedidoViewModel.getAllPedidosNumTlfnAndFilter(filter).observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
+                        }else{
+                            mPedidoViewModel.getAllPedidosNumTlfn().observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
                         }
 
-                        mPedidoViewModel.getAllPedidosNumTlfn().observe(orders_page.this, pedidos -> {
-                            // Update the cached copy of the notes in the adapter.
-                            mAdapter.submitList(pedidos);
-                        });
                     }else if ("getAllPedidosFecha".equals(operacion)) {
                         // Realizar la operación getAllPlatos
                         if(intentAnterior != null && intentAnterior.hasExtra("filter")) {
                             String filter = intentAnterior.getStringExtra("filter");
+                                mPedidoViewModel.getAllPedidosFechaAndFilter(filter).observe(orders_page.this, pedidos -> {
+                                    // Update the cached copy of the notes in the adapter.
+                                    mAdapter.submitList(pedidos);
+                                });
+                        }else{
+                            mPedidoViewModel.getAllPedidosFecha().observe(orders_page.this, pedidos -> {
+                                // Update the cached copy of the notes in the adapter.
+                                mAdapter.submitList(pedidos);
+                            });
                         }
 
-                        mPedidoViewModel.getAllPedidosFecha().observe(orders_page.this, pedidos -> {
-                            // Update the cached copy of the notes in the adapter.
-                            mAdapter.submitList(pedidos);
-                        });
+
                     }
                 }
 
