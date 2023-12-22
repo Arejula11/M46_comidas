@@ -40,8 +40,8 @@
         <LinearLayout
             android:id="@+id/placeDes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_height="555dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/plato_info"
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical"
@@ -129,7 +129,6 @@
                 android:textSize="14sp"
                 android:textColor="#163172"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
                 />
 
             <Spinner
@@ -140,7 +139,6 @@
                 android:paddingLeft="10dp"
                 android:textSize="18sp"
 
-                android:layout_marginBottom="10dp"
                 android:minHeight="35dp"
                 android:minWidth="340dp"
                 android:prompt="@string/selecciona_categoria"
@@ -198,14 +196,25 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="9dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/dashed_line" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPlates"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="130dp"
                 tools:listitem="@layout/recyclerview_edit_raciones"
+                />
+            <Button
+                android:id="@+id/buttonAddRacion"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/placeAdd"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="140dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_button2"
+                android:text="+"
+                android:textSize="20dp"
                 />
         </LinearLayout>
 
@@ -216,7 +225,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/placeDes"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/custom_button2"
             android:text="@string/guardar" />
 
