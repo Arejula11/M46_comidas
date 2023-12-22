@@ -40,9 +40,9 @@ public class PedidoViewModel extends AndroidViewModel{
     LiveData<List<Pedido>> getAllPedidosFecha() { return mAllPedidosFecha; }
     LiveData<List<Pedido>> getAllPedidosNombreCliente() { return mAllPedidosNombreCliente; }
     LiveData<List<Pedido>> getAllPedidosAndFilter(String estado) { return mRepository.getAllPedidosFiltradosAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosNumTlfn(String estado) { return mRepository.getAllPedidosNumTlfnAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosFecha(String estado) { return mRepository.getAllPedidosFechaAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosNombreCliente(String estado) { return mRepository.getAllPedidosNombreClienteAndFilter(estado); }
+    LiveData<List<Pedido>> getAllPedidosNumTlfnAndFilter(String estado) { return mRepository.getAllPedidosNumTlfnAndFilter(estado); }
+    LiveData<List<Pedido>> getAllPedidosFechaAndFilter(String estado) { return mRepository.getAllPedidosFechaAndFilter(estado); }
+    LiveData<List<Pedido>> getAllPedidosNombreClienteAndFilter(String estado) { return mRepository.getAllPedidosNombreClienteAndFilter(estado); }
 
     public LiveData<Long> insert(Pedido pedido) { return mRepository.insert(pedido); }
 

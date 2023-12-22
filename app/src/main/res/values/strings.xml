@@ -24,9 +24,9 @@
     <string name="recogida">Recogida:</string>
     <string name="racion">Ración:</string>
     <string name="cantidad">x</string>
-    <string name="solicitado">SOLICITADO</string>
-    <string name="preparado">PREPARADO</string>
-    <string name="recogido">RECOGIDO</string>
+    <string name="solicitado">Solicitado</string>
+    <string name="preparado">Preparado</string>
+    <string name="recogido">Recogido</string>
     <string name="eliminar">ELIMINAR</string>
     <string name="editar">EDITAR</string>
     <string name="enviar">ENVIAR</string>
