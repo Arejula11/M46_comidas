@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,16 @@ import es.unizar.eina.M46_comidas.database.Racion;
 public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
     private int position;
     private Intent intent;
+
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public int getPosition() {
         return position;
@@ -63,6 +74,31 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
 
 
         });
+
+        Button eliminar = holder.getButton();
+        /*eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Eliminar el elemento de la lista de datos
+                getCurrentList().remove(holder.getAdapterPosition());
+
+                // Notificar al adaptador que se ha eliminado un elemento en la posición dada
+                notifyItemRemoved(holder.getAdapterPosition());
+            }
+        });*/
+
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int racionEliminar = holder.getAdapterPosition();
+                if (listener != null) {
+                    listener.onItemClick(racionEliminar);
+                }
+            }
+        });
+
+
 
         EditText editTextCantidad = holder.getEditText();
         editTextCantidad.addTextChangedListener(new TextWatcher() {

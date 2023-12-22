@@ -23,9 +23,10 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textSize="12sp"
-            android:minHeight="35dp"
+            android:minHeight="30dp"
             android:minWidth="140dp"
             android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:background="#F6F6F6"
 
 
@@ -33,11 +34,11 @@
 
         <TextView
             android:id="@+id/textViewCantidad"
-            android:layout_width="53dp"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="2dp"
-            android:text="@string/cantidad"
+            android:text="___________"
             android:textSize="16sp" />
         <EditText
             android:id="@+id/editTextCantidad"
@@ -47,8 +48,16 @@
             android:textSize="12sp"
             android:minHeight="35dp"
             android:minWidth="50dp"
+            android:paddingLeft="5dp"
             android:background="#F6F6F6"
 
+
+            />
+        <Button
+            android:id="@+id/borrarRacion"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="x"
 
             />
     </LinearLayout>

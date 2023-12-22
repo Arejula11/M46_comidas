@@ -109,6 +109,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         RecyclerView mRecyclerView;
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
+        mAdapter.setOnItemClickListener(position -> this.onItemClick(position));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         buttonAddRacion = findViewById(R.id.buttonAddRacion);
@@ -255,5 +256,11 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
+    }
+
+
+    public void onItemClick(int position) {
+        racionesSingleton.eliminarRacion(position);
+        mAdapter.notifyItemRemoved(position);
     }
 }
