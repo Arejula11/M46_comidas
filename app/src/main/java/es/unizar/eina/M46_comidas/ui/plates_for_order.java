@@ -72,8 +72,16 @@ public class plates_for_order extends AppCompatActivity {
 
 
         buttonAtras.setOnClickListener(view -> {
-            Intent intent = new Intent(this, add_order.class);
-            startActivity(intent);
+
+            if(intentRecycler.getStringExtra("origen") == "plates_for_orderEdit"){
+                Intent intent = new Intent(this, edit_order.class);
+                intent.putExtra("Pedido", intentRecycler.getSerializableExtra("Pedido"));
+                startActivity(intent);
+            }else if(intentRecycler.getStringExtra("origen") == "plates_for_orderAdd") {
+                Intent intent = new Intent(this, add_order.class);
+                intent.putExtra("Pedido", intentRecycler.getSerializableExtra("Pedido"));
+                startActivity(intent);
+            }
         });
         buttonOrdenar.setOnClickListener(view -> {
             Intent intent = new Intent(this, plates_order.class);

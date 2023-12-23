@@ -222,7 +222,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         buttonAtras.setOnClickListener(view -> {
             racionesSingleton.reset();
             Intent intent = new Intent(this, orders_description.class);
-            intent.putExtra("Objeto", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("Pedido", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
         if(intentaux.hasExtra("Objeto")){
