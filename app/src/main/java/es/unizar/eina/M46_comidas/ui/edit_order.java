@@ -19,6 +19,7 @@ import android.widget.TimePicker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         txtTime=(EditText)findViewById(R.id.in_time);
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
-
+        int categoriaIndex = Arrays.asList(opciones).indexOf(pedido.getEstado());
+        spinner.setSelection(categoriaIndex);
 
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
@@ -207,9 +209,10 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
             }
 
+            String categoriaSeleccionada = spinner.getSelectedItem().toString();
 
             Intent intent = new Intent(this, orders_page.class);
-            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal);
+            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
             pedido.setId(id);
             mPedidoViewModel.update(pedido);
                 for (Racion racion : racionesSingleton.getRaciones()) {
