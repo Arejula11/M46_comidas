@@ -1,6 +1,7 @@
 package es.unizar.eina.M46_comidas.ui;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class RacionViewModel extends AndroidViewModel {
     public void update(Racion racion) { mRepository.update(racion); }
     public void delete(Racion racion) { mRepository.delete(racion); }
 
-    public void deleteAll(int id) {mRepository.deleteAll(id);}
+    public void deleteAll(int id) {        AsyncTask.execute(() -> mRepository.deleteAll(id));}
     public static class orders_description extends AppCompatActivity {
 
         @Override

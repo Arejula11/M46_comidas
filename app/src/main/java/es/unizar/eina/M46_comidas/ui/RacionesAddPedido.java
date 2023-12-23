@@ -56,8 +56,8 @@ public class RacionesAddPedido {
             platos.add(nuevoPlato);
         }
 
-        public void eliminarRacion(Plato plato) {
-            platos.remove(plato);
+        public void eliminarPlato(int i) {
+            platos.remove(i);
     }
 
         public void modificarPedido(Pedido pedido2) {pedido = pedido2;  }

@@ -112,6 +112,8 @@ public class ComidasRepository {
     public void deleteAll(int id) {mRacionDao.deleteAll(id);    }
 
     public LiveData<Double> getPrecioPlatoId(int id) {return mPlatoDao.getPrecioPlatoId(id);}
+    public LiveData<Plato> getPlatoId(int id) {return mPlatoDao.getPlatoId(id);}
+
 
     /** Inserta una nota
      * @param pedido

@@ -42,7 +42,9 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     PlatoViewModel mPlatoViewModel;
     RacionViewModel mRacionViewModel;
     RacionListAdapter mAdapter;
+    Double precioTotal;
 
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
 
-
+        precioTotal = 0.0;
+        id = pedido.getId();
         EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteEdit);
         EditText editTextTelefono = findViewById(R.id.editTextTelefonoEdit);
         EditText editTextDate = findViewById(R.id.in_date);
@@ -98,12 +101,15 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             if(racionesSingleton.getRaciones().size() == 0) {
                 for (Racion racion : raciones) {
                     racionesSingleton.agregarRacion(racion);
+                        mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato->{
+                            //precioTotal += precio;
+                            racionesSingleton.agregarPlato(plato);
+                        });
 
                 }
             }
-            mPlatoViewModel.getPrecioPlatoId(raciones.get(0).getPlatoId()).observe(this, precio->{
-                double precio2 = precio;
-            });
+
+
             mAdapter.submitList(racionesSingleton.getRaciones());
 
 
@@ -115,8 +121,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         editTextNombreCliente.setText(pedido.getNombrecliente().toString());
         editTextPrecio.setText(String.valueOf(pedido.getPrecio()));
         editTextTelefono.setText(pedido.getTel().toString());
-        editTextDate.setText(pedido.getFecha().toString().substring(0,4)+'-'+
-                pedido.getFecha().toString().substring(4,6)+'-'+pedido.getFecha().toString().substring(6,8));
+        editTextDate.setText(pedido.getFecha().toString().substring(6,8)+'-'+
+                pedido.getFecha().toString().substring(4,6)+'-'+pedido.getFecha().toString().substring(0,4));
         editTextTime.setText(pedido.getFecha().toString().substring(8,10)+':'+
                 pedido.getFecha().toString().substring(10,12));
 
@@ -158,11 +164,12 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
             racionesSingleton.reset();
+            mRacionViewModel.deleteAll(id);
+
 
 
             String nombreCliente2 = editTextNombreCliente.getText().toString();
             int telefono = 0;
-            AtomicReference<Double> precioTotal = new AtomicReference<>(0.0);
             String tel2 = editTextTelefono.getText().toString();
             if(!tel2.isEmpty()){
                 telefono = Integer.parseInt(tel2);
@@ -191,12 +198,20 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
             //}
 
+            List<Racion> raciones = mAdapter.getCurrentList();
+            int i=0;
+            for(Racion aux : raciones){
+
+                precioTotal += racionesSingleton.getPrecio(i) * aux.getCantidad();
+                i++;
+
+            }
+
 
             Intent intent = new Intent(this, orders_page.class);
-            int id = pedido.getId();
-            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal.get());
+            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal);
+            pedido.setId(id);
             mPedidoViewModel.update(pedido);
-            mRacionViewModel.deleteAll(id);
                 for (Racion racion : racionesSingleton.getRaciones()) {
                     mRacionViewModel.insert(racion);
                 }
@@ -212,7 +227,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         });
         if(intentaux.hasExtra("Objeto")){
             Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
-            Racion racion = new Racion(plato.getId(), 0, 1);
+            Racion racion = new Racion(plato.getId(), id, 1);
             racionesSingleton.agregarPlato(plato);
             racionesSingleton.agregarRacion(racion);
             raciones = racionesSingleton.getRaciones();
@@ -269,6 +284,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     }
     public void onItemClick(int position) {
         racionesSingleton.eliminarRacion(position);
+        racionesSingleton.eliminarPlato(position);
         mAdapter.notifyItemRemoved(position);
     }
 }

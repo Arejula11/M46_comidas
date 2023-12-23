@@ -38,6 +38,8 @@ public class PlatoViewModel extends AndroidViewModel{
         Log.d("Observation", String.valueOf(aux));
     return aux;}
 
+    LiveData<Plato> getPlatoId(int id) { return mRepository.getPlatoId(id);}
+
     public void insert(Plato plato) { mRepository.insert(plato); }
 
     public void update(Plato plato) { mRepository.update(plato); }
