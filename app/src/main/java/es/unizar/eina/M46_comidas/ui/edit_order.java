@@ -17,8 +17,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import es.unizar.eina.M46_comidas.R;
 import es.unizar.eina.M46_comidas.database.Pedido;
@@ -34,6 +38,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     PedidoViewModel mPedidoViewModel;
+    PlatoViewModel mPlatoViewModel;
     RacionViewModel mRacionViewModel;
     RacionListAdapter mAdapter;
 
@@ -57,13 +62,16 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
         raciones = racionesSingleton.getRaciones();
 
-        pedido = (Pedido) intentaux.getSerializableExtra("Objeto");
+        pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
+
 
         EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteEdit);
         EditText editTextTelefono = findViewById(R.id.editTextTelefonoEdit);
         EditText editTextDate = findViewById(R.id.in_date);
         EditText editTextTime = findViewById(R.id.in_time);
         EditText editTextPrecio = findViewById(R.id.editTextPrecioEdit);
+        Button buttonAddRacion = findViewById(R.id.buttonAddRacion);
+        Button buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
         txtDate=(EditText)findViewById(R.id.in_date);
@@ -72,8 +80,11 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         btnTimePicker.setOnClickListener(this);
 
 
+
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
+        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+
 
         RecyclerView mRecyclerView;
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
@@ -83,13 +94,14 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
             // Update the cached copy of the notes in the adapter.
-            if(racionesSingleton.getRaciones().size() == 0){
-                for(Racion racion : raciones){
+            if(racionesSingleton.getRaciones().size() == 0) {
+                for (Racion racion : raciones) {
                     racionesSingleton.agregarRacion(racion);
                 }
             }
+            mAdapter.submitList(racionesSingleton.getRaciones());
 
-            mAdapter.submitList(raciones);
+
         });
 
 
@@ -106,8 +118,87 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         mAdapter.setOnItemClickListener(position -> this.onItemClick(position));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        buttonAddRacion = findViewById(R.id.buttonAddRacion);
+        buttonAddRacion.setOnClickListener(view -> {
+            String nombreCliente = editTextNombreCliente.getText().toString();
+            int telefono = 0;
+            Double precioTotal = 0.0;
+            String tel = editTextTelefono.getText().toString();
+            long fechaYhora = 0;
+            if(!tel.isEmpty()){
+                telefono = Integer.parseInt(tel);
+            }
+            String date = editTextDate.getText().toString();
 
 
+            String time = editTextTime.getText().toString();
+
+
+
+
+            racionesSingleton.setNombre(nombreCliente);
+            racionesSingleton.setTelefono(telefono);
+            racionesSingleton.setDate(date);
+            racionesSingleton.setTime(time);
+
+            Intent intent = new Intent(this, plates_for_order.class);
+            intent.putExtra("origen", "plates_for_orderEdit");
+            intent.putExtra("Pedido", pedido);
+            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
+
+        buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
+        buttonAddPedido.setOnClickListener(view -> {
+            racionesSingleton.reset();
+
+            String nombreCliente2 = editTextNombreCliente.getText().toString();
+            int telefono = 0;
+            AtomicReference<Double> precioTotal = new AtomicReference<>(0.0);
+            String tel2 = editTextTelefono.getText().toString();
+            if(!tel2.isEmpty()){
+                telefono = Integer.parseInt(tel2);
+            }
+            long fechaYhora = 0;
+            String date = editTextDate.getText().toString();
+            SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date aux = input.parse(date);
+                SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+                date = output.format(aux);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            String time = editTextTime.getText().toString();
+            SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+            try {
+                Date aux = input2.parse(time);
+                SimpleDateFormat output = new SimpleDateFormat("HHmm");
+                time = output.format(aux);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            List<Racion> raciones = mAdapter.getCurrentList();
+            int i=0;
+            for(Racion aux : raciones){
+                mPlatoViewModel.getPrecioPlatoId(aux.getPlatoId()).observe(this, precio->{
+                    precioTotal.updateAndGet(v -> v + precio * aux.getCantidad());
+
+                });
+                i++;
+
+            }
+            Intent intent = new Intent(this, orders_page.class);
+            int id = pedido.getId();
+            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal.get());
+            mPedidoViewModel.update(pedido);
+            mRacionViewModel.deleteAll(id);
+                for (Racion racion : racionesSingleton.getRaciones()) {
+                    mRacionViewModel.insert(racion);
+                }
+            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
         Button buttonAtras = findViewById(R.id.buttonAtras);
         buttonAtras.setOnClickListener(view -> {
             racionesSingleton.reset();
@@ -115,6 +206,15 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("Objeto", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
+        if(intentaux.hasExtra("Objeto")){
+            Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
+            Racion racion = new Racion(plato.getId(), 0, 1);
+            racionesSingleton.agregarPlato(plato);
+            racionesSingleton.agregarRacion(racion);
+            raciones = racionesSingleton.getRaciones();
+            mAdapter.submitList(raciones);
+
+        }
     }
 
 

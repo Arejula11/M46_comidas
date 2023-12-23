@@ -34,7 +34,7 @@ public class orders_description extends AppCompatActivity {
         TextView textViewFecha = findViewById(R.id.textViewFechaFill);
 
         Intent intentaux = getIntent();
-        Pedido pedido = (Pedido) intentaux.getSerializableExtra("Objeto");
+        Pedido pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
         intentaux.putExtra("invisible", true);
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
@@ -68,7 +68,7 @@ public class orders_description extends AppCompatActivity {
         });
         buttonEditar.setOnClickListener(view -> {
             Intent intent = new Intent(this, edit_order.class);
-            intent.putExtra("Objeto", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("Pedido", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
             intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });

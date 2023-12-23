@@ -137,6 +137,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
             racionesSingleton.setTime(time);
 
             Intent intent = new Intent(this, plates_for_order.class);
+            intent.putExtra("origen", "plates_for_orderAdd");
             intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });

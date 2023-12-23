@@ -109,6 +109,8 @@ public class ComidasRepository {
         return mRacionDao.getRaciones(id);
     }
 
+    public void deleteAll(int id) {mRacionDao.deleteAll(id);    }
+
     public LiveData<Double> getPrecioPlatoId(int id) {return mPlatoDao.getPrecioPlatoId(id);}
 
     /** Inserta una nota

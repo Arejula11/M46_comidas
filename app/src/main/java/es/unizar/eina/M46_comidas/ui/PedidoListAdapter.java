@@ -67,7 +67,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
             public void onClick(View v) {
 
                 Intent intent2 = new Intent(v.getContext(), orders_description.class);
-                intent2.putExtra("Objeto", current);
+                intent2.putExtra("Pedido", current);
                 v.getContext().startActivity(intent2);
 
             }

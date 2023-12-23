@@ -24,6 +24,9 @@ public interface RacionDao {
 
     @Query("DELETE FROM racion")
     void deleteAll();
+
+    @Query("DELETE FROM racion WHERE racion.PedidoId == :id")
+    void deleteAll(int id);
     
     @Query("SELECT * FROM racion WHERE PedidoId = :pedidoId")
     LiveData<List<Racion>> getRaciones(int pedidoId); //cambiar query

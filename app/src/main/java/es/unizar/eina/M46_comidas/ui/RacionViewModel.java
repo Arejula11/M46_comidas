@@ -40,6 +40,7 @@ public class RacionViewModel extends AndroidViewModel {
     public void update(Racion racion) { mRepository.update(racion); }
     public void delete(Racion racion) { mRepository.delete(racion); }
 
+    public void deleteAll(int id) {mRepository.deleteAll(id);}
     public static class orders_description extends AppCompatActivity {
 
         @Override

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import es.unizar.eina.M46_comidas.database.Pedido;
 import es.unizar.eina.M46_comidas.database.Plato;
 
 public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
@@ -62,13 +63,22 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                     }
                     intent2.putExtra("Objeto", current);
                     v.getContext().startActivity(intent2);
-                }else if(origen.equals("plates_for_order")){
+                }else if(origen.equals("plates_for_orderAdd")){
                     Intent intent2 = new Intent(v.getContext(), add_order.class);
                     if (intent != null && intent.hasExtra("operacion")) {
 
                         intent2.putExtra("operacion", intent.getStringExtra("operacion"));
                     }
                     intent2.putExtra("Objeto", current);
+                    v.getContext().startActivity(intent2);
+                }else if(origen.equals("plates_for_orderEdit")){
+                    Intent intent2 = new Intent(v.getContext(), edit_order.class);
+                    if (intent != null && intent.hasExtra("operacion")) {
+
+                        intent2.putExtra("operacion", intent.getStringExtra("operacion"));
+                    }
+                    intent2.putExtra("Objeto", current);
+                    intent2.putExtra("Pedido", intent.getSerializableExtra("Pedido"));
                     v.getContext().startActivity(intent2);
                 }
 

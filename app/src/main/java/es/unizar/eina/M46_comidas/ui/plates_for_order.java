@@ -32,7 +32,6 @@ public class plates_for_order extends AppCompatActivity {
         setContentView(R.layout.activity_plates_for_order);
         mRecyclerView = findViewById(R.id.recyclerView);
         intentRecycler = getIntent();
-        intentRecycler.putExtra("origen", "plates_for_order");
         mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(), getIntent());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -79,7 +78,7 @@ public class plates_for_order extends AppCompatActivity {
         buttonOrdenar.setOnClickListener(view -> {
             Intent intent = new Intent(this, plates_order.class);
             intent.putExtra("operacion", operacion);
-            intent.putExtra("origen", "plates_for_order");
+            intent.putExtra("origen", intentRecycler.getStringExtra("origen"));
             startActivity(intent);
         });
     }
