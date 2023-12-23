@@ -1,6 +1,7 @@
 package es.unizar.eina.M46_comidas.ui;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,7 +34,9 @@ public class PlatoViewModel extends AndroidViewModel{
     LiveData<List<Plato>> getAllPlatosCategoria() { return mRepository.getAllPlatosCategoria(); }
     LiveData<List<Plato>> getAllPlatosNombreCategoria() { return mRepository.getAllPlatosNombreCategoria(); }
 
-    LiveData<Double> getPrecioPlatoId(int id) { return mRepository.getPrecioPlatoId(id); }
+    LiveData<Double> getPrecioPlatoId(int id) { LiveData<Double> aux =  mRepository.getPrecioPlatoId(id);
+        Log.d("Observation", String.valueOf(aux));
+    return aux;}
 
     public void insert(Plato plato) { mRepository.insert(plato); }
 

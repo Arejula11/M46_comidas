@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import es.unizar.eina.M46_comidas.R;
@@ -97,12 +98,18 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             if(racionesSingleton.getRaciones().size() == 0) {
                 for (Racion racion : raciones) {
                     racionesSingleton.agregarRacion(racion);
+
                 }
             }
+            mPlatoViewModel.getPrecioPlatoId(raciones.get(0).getPlatoId()).observe(this, precio->{
+                double precio2 = precio;
+            });
             mAdapter.submitList(racionesSingleton.getRaciones());
 
 
         });
+        raciones = racionesSingleton.getRaciones();
+
 
 
         editTextNombreCliente.setText(pedido.getNombrecliente().toString());
@@ -152,6 +159,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         buttonAddPedido.setOnClickListener(view -> {
             racionesSingleton.reset();
 
+
             String nombreCliente2 = editTextNombreCliente.getText().toString();
             int telefono = 0;
             AtomicReference<Double> precioTotal = new AtomicReference<>(0.0);
@@ -178,16 +186,12 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            List<Racion> raciones = mAdapter.getCurrentList();
-            int i=0;
-            for(Racion aux : raciones){
-                mPlatoViewModel.getPrecioPlatoId(aux.getPlatoId()).observe(this, precio->{
-                    precioTotal.updateAndGet(v -> v + precio * aux.getCantidad());
 
-                });
-                i++;
+                //i++;
 
-            }
+            //}
+
+
             Intent intent = new Intent(this, orders_page.class);
             int id = pedido.getId();
             pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal.get());
