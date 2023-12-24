@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.unizar.eina.M46_comidas.R;
@@ -57,16 +58,17 @@ public class orders_description extends AppCompatActivity {
             //mAdapter.submitList(raciones);
 
             //rellena una lista
-            List<RacionVisual> racionesVisualesAux= null;
+            List<RacionVisual> racionesVisualesAux= new ArrayList<>();
 
             //llamada getNombre
             for(Racion racion : raciones){
                 mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
                     RacionVisual racionVisual  = new RacionVisual(plato.getNombre(),racion);
                     racionesVisualesAux.add(racionVisual);
+                    mAdapter.submitList(racionesVisualesAux);
+
                 });
             }
-            mAdapter.submitList(racionesVisualesAux);
             //
         });
 
