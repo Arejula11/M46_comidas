@@ -19,7 +19,7 @@ import es.unizar.eina.M46_comidas.database.Plato;
 import es.unizar.eina.M46_comidas.database.Racion;
 
 
-public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
+public class RacionListAdapter extends ListAdapter<RacionVisual, RacionViewHolder> {
     private int position;
     private Intent intent;
 
@@ -42,7 +42,7 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
         this.position = position;
     }
 
-    public RacionListAdapter(@NonNull DiffUtil.ItemCallback<Racion> diffCallback, Intent intentAux) {
+    public RacionListAdapter(@NonNull DiffUtil.ItemCallback<RacionVisual> diffCallback, Intent intentAux) {
         super(diffCallback);
         intent = intentAux;
     }
@@ -53,14 +53,14 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
         return RacionViewHolder.create(parent);
     }
 
-    public Racion getCurrent() {
+    public RacionVisual getCurrent() {
         return getItem(getPosition());
     }
 
     @Override
     public void onBindViewHolder(RacionViewHolder holder, int position) {
 
-        Racion current = getItem(position);
+        RacionVisual current = getItem(position);
 
         holder.bind(current);
         Button eliminar = holder.getButton();
@@ -112,7 +112,7 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().isEmpty()) {
                     // Actualiza el modelo con el nuevo texto
-                    current.setCantidad(Integer.parseInt(charSequence.toString()));
+                    current.racion.setCantidad(Integer.parseInt(charSequence.toString()));
                 }
             }
 
@@ -134,19 +134,19 @@ public class RacionListAdapter extends ListAdapter<Racion, RacionViewHolder> {
     }
 
 
-    static class RacionDiff extends DiffUtil.ItemCallback<Racion> {
+    static class RacionDiff extends DiffUtil.ItemCallback<RacionVisual> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull Racion oldItem, @NonNull Racion newItem) {
+        public boolean areItemsTheSame(@NonNull RacionVisual oldItem, @NonNull RacionVisual newItem) {
             //android.util.Log.d ( "NoteDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
-            return oldItem.getPlatoId() == newItem.getPlatoId() && oldItem.getPedidoId() == newItem.getPedidoId();
+            return oldItem.racion.getPlatoId() == newItem.racion.getPlatoId() && oldItem.racion.getPedidoId() == newItem.racion.getPedidoId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Racion oldItem, @NonNull Racion newItem) {
+        public boolean areContentsTheSame(@NonNull RacionVisual oldItem, @NonNull RacionVisual newItem) {
             //android.util.Log.d ( "NoteDiff" , "areContentsTheSame " + oldItem.getTitle() + " vs " + newItem.getTitle() + " " + oldItem.getTitle().equals(newItem.getTitle()));
             // We are just worried about differences in visual representation, i.e. changes in the title
-            return oldItem.getCantidad() == newItem.getCantidad() ;
+            return oldItem.racion.getCantidad() == newItem.racion.getCantidad() ;
         }
     }
 }

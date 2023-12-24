@@ -37,10 +37,10 @@ public class RacionViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(Racion racion) {
+    public void bind(RacionVisual racionVisual) {
 
-        mRacionTextView.setText(String.valueOf(racion.getPlatoId()));
-        mCantidadEditText.setText(String.valueOf(racion.getCantidad()));
+        mRacionTextView.setText(String.valueOf(racionVisual.racion.getPlatoId()));
+        mCantidadEditText.setText(String.valueOf(racionVisual.racion.getCantidad()));
 
     }
 
