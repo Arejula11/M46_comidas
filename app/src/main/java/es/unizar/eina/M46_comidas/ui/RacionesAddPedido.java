@@ -48,8 +48,8 @@ public class RacionesAddPedido {
         public void eliminarRacion(int i) {
             raciones.remove(i);
         }
-        public List<Racion> getPlatos() {
-        return raciones;
+        public List<Plato> getPlatos() {
+        return platos;
     }
 
         public void agregarPlato(Plato nuevoPlato) {
