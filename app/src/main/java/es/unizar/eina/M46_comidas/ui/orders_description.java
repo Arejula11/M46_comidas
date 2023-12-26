@@ -84,7 +84,9 @@ public class orders_description extends AppCompatActivity {
         textViewNombreCliente.setText(pedido.getNombrecliente().toString());
         textViewPrecio.setText(String.valueOf(pedido.getPrecio()));
         textViewTelefono.setText(pedido.getTel().toString());
-        textViewFecha.setText(pedido.getFecha().toString());
+        textViewFecha.setText("Fecha: " + pedido.getFecha().toString().substring(0,4) + '-'
+                + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
+                + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
 
 
         buttonAtras = findViewById(R.id.buttonAtras);
