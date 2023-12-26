@@ -73,11 +73,11 @@ public class plates_for_order extends AppCompatActivity {
 
         buttonAtras.setOnClickListener(view -> {
 
-            if(intentRecycler.getStringExtra("origen") == "plates_for_orderEdit"){
+            if("plates_for_orderEdit".equals(intentRecycler.getStringExtra("origen"))){
                 Intent intent = new Intent(this, edit_order.class);
                 intent.putExtra("Pedido", intentRecycler.getSerializableExtra("Pedido"));
                 startActivity(intent);
-            }else if(intentRecycler.getStringExtra("origen") == "plates_for_orderAdd") {
+            }else if("plates_for_orderAdd".equals(intentRecycler.getStringExtra("origen"))) {
                 Intent intent = new Intent(this, add_order.class);
                 intent.putExtra("Pedido", intentRecycler.getSerializableExtra("Pedido"));
                 startActivity(intent);

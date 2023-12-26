@@ -63,7 +63,7 @@ public class orders_description extends AppCompatActivity {
             //llamada getNombre
             for(Racion racion : raciones){
                 mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
-                    RacionVisual racionVisual  = new RacionVisual(plato.getNombre(),racion);
+                    RacionVisual racionVisual  = new RacionVisual(plato.getNombre(),racion, plato.getPrecio());
                     racionesVisualesAux.add(racionVisual);
                     mAdapter.submitList(racionesVisualesAux);
 

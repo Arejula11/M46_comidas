@@ -37,6 +37,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     RacionesAddPedido racionesSingleton;
     Pedido pedido;
     List<Racion> raciones;
+    List<RacionVisual> racionesVis;
+
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -65,7 +67,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         Intent intentaux = getIntent();
 
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
-        raciones = racionesSingleton.getRaciones();
+        racionesVis = racionesSingleton.getRaciones();
 
         pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
 
@@ -103,29 +105,22 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             // Update the cached copy of the notes in the adapter.
             if(racionesSingleton.getRaciones().size() == 0) {
                 for (Racion racion : raciones) {
-                    racionesSingleton.agregarRacion(racion);
                         mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato->{
                             //precioTotal += precio;
-                            racionesSingleton.agregarPlato(plato);
+                            RacionVisual aux = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
+                            racionesSingleton.agregarRacion(aux);
+                            mAdapter.submitList(racionesSingleton.getRaciones());
+
                         });
 
                 }
+            }else{
+                mAdapter.submitList(racionesSingleton.getRaciones());
             }
-            List<RacionVisual> racionesVisualesAux = new ArrayList<>();
-            for(Racion racion : racionesSingleton.getRaciones()){
-                mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
-                    RacionVisual racionVisual = new RacionVisual(plato.getNombre(), racion);
-                    racionesVisualesAux.add(racionVisual);
-                    mAdapter.submitList(racionesVisualesAux);
-                });
-
-            }
-
-
 
 
         });
-        raciones = racionesSingleton.getRaciones();
+        racionesVis = racionesSingleton.getRaciones();
 
 
 
@@ -213,7 +208,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             int i=0;
             for(RacionVisual aux : raciones){
 
-                precioTotal += racionesSingleton.getPrecio(i) * aux.racion.getCantidad();
+                precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
                 i++;
 
             }
@@ -224,8 +219,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
             pedido.setId(id);
             mPedidoViewModel.update(pedido);
-                for (Racion racion : racionesSingleton.getRaciones()) {
-                    mRacionViewModel.insert(racion);
+                for (RacionVisual racion : racionesSingleton.getRaciones()) {
+                    mRacionViewModel.insert(racion.racion);
                 }
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
@@ -240,15 +235,11 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         if(intentaux.hasExtra("Objeto")){
             Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
             Racion racion = new Racion(plato.getId(), id, 1);
-            racionesSingleton.agregarPlato(plato);
-            racionesSingleton.agregarRacion(racion);
-            raciones = racionesSingleton.getRaciones();
-            List<RacionVisual> racionesVisuales = new ArrayList<>();
-            for(int i= 0; i<raciones.size(); i++){
-                RacionVisual racionVisual = new RacionVisual(racionesSingleton.getPlatos().get(i).getNombre(),raciones.get(i) );
-                racionesVisuales.add(racionVisual);
-                mAdapter.submitList(racionesVisuales);
-            }
+            RacionVisual racionv = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
+            racionesSingleton.agregarRacion(racionv);
+            racionesVis = racionesSingleton.getRaciones();
+            mAdapter.submitList(racionesVis);
+
 
         }
     }
@@ -301,17 +292,9 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     }
     public void onItemClick(int position) {
         racionesSingleton.eliminarRacion(position);
-        racionesSingleton.eliminarPlato(position);
-        //mAdapter.notifyItemRemoved(position);
-        List<RacionVisual> racionesVisualesAux = new ArrayList<>();
-        for(Racion racion : racionesSingleton.getRaciones()){
-            mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
-                RacionVisual racionVisual = new RacionVisual(plato.getNombre(), racion);
-                racionesVisualesAux.add(racionVisual);
-                mAdapter.submitList(racionesVisualesAux);
-            });
+        mAdapter.notifyItemRemoved(position);
+        mAdapter.submitList(racionesSingleton.getRaciones());
 
-        }
 
     }
 }

@@ -12,8 +12,7 @@ public class RacionesAddPedido {
         private static RacionesAddPedido instance;
 
         private Pedido pedido;
-        private List<Racion> raciones;
-        private List<Plato> platos;
+        private List<RacionVisual> raciones;
 
         private String nombre;
         private int telefono;
@@ -24,7 +23,6 @@ public class RacionesAddPedido {
 
     private RacionesAddPedido(Pedido pedido2) {
             raciones = new ArrayList<>();
-        platos = new ArrayList<>();
         pedido = pedido2;
         nombre = "";
         telefono = 0;
@@ -37,34 +35,21 @@ public class RacionesAddPedido {
             return instance;
         }
 
-        public List<Racion> getRaciones() {
+        public List<RacionVisual> getRaciones() {
             return raciones;
         }
 
-        public void agregarRacion(Racion nuevaRacion) {
+        public void agregarRacion(RacionVisual nuevaRacion) {
             raciones.add(nuevaRacion);
         }
 
         public void eliminarRacion(int i) {
             raciones.remove(i);
         }
-        public List<Plato> getPlatos() {
-        return platos;
-    }
 
-        public void agregarPlato(Plato nuevoPlato) {
-            platos.add(nuevoPlato);
-        }
-
-        public void eliminarPlato(int i) {
-            platos.remove(i);
-    }
 
         public void modificarPedido(Pedido pedido2) {pedido = pedido2;  }
 
-        public Double getPrecio(int i){
-            return platos.get(i).getPrecio();
-        }
 
         public void reset(){instance = null;}
 
