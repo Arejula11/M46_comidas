@@ -47,6 +47,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     RacionViewModel mRacionViewModel;
     RacionListAdapter mAdapter;
     Double precioTotal;
+    EditText editTextPrecio;
 
     int id;
     @Override
@@ -77,7 +78,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         EditText editTextTelefono = findViewById(R.id.editTextTelefonoEdit);
         EditText editTextDate = findViewById(R.id.in_date);
         EditText editTextTime = findViewById(R.id.in_time);
-        EditText editTextPrecio = findViewById(R.id.editTextPrecioEdit);
+        editTextPrecio = findViewById(R.id.editTextPrecioEdit);
         Button buttonAddRacion = findViewById(R.id.buttonAddRacion);
         Button buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         btnDatePicker=(Button)findViewById(R.id.btn_date);
@@ -109,12 +110,18 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
                             //precioTotal += precio;
                             RacionVisual aux = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
                             racionesSingleton.agregarRacion(aux);
+                            precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+                            editTextPrecio.setText(String.valueOf(precioTotal));
                             mAdapter.submitList(racionesSingleton.getRaciones());
 
                         });
 
                 }
             }else{
+                for(RacionVisual aux : racionesSingleton.getRaciones()){
+                    precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+                }
+                editTextPrecio.setText(String.valueOf(precioTotal));
                 mAdapter.submitList(racionesSingleton.getRaciones());
             }
 
@@ -125,7 +132,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
 
         editTextNombreCliente.setText(pedido.getNombrecliente().toString());
-        editTextPrecio.setText(String.valueOf(pedido.getPrecio()));
+        //editTextPrecio.setText(String.valueOf(pedido.getPrecio()));
         editTextTelefono.setText(pedido.getTel().toString());
         editTextDate.setText(pedido.getFecha().toString().substring(6,8)+'-'+
                 pedido.getFecha().toString().substring(4,6)+'-'+pedido.getFecha().toString().substring(0,4));
@@ -135,6 +142,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
         mAdapter.setOnItemClickListener(position -> this.onItemClick(position));
+        mAdapter.setTextChangedListener((position, text) -> this.onTextChanged(position, text));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         buttonAddRacion = findViewById(R.id.buttonAddRacion);
@@ -206,6 +214,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
             List<RacionVisual> raciones = mAdapter.getCurrentList();
             int i=0;
+            precioTotal = 0.0;
             for(RacionVisual aux : raciones){
 
                 precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
@@ -292,9 +301,25 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     }
     public void onItemClick(int position) {
         racionesSingleton.eliminarRacion(position);
+        precioTotal = 0.0;
+        for(RacionVisual aux : racionesSingleton.getRaciones()){
+            precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+        }
+        editTextPrecio.setText(String.valueOf(precioTotal));
         mAdapter.notifyItemRemoved(position);
         mAdapter.submitList(racionesSingleton.getRaciones());
 
+
+    }
+
+    public void onTextChanged(int position, String text){
+        int z = 0;
+        precioTotal =0.0;
+        for(RacionVisual aux : mAdapter.getCurrentList()){
+                precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+
+        }
+        editTextPrecio.setText(String.valueOf(precioTotal));
 
     }
 }

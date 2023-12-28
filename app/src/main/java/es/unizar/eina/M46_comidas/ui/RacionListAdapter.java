@@ -25,6 +25,14 @@ public class RacionListAdapter extends ListAdapter<RacionVisual, RacionViewHolde
 
     private OnItemClickListener listener;
 
+    private TextChangedListener textChangedListener;
+
+    public interface TextChangedListener {
+        void onTextChanged(int position, String newText);
+    }
+    public void setTextChangedListener(TextChangedListener listener) {
+        this.textChangedListener = listener;
+    }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -113,6 +121,9 @@ public class RacionListAdapter extends ListAdapter<RacionVisual, RacionViewHolde
                 if (!charSequence.toString().isEmpty()) {
                     // Actualiza el modelo con el nuevo texto
                     current.racion.setCantidad(Integer.parseInt(charSequence.toString()));
+                }
+                if (textChangedListener != null) {
+                    textChangedListener.onTextChanged(position, charSequence.toString());
                 }
             }
 
