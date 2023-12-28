@@ -243,11 +243,19 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         });
         if(intentaux.hasExtra("Objeto")){
             Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
-            Racion racion = new Racion(plato.getId(), id, 1);
-            RacionVisual racionv = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
-            racionesSingleton.agregarRacion(racionv);
-            racionesVis = racionesSingleton.getRaciones();
-            mAdapter.submitList(racionesVis);
+            boolean repetido = false;
+            for(RacionVisual aux : racionesSingleton.getRaciones()){
+                if(plato.getId() == aux.racion.getPlatoId()){
+                    repetido = true;
+                }
+            }
+            if(!repetido){
+                Racion racion = new Racion(plato.getId(), id, 1);
+                RacionVisual racionv = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
+                racionesSingleton.agregarRacion(racionv);
+                racionesVis = racionesSingleton.getRaciones();
+                mAdapter.submitList(racionesVis);
+            }
 
 
         }
