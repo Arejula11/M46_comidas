@@ -11,7 +11,6 @@ public class RacionesAddPedido {
 
         private static RacionesAddPedido instance;
 
-        private Pedido pedido;
         private List<RacionVisual> raciones;
 
         private String nombre;
@@ -19,13 +18,14 @@ public class RacionesAddPedido {
 
         private String date;
         private String time;
+        private boolean primeraVez;
 
 
     private RacionesAddPedido(Pedido pedido2) {
             raciones = new ArrayList<>();
-        pedido = pedido2;
         nombre = "";
         telefono = 0;
+        primeraVez = true;
         }
 
         public static synchronized RacionesAddPedido getInstance(Pedido pedido2) {
@@ -48,7 +48,6 @@ public class RacionesAddPedido {
         }
 
 
-        public void modificarPedido(Pedido pedido2) {pedido = pedido2;  }
 
 
         public void reset(){instance = null;}
@@ -81,6 +80,10 @@ public class RacionesAddPedido {
         time = time2;
     }
 
+    public boolean getPrimeraVez(){return primeraVez;}
+    public void setPrimeraVez(boolean aux ){
+        this.primeraVez = aux;
+    }
 
 
 }

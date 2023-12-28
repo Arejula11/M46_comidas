@@ -104,7 +104,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
             // Update the cached copy of the notes in the adapter.
-            if(racionesSingleton.getRaciones().size() == 0) {
+            if(racionesSingleton.getPrimeraVez()) {
                 for (Racion racion : raciones) {
                         mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato->{
                             //precioTotal += precio;
@@ -117,6 +117,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
                         });
 
                 }
+                racionesSingleton.setPrimeraVez(false);
             }else{
                 for(RacionVisual aux : racionesSingleton.getRaciones()){
                     precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
@@ -321,7 +322,6 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     }
 
     public void onTextChanged(int position, String text){
-        int z = 0;
         precioTotal =0.0;
         for(RacionVisual aux : mAdapter.getCurrentList()){
                 precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
