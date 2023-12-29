@@ -18,11 +18,14 @@ import java.util.List;
 import es.unizar.eina.M46_comidas.R;
 import es.unizar.eina.M46_comidas.database.Pedido;
 import es.unizar.eina.M46_comidas.database.Racion;
+import es.unizar.eina.send.SendAbstraction;
+import es.unizar.eina.send.SendAbstractionImpl;
 
 public class orders_description extends AppCompatActivity {
     Button buttonAtras;
     Button buttonEditar;
     Button buttonEliminar;
+    Button buttonEnviar;
     RacionListAdapter mAdapter;
 
     private PedidoViewModel mPedidoViewModel;
@@ -92,6 +95,7 @@ public class orders_description extends AppCompatActivity {
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonEditar = findViewById(R.id.buttonEditarPedido);
         buttonEliminar = findViewById(R.id.buttonEliminarPedido);
+        buttonEnviar = findViewById(R.id.buttonEnviarPedido);
         buttonAtras.setOnClickListener(view -> {
             Intent intent = new Intent(this, orders_page.class);
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
@@ -114,6 +118,20 @@ public class orders_description extends AppCompatActivity {
             Intent intent = new Intent(this, orders_page.class);
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
+        });
+
+        buttonEnviar.setOnClickListener(view ->{
+            // Obtener el pedido seleccionado (aquí suponemos el primero de la lista)
+            Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
+
+            // Crear una instancia de SendAbstractionImpl en onCreate o donde sea apropiado
+            SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "M46_comidas");
+
+            // Enviar el pedido utilizando la instancia de SendAbstractionImpl
+
+            sendAbstraction.send(pedido.getTel().toString(),pedido.getNombrecliente().toString()+  String.valueOf(pedido.getPrecio()));
+
+
         });
 
 
