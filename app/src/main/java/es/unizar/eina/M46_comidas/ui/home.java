@@ -6,17 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+//import es.unizar.eina.M46_comidas.;
 
 import es.unizar.eina.M46_comidas.R;
 
 public class home extends AppCompatActivity {
       Button buttonPlatos;
       Button buttonPedidos;
+      Button buttonUnitarios;
+      Button buttonSobrecarga;
+      Button buttonVolumen;
+
+      
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         buttonPlatos = findViewById(R.id.buttonPlatos);
 
         buttonPlatos.setOnClickListener(view -> {
@@ -36,6 +43,19 @@ public class home extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        buttonSobrecarga = findViewById(R.id.buttonSobrecarga);
+        buttonUnitarios = findViewById(R.id.buttonUnitario);
+        buttonVolumen = findViewById(R.id.buttonVolumen);
+
+        buttonVolumen.setOnClickListener(view -> {
+            UnitTest unitTest = new UnitTest(this.getApplication());
+            unitTest.prueba_volumen();
+        });
+        buttonSobrecarga.setOnClickListener(view -> {
+            UnitTest unitTest = new UnitTest(this.getApplication());
+            unitTest.prueba_sobrecarga();
+        });
 
     }
 }

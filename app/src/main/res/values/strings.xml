@@ -36,6 +36,9 @@
     <string name="numTelefono">TELEFONO</string>
     <string name="add">AÑADIR</string>
     <string name="atras">ATRAS</string>
+    <string name="sobrecarga">PRUEBAS DE SOBRECARGA</string>
+    <string name="volumen">PRUEBAS DE VOLUMEN</string>
+    <string name="unitarias">PRUEBAS UNITARIAS</string>
 
 
 

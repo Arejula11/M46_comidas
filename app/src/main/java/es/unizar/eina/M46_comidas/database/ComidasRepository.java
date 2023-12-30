@@ -16,18 +16,10 @@ public class ComidasRepository {
 
 
     private LiveData<List<Pedido>> mAllPedidos;
-    /*private LiveData<List<Pedido>> mAllPedidosFilter;
-    private LiveData<List<Pedido>> mAllPedidosNumTlfn;
-    private LiveData<List<Pedido>> mAllPedidosFecha;
-    private LiveData<List<Pedido>> mAllPedidosNombreCliente;*/
-    /*private LiveData<List<Pedido>> mAllPedidosNumTlfnAndFilter;
-    private LiveData<List<Pedido>> mAllPedidosFechaAndFilter;
-    private LiveData<List<Pedido>> mAllPedidosNombreClienteAndFilter;*/
+
 
     private LiveData<List<Plato>> mAllPlatos;
-    /*private LiveData<List<Plato>> mAllPlatosNombre;
-    private LiveData<List<Plato>> mAllPlatosCategoria;
-    private LiveData<List<Plato>> mAllPlatosNombreCategoria;*/
+
 
 
 
@@ -39,18 +31,8 @@ public class ComidasRepository {
         ComidasRoomDatabase db = ComidasRoomDatabase.getDatabase(application);
         mPedidoDao = db.pedidoDao();
         mAllPedidos = mPedidoDao.getPedidos();
-        /*mAllPedidosNumTlfn = mPedidoDao.getOrderedPedidosNumTlfn();
-        mAllPedidosFecha = mPedidoDao.getOrderedPedidosFecha();
-        mAllPedidosNombreCliente = mPedidoDao.getOrderedPedidosNombreCliente();*/
-        //mAllPedidosFilter = mPedidoDao.getPedidosBy();
-        /*mAllPedidosNumTlfnAndFilter = mPedidoDao.getOrderedPedidosNumTlfnAndFilter();
-        mAllPedidosFechaAndFilter = mPedidoDao.getOrderedPedidosFechaAndFilter();
-        mAllPedidosNombreClienteAndFilter = mPedidoDao.getOrderedPedidosNombreClienteAndFilter();*/
         mPlatoDao = db.platoDao();
         mAllPlatos = mPlatoDao.getPlatos();
-        /*mAllPlatosNombre = mPlatoDao.getOrderedPlatosNombre();
-        mAllPlatosCategoria = mPlatoDao.getOrderedPlatosCategoria();
-        mAllPlatosNombreCategoria = mPlatoDao.getOrderedPlatosNombreCategoria();*/
         mRacionDao = db.racionDao();
     }
 
@@ -217,6 +199,21 @@ public class ComidasRepository {
             result[0] = mRacionDao.delete(racion);
         });
         return result[0];
+    }
+    public void deleteAllRaciones() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mRacionDao.deleteAll();
+        });
+    }
+    public void deleteAllPedidos() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPedidoDao.deleteAll();
+        });
+    }
+    public void deleteAllPlatos() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPlatoDao.deleteAll();
+        });
     }
 
 }
