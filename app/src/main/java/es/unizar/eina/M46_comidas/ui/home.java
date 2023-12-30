@@ -11,13 +11,15 @@ import android.content.Intent;
 import es.unizar.eina.M46_comidas.R;
 
 public class home extends AppCompatActivity {
-      Button buttonPlatos;
-      Button buttonPedidos;
-      Button buttonUnitarios;
-      Button buttonSobrecarga;
-      Button buttonVolumen;
+    Button buttonPlatos;
+    Button buttonPedidos;
+    Button buttonUnitarios;
+    Button buttonSobrecarga;
+    Button buttonVolumen;
 
-      
+    Button buttonEliminar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +30,9 @@ public class home extends AppCompatActivity {
 
         buttonPlatos.setOnClickListener(view -> {
 
-              Intent intent = new Intent(this, plates_page.class);
-              intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-              intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            Intent intent = new Intent(this, plates_page.class);
+            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
 
@@ -47,6 +49,7 @@ public class home extends AppCompatActivity {
         buttonSobrecarga = findViewById(R.id.buttonSobrecarga);
         buttonUnitarios = findViewById(R.id.buttonUnitario);
         buttonVolumen = findViewById(R.id.buttonVolumen);
+        buttonEliminar = findViewById(R.id.buttonEliminarTodo);
 
         buttonVolumen.setOnClickListener(view -> {
             UnitTest unitTest = new UnitTest(this.getApplication());
@@ -55,6 +58,11 @@ public class home extends AppCompatActivity {
         buttonSobrecarga.setOnClickListener(view -> {
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.prueba_sobrecarga();
+        });
+
+        buttonEliminar.setOnClickListener(view -> {
+            UnitTest unitTest = new UnitTest(this.getApplication());
+            unitTest.eliminar_datos();
         });
 
     }

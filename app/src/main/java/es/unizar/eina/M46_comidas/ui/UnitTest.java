@@ -5,15 +5,16 @@ package es.unizar.eina.M46_comidas.ui;
 //import org.junit.Test;
 
 import android.app.Application;
+import android.util.Log;
 
 import es.unizar.eina.M46_comidas.database.ComidasRepository;
 import es.unizar.eina.M46_comidas.database.Pedido;
 import es.unizar.eina.M46_comidas.database.Plato;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+
+ Example local unit test, which will execute on the development machine (host).*
+ @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTest {
     ComidasRepository mRepository;
@@ -42,7 +43,9 @@ public class UnitTest {
             mRepository.insert(plato);
             for(int x = 0; x < 3; x++){
                 ingr += ('a' + i);
+
             }
+            Log.d("VALOR", String.valueOf(i));
         }
 
     }

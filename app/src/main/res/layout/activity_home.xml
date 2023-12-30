@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/custom_button"
             android:backgroundTint="#163172"
             android:text="@string/platos"
@@ -102,22 +102,23 @@
             android:backgroundTint="#163172"
             android:text="@string/volumen"
             android:textColor="#FFF"
-            android:textSize="14sp" 
+            android:textSize="14sp"
             app:iconTint="#163172" />
         <Button
             android:id="@+id/buttonEliminarTodo"
             android:layout_width="231dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/buttonSobrecarga"
-            android:layout_alignEnd="@id/buttonSobrecarga"
+            android:layout_below="@id/buttonVolumen"
+            android:layout_alignEnd="@id/buttonVolumen"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom_button"
             android:backgroundTint="#163172"
-            android:text="@string/volumen"
+            android:text="@string/eliminar"
             android:textColor="#FFF"
             android:textSize="14sp"
             app:iconTint="#163172" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
