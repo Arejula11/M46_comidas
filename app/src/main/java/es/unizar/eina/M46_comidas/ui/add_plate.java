@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import androidx.lifecycle.ViewModelProvider;
+import android.widget.Toast;
 
 
 
@@ -58,17 +59,28 @@ public class add_plate extends AppCompatActivity {
 
             String nombre = editTextNombre.getText().toString();
             String ingredientes = editTextIngrediente.getText().toString();
-            Double precio = Double.parseDouble(editTextPrecio.getText().toString());
+            Double precio;
+            try{
+                 precio = Double.parseDouble(editTextPrecio.getText().toString());
+            }catch(NumberFormatException e){
+                 precio = -1.0;
+            }
+
             String categoriaSeleccionada = spinnerCategoria.getSelectedItem().toString();
 
+            if (nombre.isEmpty() || ingredientes.isEmpty()|| precio == -1.0){
+                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
 
-            Plato plato = new Plato(nombre,ingredientes,categoriaSeleccionada,precio);
-            mPlatoViewModel.insert(plato);
-            Intent intent = new Intent(this, plates_page.class);
-            intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
-            intent.putExtra("origen", "plates_page"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            }else {
+                Plato plato = new Plato(nombre,ingredientes,categoriaSeleccionada,precio);
+                mPlatoViewModel.insert(plato);
+                Intent intent = new Intent(this, plates_page.class);
+                intent.putExtra("operacion", intentaux.getStringExtra("operacion"));
+                intent.putExtra("origen", "plates_page");
 
-            startActivity(intent);
+                startActivity(intent);
+            }
+
         });
 
 
