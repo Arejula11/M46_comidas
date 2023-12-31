@@ -6,6 +6,7 @@ Aplicación en java que permite la gestión de los platos y pedidos para un rest
 
 ### Colaboradores
 Pablo Ernesto Angusto Delgado
+
 Miguel Aréjula Aísa
 
 ### TO DO
