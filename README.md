@@ -12,3 +12,4 @@ Miguel Aréjula Aísa
 ### TO DO
 - [ ] Pruebas unitarias
 - [ ] Limitar la fecha y hora de recogida a (Marte y Domingo de 19:30 a 23:00)
+- [ ] A la hora de introducir el precio por primera vez no deja poner decimales
