@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -178,8 +179,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
-            racionesSingleton.reset();
-            mRacionViewModel.deleteAll(id);
+
 
 
 
@@ -192,21 +192,36 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             long fechaYhora = 0;
             String date = editTextDate.getText().toString();
             SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+            int dia = 1;
             try {
                 Date aux = input.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+                dia = calendar.get(Calendar.DAY_OF_WEEK);
+
                 SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
                 date = output.format(aux);
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                // throw new RuntimeException(e);
+                date ="";
             }
             String time = editTextTime.getText().toString();
             SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+            int hourOfDay = 0;
+            int minute = 0;
             try {
                 Date aux = input2.parse(time);
                 SimpleDateFormat output = new SimpleDateFormat("HHmm");
                 time = output.format(aux);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+
+                hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
+                time = "";
             }
 
                 //i++;
@@ -224,16 +239,26 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             }
 
             String categoriaSeleccionada = spinner.getSelectedItem().toString();
+            //comprobar que no esten vacios
+            if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(this, orders_page.class);
-            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
-            pedido.setId(id);
-            mPedidoViewModel.update(pedido);
+            }else if(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
+                Toast.makeText(getApplicationContext(), "Error: fecha de recogido inválida", Toast.LENGTH_LONG).show();
+            }else {
+                racionesSingleton.reset();
+                mRacionViewModel.deleteAll(id);
+                Intent intent = new Intent(this, orders_page.class);
+                pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
+                pedido.setId(id);
+                mPedidoViewModel.update(pedido);
                 for (RacionVisual racion : racionesSingleton.getRaciones()) {
                     mRacionViewModel.insert(racion.racion);
                 }
-            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-            startActivity(intent);
+                intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+                startActivity(intent);
+            }
+
         });
         Button buttonAtras = findViewById(R.id.buttonAtras);
         buttonAtras.setOnClickListener(view -> {
