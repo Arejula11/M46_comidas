@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,10 @@ public class orders_description extends AppCompatActivity {
             startActivity(intent);
         });
         buttonEliminar.setOnClickListener(view -> {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Eliminando el pedido  " + pedido.getNombrecliente(),
+                    Toast.LENGTH_LONG).show();
             mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
                 // Update the cached copy of the notes in the adapter.
                 for(Racion racion : raciones){
