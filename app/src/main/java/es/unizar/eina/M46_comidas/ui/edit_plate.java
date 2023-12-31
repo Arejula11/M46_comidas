@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -73,18 +74,29 @@ public class edit_plate extends AppCompatActivity {
 
             String nombre = editTextNombreMod.getText().toString();
             String ingredientes = editTextIngredienteMod.getText().toString();
-            Double precio = Double.parseDouble(editTextPrecioMod.getText().toString());
+            Double precio;
+            try{
+                precio = Double.parseDouble(editTextPrecio.getText().toString());
+            }catch(NumberFormatException e){
+                precio = -1.0;
+            }
             String categoriaSeleccionada = spinnerCategoriaMod.getSelectedItem().toString();
 
 
-            Plato platoMod = new Plato(nombre,ingredientes,categoriaSeleccionada,precio);
-            platoMod.setId(plato.getId());
-            mPlatoViewModel.update(platoMod);
-            Intent intent = new Intent(this, plato_description.class);
-            intent.putExtra("Objeto", platoMod);
-            intent.putExtra("operacion", intentaux.getStringExtra("operacion"));
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            if (nombre.isEmpty() || ingredientes.isEmpty()|| precio == -1.0){
+                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
+
+            }else {
+
+                Plato platoMod = new Plato(nombre, ingredientes, categoriaSeleccionada, precio);
+                platoMod.setId(plato.getId());
+                mPlatoViewModel.update(platoMod);
+                Intent intent = new Intent(this, plato_description.class);
+                intent.putExtra("Objeto", platoMod);
+                intent.putExtra("operacion", intentaux.getStringExtra("operacion"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
         });
     }
 }
