@@ -63,7 +63,7 @@ public class plato_description extends AppCompatActivity {
         buttonEliminar.setOnClickListener(view -> {
             Toast.makeText(
                     getApplicationContext(),
-                    "Deleting " + plato.getNombre(),
+                    "Eliminando el plato  " + plato.getNombre(),
                     Toast.LENGTH_LONG).show();
             mPlatoViewModel.delete(plato);
             Intent intent = new Intent(this, plates_page.class);
