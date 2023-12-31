@@ -2,11 +2,15 @@ package es.unizar.eina.M46_comidas.database;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class ComidasRepository {
 
@@ -19,6 +23,8 @@ public class ComidasRepository {
 
 
     private LiveData<List<Plato>> mAllPlatos;
+
+    private final long TIMEOUT = 15000;
 
 
 
@@ -119,13 +125,21 @@ public class ComidasRepository {
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
     public long insert(Plato plato) {
-        final long[] result = {0};
+        AtomicLong result = new AtomicLong();
+        Semaphore resource = new Semaphore(0);
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
         // that you're not doing any long running operations on the main thread, blocking the UI.
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPlatoDao.insert(plato);
+            long value = mPlatoDao.insert(plato);
+            result.set(value);
+            resource.release();
         });
-        return result[0];
+        try {
+            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        }
+        return result.get();
     }
     public long insert(Racion racion) {
         final long[] result = {0};

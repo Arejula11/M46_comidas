@@ -33,12 +33,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -170,7 +172,6 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
         buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         buttonAddPedido.setOnClickListener(view -> {
-            racionesSingleton.reset();
 
 
             String nombreCliente2 = editTextNombreCliente.getText().toString();
@@ -182,21 +183,36 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
             long fechaYhora = 0;
             String date = editTextDate.getText().toString();
             SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+            int dia = 1;
             try {
                 Date aux = input.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+                dia = calendar.get(Calendar.DAY_OF_WEEK);
+
                 SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
                 date = output.format(aux);
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                // throw new RuntimeException(e);
+                date ="";
             }
             String time = editTextTime.getText().toString();
             SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+            int hourOfDay = 0;
+            int minute = 0;
             try {
                 Date aux = input2.parse(time);
                 SimpleDateFormat output = new SimpleDateFormat("HHmm");
                 time = output.format(aux);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+
+                hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
+                time = "";
             }
 
             //i++;
@@ -205,6 +221,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
             List<RacionVisual> raciones = mAdapter.getCurrentList();
             int i=0;
+            precioTotal = 0.0;
             for(RacionVisual aux : raciones){
 
                 precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
@@ -212,17 +229,27 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
             }
 
-            Intent intent = new Intent(this, orders_page.class);
-            pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), "Solicitado", precioTotal);
-            mPedidoViewModel.insert(pedido).observe(this, insertedId -> {
-                for(RacionVisual aux : racionesSingleton.getRaciones()){
-                    aux.racion.setPedidoId(insertedId.intValue());
-                    mRacionViewModel.insert(aux.racion);
-                }
-            });
 
-            intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-            startActivity(intent);
+            //comprobar que no esten vacios
+            if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
+
+            }else if(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
+                Toast.makeText(getApplicationContext(), "Error: fecha de recogido inválida", Toast.LENGTH_LONG).show();
+            }else {
+
+                Intent intent = new Intent(this, orders_page.class);
+                pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date + time), "Solicitado", precioTotal);
+                mPedidoViewModel.insert(pedido).observe(this, insertedId -> {
+                    for (RacionVisual aux : racionesSingleton.getRaciones()) {
+                        aux.racion.setPedidoId(insertedId.intValue());
+                        mRacionViewModel.insert(aux.racion);
+                    }
+                });
+                racionesSingleton.reset();
+                intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+                startActivity(intent);
+            }
         });
         Button buttonAtras = findViewById(R.id.buttonAtras);
         buttonAtras.setOnClickListener(view -> {
@@ -260,66 +287,66 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
 
     }
 
-     @Override
-     public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
-         if (v == btnDatePicker) {
+        if (v == btnDatePicker) {
 
-             // Get Current Date
-             final Calendar c = Calendar.getInstance();
-             mYear = c.get(Calendar.YEAR);
-             mMonth = c.get(Calendar.MONTH);
-             mDay = c.get(Calendar.DAY_OF_MONTH);
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                     new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
 
-                         @Override
+                        @Override
                         public void onDateSet(DatePicker view, int year,
-                                               int monthOfYear, int dayOfMonth) {
+                                              int monthOfYear, int dayOfMonth) {
 
-                             txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
-                         }
-                     }, mYear, mMonth, mDay);
-             datePickerDialog.show();
-         }
-         if (v == btnTimePicker) {
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+        if (v == btnTimePicker) {
 
-             // Get Current Time
-             final Calendar c = Calendar.getInstance();
-             mHour = c.get(Calendar.HOUR_OF_DAY);
-             mMinute = c.get(Calendar.MINUTE);
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
 
-             // Launch Time Picker Dialog
-             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                     new TimePickerDialog.OnTimeSetListener() {
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
 
-                         @Override
-                         public void onTimeSet(TimePicker view, int hourOfDay,
-                                               int minute) {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
 
-                             txtTime.setText(hourOfDay + ":" + minute);
-                         }
-                     }, mHour, mMinute, false);
-             timePickerDialog.show();
-         }
-     }
+                            txtTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
+    }
 
 
-     public void onItemClick(int position) {
-         racionesSingleton.eliminarRacion(position);
-         precioTotal =0.0;
-         for(RacionVisual aux : mAdapter.getCurrentList()){
-             precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+    public void onItemClick(int position) {
+        racionesSingleton.eliminarRacion(position);
+        precioTotal =0.0;
+        for(RacionVisual aux : mAdapter.getCurrentList()){
+            precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
 
-         }
-         editTextPrecio.setText(String.valueOf(precioTotal));
-         mAdapter.notifyItemRemoved(position);
-         mAdapter.submitList(racionesSingleton.getRaciones());
+        }
+        editTextPrecio.setText(String.valueOf(precioTotal));
+        mAdapter.notifyItemRemoved(position);
+        mAdapter.submitList(racionesSingleton.getRaciones());
 
-     }
+    }
 
     public void onTextChanged(int position, String text){
         precioTotal =0.0;

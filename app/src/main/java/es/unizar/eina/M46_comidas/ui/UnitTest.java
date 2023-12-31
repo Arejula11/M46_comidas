@@ -37,12 +37,12 @@ public class UnitTest {
     //@Test
     public void prueba_sobrecarga() {
         String ingr = "00000000000000000000000000000";
-        for(int i =0; i<100; i++){
+        for(int i =0; i<200; i++){
 
             Plato plato = new Plato("PlatoPrueba", ingr, "PRIMERO", Double.valueOf(i));
             mRepository.insert(plato);
-            for(int x = 0; x < 3; x++){
-                ingr += ('a' + i);
+            for(int x = 0; x < 1000000; x++){
+                ingr += ('a');
 
             }
             Log.d("VALOR", String.valueOf(i));
