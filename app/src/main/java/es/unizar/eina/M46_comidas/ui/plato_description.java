@@ -11,6 +11,7 @@ import es.unizar.eina.M46_comidas.database.Plato;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class plato_description extends AppCompatActivity {
@@ -60,6 +61,10 @@ public class plato_description extends AppCompatActivity {
             startActivity(intent);
         });
         buttonEliminar.setOnClickListener(view -> {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Deleting " + plato.getNombre(),
+                    Toast.LENGTH_LONG).show();
             mPlatoViewModel.delete(plato);
             Intent intent = new Intent(this, plates_page.class);
             intent.putExtra("operacion", intentaux.getStringExtra("operacion")); // Puedes cambiar "getAllPlatos" según tus necesidades
