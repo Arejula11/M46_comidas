@@ -111,7 +111,7 @@ public class orders_description extends AppCompatActivity {
         buttonEliminar.setOnClickListener(view -> {
             Toast.makeText(
                     getApplicationContext(),
-                    "Eliminando el pedido  " + pedido.getNombrecliente(),
+                    "Eliminando el pedido  de " + pedido.getNombrecliente(),
                     Toast.LENGTH_LONG).show();
             mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
                 // Update the cached copy of the notes in the adapter.
