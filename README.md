@@ -10,7 +10,7 @@ Pablo Ernesto Angusto Delgado
 Miguel Aréjula Aísa
 
 ### TO DO
-- [x] Pruebas unitarias
+- [ ] Pruebas unitarias
 - [x] Limitar la fecha y hora de recogida a (Marte y Domingo de 19:30 a 23:00)
 - [x] A la hora de introducir el precio por primera vez no deja poner decimales
 - [ ] Poner lo de atomic en todas las operaciones con la base de datos, solo esta puesto en un insert
