@@ -7,6 +7,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -122,13 +126,40 @@ public class ComidasRepository {
     // }
     public long insert(Pedido pedido){
 
-        String telefono = String.valueOf(pedido.getTel());
+        SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
+        int dia = 1;
+        Date aux;
+        try {
+             aux = input.parse(pedido.getFecha().toString().substring(0,8));
+        }catch(ParseException e){
+            return -1;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(aux);
+        dia = calendar.get(Calendar.DAY_OF_WEEK);
+
+        SimpleDateFormat input2 = new SimpleDateFormat("HHmm");
+        int hourOfDay = 0;
+        int minute = 0;
+        try{
+            aux = input2.parse(pedido.getFecha().toString().substring(8));
+        }catch (ParseException e){
+            return -1;
+        }
+
+        calendar = Calendar.getInstance();
+        calendar.setTime(aux);
+        hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+
+
         if(!pedido.getNombrecliente().isEmpty() &&
-                telefono.length() == 9 &&
+                pedido.getTel().toString().length() == 9 &&
                 (pedido.getEstado().equals("SOLICITADO") ||
                         pedido.getEstado().equals("PREPARADO") ||
                         pedido.getEstado().equals("RECOGIDO")) &&
-                pedido.getPrecio() >= 0.0){
+                pedido.getPrecio() >= 0.0 && !(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
             AtomicLong result = new AtomicLong();
             Semaphore resource = new Semaphore(0);
             ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
@@ -313,4 +344,26 @@ public class ComidasRepository {
      * @return un valor entero con el número de filas eliminadas.
      */
     public int delete(Racion racion) {
-        final int
+        final int[] result = {0};
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            result[0] = mRacionDao.delete(racion);
+        });
+        return result[0];
+    }
+    public void deleteAllRaciones() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mRacionDao.deleteAll();
+        });
+    }
+    public void deleteAllPedidos() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPedidoDao.deleteAll();
+        });
+    }
+    public void deleteAllPlatos() {
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPlatoDao.deleteAll();
+        });
+    }
+
+}

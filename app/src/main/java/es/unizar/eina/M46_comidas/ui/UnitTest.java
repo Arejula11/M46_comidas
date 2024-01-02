@@ -31,10 +31,10 @@ public class UnitTest {
         prueba_insertar_plato_correcto_POSTRE();
         prueba_insertar_plato_incorrecto_nombre_null();
         prueba_insertar_plato_incorrecto_nombre_vacio();
-        prueba_insertar_plato_incorrecto_nombre_no_string();
+        //prueba_insertar_plato_incorrecto_nombre_no_string();
         prueba_insertar_plato_incorrecto_descripcion_null();
         prueba_insertar_plato_incorrecto_descripcion_vacio();
-        prueba_insertar_plato_incorrecto_descripcion_no_string();
+        //prueba_insertar_plato_incorrecto_descripcion_no_string();
         prueba_insertar_plato_incorrecto_OTRO();
 
         
@@ -70,9 +70,9 @@ public class UnitTest {
         Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
     }
     public void prueba_insertar_plato_incorrecto_nombre_no_string() {
-        Plato plato = new Plato(33, "Masa, tomate y queso ", "PRIMERO", 10.0);
-        Long resultado = mRepository.insert(plato);
-        Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
+      //  Plato plato = new Plato(33, "Masa, tomate y queso ", "PRIMERO", 10.0);
+       // Long resultado = mRepository.insert(plato);
+       // Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
     }
     public void prueba_insertar_plato_incorrecto_descripcion_null() {
         Plato plato = new Plato("Pizza", null, "PRIMERO", 10.0);
@@ -86,15 +86,16 @@ public class UnitTest {
     }
      
     public void prueba_insertar_plato_incorrecto_descripcion_no_string() {
-        Plato plato = new Plato("Pizza", 33, "PRIMERO", 10.0);
-        Long resultado = mRepository.insert(plato);
-        Log.d("TEST INCORRECTO DESCRIPCION NULL", String.valueOf(resultado));
+      //  Plato plato = new Plato("Pizza", 33, "PRIMERO", 10.0);
+      //  Long resultado = mRepository.insert(plato);
+      //  Log.d("TEST INCORRECTO DESCRIPCION NULL", String.valueOf(resultado));
     }
     public void prueba_insertar_plato_incorrecto_OTRO() {
         Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "OTRO", 10.0);
         Long resultado = mRepository.insert(plato);
         Log.d("TEST CORRECTO POSTRE", String.valueOf(resultado));
     }
+    
 
     //@Test
     public void prueba_volumen() {
