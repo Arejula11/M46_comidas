@@ -21,6 +21,14 @@ public class plato_description extends AppCompatActivity {
     Button buttonEliminar;
     private PlatoViewModel mPlatoViewModel;
 
+    TextView textViewNombre;
+    TextView textViewIngredientes;
+    TextView textViewPrecio;
+    TextView textViewCategoria;
+    Plato plato;
+
+   
+
 
 
 
@@ -29,13 +37,13 @@ public class plato_description extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plato_description);
 
-        TextView textViewNombre = findViewById(R.id.textViewNombre2);
-        TextView textViewIngredientes = findViewById(R.id.textViewIngrediente2);
-        TextView textViewPrecio = findViewById(R.id.textViewPrecio2);
-        TextView textViewCategoria = findViewById(R.id.textViewCategoria2);
+        textViewNombre = findViewById(R.id.textViewNombre2);
+        textViewIngredientes = findViewById(R.id.textViewIngrediente2);
+        textViewPrecio = findViewById(R.id.textViewPrecio2);
+        textViewCategoria = findViewById(R.id.textViewCategoria2);
 
         Intent intentaux = getIntent();
-        Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
+        plato = (Plato) intentaux.getSerializableExtra("Objeto");
 
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 

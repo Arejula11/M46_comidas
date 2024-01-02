@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 //import es.unizar.eina.M46_comidas.;
+import es.unizar.eina.M46_comidas.*;
 
 import es.unizar.eina.M46_comidas.R;
 
@@ -64,6 +65,6 @@ public class home extends AppCompatActivity {
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.eliminar_datos();
         });
-
     }
 }
+        

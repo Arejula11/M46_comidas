@@ -33,18 +33,24 @@ public class orders_description extends AppCompatActivity {
     private RacionViewModel mRacionViewModel;
     private PlatoViewModel mPlatoViewModel;
 
+    TextView textViewNombreCliente;
+    TextView textViewPrecio;
+    TextView textViewTelefono;
+    TextView textViewFecha;
+    Pedido pedido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders_description);
 
-        TextView textViewNombreCliente = findViewById(R.id.textViewNombreClienteFill);
-        TextView textViewPrecio = findViewById(R.id.textViewPrecioFill);
-        TextView textViewTelefono = findViewById(R.id.textViewTelefonoFill);
-        TextView textViewFecha = findViewById(R.id.textViewFechaFill);
+        textViewNombreCliente = findViewById(R.id.textViewNombreClienteFill);
+        textViewPrecio = findViewById(R.id.textViewPrecioFill);
+        textViewTelefono = findViewById(R.id.textViewTelefonoFill);
+        textViewFecha = findViewById(R.id.textViewFechaFill);
 
         Intent intentaux = getIntent();
-        Pedido pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
+        pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
         intentaux.putExtra("invisible", true);
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
@@ -57,40 +63,7 @@ public class orders_description extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
-            // Update the cached copy of the notes in the adapter.
-            //mAdapter.submitList(raciones);
-
-            //rellena una lista
-            List<RacionVisual> racionesVisualesAux= new ArrayList<>();
-
-            //llamada getNombre
-            for(Racion racion : raciones){
-                mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
-                    RacionVisual racionVisual  = new RacionVisual(plato.getNombre(),racion, plato.getPrecio());
-                    racionesVisualesAux.add(racionVisual);
-                    mAdapter.submitList(racionesVisualesAux);
-
-                });
-            }
-            //
-        });
-
-        // mAdapter.submitList(raciones);
-        // mAdapter.getCurrentList();
-
-        //rellenar una lista con todos las raciones
-
-        // se rellena el racionesVisual con esa lista se hace una llamada a la bd
-
-
-
-        textViewNombreCliente.setText(pedido.getNombrecliente().toString());
-        textViewPrecio.setText(String.valueOf(pedido.getPrecio()));
-        textViewTelefono.setText(pedido.getTel().toString());
-        textViewFecha.setText("Fecha: " + pedido.getFecha().toString().substring(0,4) + '-'
-                + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
-                + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
+        
 
 
         buttonAtras = findViewById(R.id.buttonAtras);
@@ -140,6 +113,31 @@ public class orders_description extends AppCompatActivity {
         });
 
 
+    }
+    private void mostrarInformacion(){
+        mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
+
+            //rellena una lista
+            List<RacionVisual> racionesVisualesAux= new ArrayList<>();
+
+            //llamada getNombre
+            for(Racion racion : raciones){
+                mPlatoViewModel.getPlatoId(racion.getPlatoId()).observe(this, plato -> {
+                    RacionVisual racionVisual  = new RacionVisual(plato.getNombre(),racion, plato.getPrecio());
+                    racionesVisualesAux.add(racionVisual);
+                    mAdapter.submitList(racionesVisualesAux);
+
+                });
+            }
+            
+        });
+
+        textViewNombreCliente.setText(pedido.getNombrecliente().toString());
+        textViewPrecio.setText(String.valueOf(pedido.getPrecio()));
+        textViewTelefono.setText(pedido.getTel().toString());
+        textViewFecha.setText("Fecha: " + pedido.getFecha().toString().substring(0,4) + '-'
+                + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
+                + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
     }
 
 }

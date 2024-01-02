@@ -40,7 +40,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     List<Racion> raciones;
     List<RacionVisual> racionesVis;
 
-    Button btnDatePicker, btnTimePicker;
+    Button btnDatePicker, btnTimePicker, buttonAddRacion, buttonAddPedido;
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     PedidoViewModel mPedidoViewModel;
@@ -48,17 +48,23 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     RacionViewModel mRacionViewModel;
     RacionListAdapter mAdapter;
     Double precioTotal;
-    EditText editTextPrecio;
+    EditText editTextPrecio, editTextNombreCliente, editTextTelefono, editTextDate, editTextTime;
 
+    RecyclerView mRecyclerView;
+
+    String[] opciones = {"Solicitado", "Preparado", "Recogido"};
+    Spinner spinner;
+    
     int id;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_order);
 
-        Spinner spinner = findViewById(R.id.spinnerCategorias);
+        spinner = findViewById(R.id.spinnerCategorias);
 
-        String[] opciones = {"Solicitado", "Preparado", "Recogido"};
+        
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
 
@@ -72,16 +78,15 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         racionesVis = racionesSingleton.getRaciones();
 
         pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
-
         precioTotal = 0.0;
         id = pedido.getId();
-        EditText editTextNombreCliente = findViewById(R.id.editTextNombreClienteEdit);
-        EditText editTextTelefono = findViewById(R.id.editTextTelefonoEdit);
-        EditText editTextDate = findViewById(R.id.in_date);
-        EditText editTextTime = findViewById(R.id.in_time);
+        editTextNombreCliente = findViewById(R.id.editTextNombreClienteEdit);
+        editTextTelefono = findViewById(R.id.editTextTelefonoEdit);
+        editTextDate = findViewById(R.id.in_date);
+        editTextTime = findViewById(R.id.in_time);
         editTextPrecio = findViewById(R.id.editTextPrecioEdit);
-        Button buttonAddRacion = findViewById(R.id.buttonAddRacion);
-        Button buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
+        buttonAddRacion = findViewById(R.id.buttonAddRacion);
+        buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
         txtDate=(EditText)findViewById(R.id.in_date);
@@ -91,18 +96,146 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         int categoriaIndex = Arrays.asList(opciones).indexOf(pedido.getEstado());
         spinner.setSelection(categoriaIndex);
 
-
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
-
-        RecyclerView mRecyclerView;
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        mRecyclerView = findViewById(R.id.recyclerViewPlates);
+        mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
+        mAdapter.setOnItemClickListener(position -> this.onItemClick(position));
+        mAdapter.setTextChangedListener((position, text) -> this.onTextChanged(position, text));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        buttonAddRacion = findViewById(R.id.buttonAddRacion);
+        buttonAddRacion.setOnClickListener(view -> {
+            int telefono = 0;
+            String tel = editTextTelefono.getText().toString();
+            if(!tel.isEmpty()){
+                telefono = Integer.parseInt(tel);
+            }
+            racionesSingleton.setNombre(editTextNombreCliente.getText().toString());
+            racionesSingleton.setTelefono(telefono);
+            racionesSingleton.setDate(editTextDate.getText().toString());
+            racionesSingleton.setTime(editTextTime.getText().toString());
+
+            Intent intent = new Intent(this, plates_for_order.class);
+            intent.putExtra("origen", "plates_for_orderEdit");
+            intent.putExtra("Pedido", pedido);
+            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
+
+        buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
+        buttonAddPedido.setOnClickListener(view -> {
+
+            String nombreCliente2 = editTextNombreCliente.getText().toString();
+            int telefono = 0;
+            String tel2 = editTextTelefono.getText().toString();
+            if(!tel2.isEmpty()){
+                telefono = Integer.parseInt(tel2);
+            }
+            long fechaYhora = 0;
+            String date = editTextDate.getText().toString();
+            SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
+            int dia = 1;
+            try {
+                Date aux = input.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+                dia = calendar.get(Calendar.DAY_OF_WEEK);
+
+                SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+                date = output.format(aux);
+            } catch (ParseException e) {
+                date ="";
+            }
+            String time = editTextTime.getText().toString();
+            SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
+            int hourOfDay = 0;
+            int minute = 0;
+            try {
+                Date aux = input2.parse(time);
+                SimpleDateFormat output = new SimpleDateFormat("HHmm");
+                time = output.format(aux);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(aux);
+
+                hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+
+            } catch (ParseException e) {
+                time = "";
+            }
+
+
+            List<RacionVisual> raciones = mAdapter.getCurrentList();
+            int i=0;
+            precioTotal = 0.0;
+            for(RacionVisual aux : raciones){
+
+                precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
+                i++;
+
+            }
+
+            String categoriaSeleccionada = spinner.getSelectedItem().toString();
+            //comprobar que no esten vacios
+            if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
+
+            }else if(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
+                Toast.makeText(getApplicationContext(), "Error: fecha de recogida inválida", Toast.LENGTH_LONG).show();
+            }else {
+                racionesSingleton.reset();
+                mRacionViewModel.deleteAll(id);
+                Intent intent = new Intent(this, orders_page.class);
+                pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
+                pedido.setId(id);
+                mPedidoViewModel.update(pedido);
+                for (RacionVisual racion : racionesSingleton.getRaciones()) {
+                    mRacionViewModel.insert(racion.racion);
+                }
+                intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+                startActivity(intent);
+            }
+
+        });
+        Button buttonAtras = findViewById(R.id.buttonAtras);
+        buttonAtras.setOnClickListener(view -> {
+            racionesSingleton.reset();
+            Intent intent = new Intent(this, orders_description.class);
+            intent.putExtra("Pedido", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
+            startActivity(intent);
+        });
+
+    }
+    private void añadirRacionALista(){
+        if(intentaux.hasExtra("Objeto")){
+            Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
+            boolean repetido = false;
+            for(RacionVisual aux : racionesSingleton.getRaciones()){
+                if(plato.getId() == aux.racion.getPlatoId()){
+                    repetido = true;
+                }
+            }
+            if(!repetido){
+                Racion racion = new Racion(plato.getId(), id, 1);
+                RacionVisual racionv = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
+                racionesSingleton.agregarRacion(racionv);
+                racionesVis = racionesSingleton.getRaciones();
+                mAdapter.submitList(racionesVis);
+            }
+
+
+        }
+    }
+    private void mostrarInformacion(){
         mRacionViewModel.getAllRaciones(pedido.getId()).observe(this, raciones -> {
             // Update the cached copy of the notes in the adapter.
             if(racionesSingleton.getPrimeraVez()) {
@@ -140,151 +273,6 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
                 pedido.getFecha().toString().substring(4,6)+'-'+pedido.getFecha().toString().substring(0,4));
         editTextTime.setText(pedido.getFecha().toString().substring(8,10)+':'+
                 pedido.getFecha().toString().substring(10,12));
-
-        mRecyclerView = findViewById(R.id.recyclerViewPlates);
-        mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
-        mAdapter.setOnItemClickListener(position -> this.onItemClick(position));
-        mAdapter.setTextChangedListener((position, text) -> this.onTextChanged(position, text));
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        buttonAddRacion = findViewById(R.id.buttonAddRacion);
-        buttonAddRacion.setOnClickListener(view -> {
-            String nombreCliente = editTextNombreCliente.getText().toString();
-            int telefono = 0;
-            Double precioTotal = 0.0;
-            String tel = editTextTelefono.getText().toString();
-            long fechaYhora = 0;
-            if(!tel.isEmpty()){
-                telefono = Integer.parseInt(tel);
-            }
-            String date = editTextDate.getText().toString();
-
-
-            String time = editTextTime.getText().toString();
-
-
-
-
-            racionesSingleton.setNombre(nombreCliente);
-            racionesSingleton.setTelefono(telefono);
-            racionesSingleton.setDate(date);
-            racionesSingleton.setTime(time);
-
-            Intent intent = new Intent(this, plates_for_order.class);
-            intent.putExtra("origen", "plates_for_orderEdit");
-            intent.putExtra("Pedido", pedido);
-            intent.putExtra("operacion", "getAllPlatos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-            startActivity(intent);
-        });
-
-        buttonAddPedido = findViewById(R.id.buttonGuardarPedido);
-        buttonAddPedido.setOnClickListener(view -> {
-
-
-
-
-            String nombreCliente2 = editTextNombreCliente.getText().toString();
-            int telefono = 0;
-            String tel2 = editTextTelefono.getText().toString();
-            if(!tel2.isEmpty()){
-                telefono = Integer.parseInt(tel2);
-            }
-            long fechaYhora = 0;
-            String date = editTextDate.getText().toString();
-            SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
-            int dia = 1;
-            try {
-                Date aux = input.parse(date);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(aux);
-                dia = calendar.get(Calendar.DAY_OF_WEEK);
-
-                SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
-                date = output.format(aux);
-            } catch (ParseException e) {
-                // throw new RuntimeException(e);
-                date ="";
-            }
-            String time = editTextTime.getText().toString();
-            SimpleDateFormat input2 = new SimpleDateFormat("HH:mm");
-            int hourOfDay = 0;
-            int minute = 0;
-            try {
-                Date aux = input2.parse(time);
-                SimpleDateFormat output = new SimpleDateFormat("HHmm");
-                time = output.format(aux);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(aux);
-
-                hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-                minute = calendar.get(Calendar.MINUTE);
-
-            } catch (ParseException e) {
-                //throw new RuntimeException(e);
-                time = "";
-            }
-
-                //i++;
-
-            //}
-
-            List<RacionVisual> raciones = mAdapter.getCurrentList();
-            int i=0;
-            precioTotal = 0.0;
-            for(RacionVisual aux : raciones){
-
-                precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
-                i++;
-
-            }
-
-            String categoriaSeleccionada = spinner.getSelectedItem().toString();
-            //comprobar que no esten vacios
-            if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
-
-            }else if(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
-                Toast.makeText(getApplicationContext(), "Error: fecha de recogido inválida", Toast.LENGTH_LONG).show();
-            }else {
-                racionesSingleton.reset();
-                mRacionViewModel.deleteAll(id);
-                Intent intent = new Intent(this, orders_page.class);
-                pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date+time), categoriaSeleccionada, precioTotal);
-                pedido.setId(id);
-                mPedidoViewModel.update(pedido);
-                for (RacionVisual racion : racionesSingleton.getRaciones()) {
-                    mRacionViewModel.insert(racion.racion);
-                }
-                intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-                startActivity(intent);
-            }
-
-        });
-        Button buttonAtras = findViewById(R.id.buttonAtras);
-        buttonAtras.setOnClickListener(view -> {
-            racionesSingleton.reset();
-            Intent intent = new Intent(this, orders_description.class);
-            intent.putExtra("Pedido", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
-            startActivity(intent);
-        });
-        if(intentaux.hasExtra("Objeto")){
-            Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
-            boolean repetido = false;
-            for(RacionVisual aux : racionesSingleton.getRaciones()){
-                if(plato.getId() == aux.racion.getPlatoId()){
-                    repetido = true;
-                }
-            }
-            if(!repetido){
-                Racion racion = new Racion(plato.getId(), id, 1);
-                RacionVisual racionv = new RacionVisual(plato.getNombre(), racion, plato.getPrecio());
-                racionesSingleton.agregarRacion(racionv);
-                racionesVis = racionesSingleton.getRaciones();
-                mAdapter.submitList(racionesVis);
-            }
-
-
-        }
     }
 
 

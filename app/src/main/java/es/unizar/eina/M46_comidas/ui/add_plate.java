@@ -22,14 +22,28 @@ public class add_plate extends AppCompatActivity {
     private PlatoViewModel mPlatoViewModel;
     Button buttonAtras;
     Button buttonAdd;
+
+    EditText editTextNombre;
+    EditText editTextIngrediente;
+    EditText editTextPrecio;
+    Spinner spinnerCategoria;
+
+    private String nombre;
+    private String ingredientes;
+    private Double precio;
+
+    Spinner spinner;
+
+    String[] opciones = {"PRIMERO", "SEGUNDO", "POSTRE"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plate);
 
-        Spinner spinner = findViewById(R.id.spinnerCategorias);
+        spinner = findViewById(R.id.spinnerCategorias);
 
-        String[] opciones = {"PRIMERO", "SEGUNDO", "POSTRE"};
+      
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
 
@@ -52,14 +66,14 @@ public class add_plate extends AppCompatActivity {
         });
 
         buttonAdd. setOnClickListener(view -> {
-            EditText editTextNombre = findViewById(R.id.editTextNombre);
-            EditText editTextIngrediente = findViewById(R.id.editTextIngrediente);
-            EditText editTextPrecio = findViewById(R.id.editTextPrecio);
-            Spinner spinnerCategoria = findViewById(R.id.spinnerCategorias);
+            editTextNombre = findViewById(R.id.editTextNombre);
+            editTextIngrediente = findViewById(R.id.editTextIngrediente);
+            editTextPrecio = findViewById(R.id.editTextPrecio);
+            spinnerCategoria = findViewById(R.id.spinnerCategorias);
 
-            String nombre = editTextNombre.getText().toString();
-            String ingredientes = editTextIngrediente.getText().toString();
-            Double precio;
+            nombre = editTextNombre.getText().toString();
+            ingredientes = editTextIngrediente.getText().toString();
+
             try{
                  precio = Double.parseDouble(editTextPrecio.getText().toString());
             }catch(NumberFormatException e){

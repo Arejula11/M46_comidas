@@ -30,7 +30,7 @@ public class orders_page extends AppCompatActivity {
     PedidoListAdapter mAdapter;
     
     RecyclerView mRecyclerView;
-
+    RadioGroup radioGroup;
 
 
     // private
@@ -40,9 +40,7 @@ public class orders_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders_page);
         
-        mRecyclerView = findViewById(R.id.recyclerView);
 
-        RecyclerView mRecyclerView;
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
         
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -51,7 +49,7 @@ public class orders_page extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
 
-        RadioGroup radioGroup = findViewById(R.id.radioGr);
+        radioGroup = findViewById(R.id.radioGr);
         Intent intentAnterior = getIntent();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

@@ -121,19 +121,31 @@ public class ComidasRepository {
     //     return insertedId;
     // }
     public long insert(Pedido pedido){
-        AtomicLong result = new AtomicLong();
-        Semaphore resource = new Semaphore(0);
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            long value = mPedidoDao.insert(pedido);
-            result.set(value);
-            resource.release();
-        });
-        try {
-            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+
+        String telefono = String.valueOf(pedido.getTel());
+        if(!pedido.getNombrecliente().isEmpty() &&
+                telefono.length() == 9 &&
+                (pedido.getEstado().equals("SOLICITADO") ||
+                        pedido.getEstado().equals("PREPARADO") ||
+                        pedido.getEstado().equals("RECOGIDO")) &&
+                pedido.getPrecio() >= 0.0){
+            AtomicLong result = new AtomicLong();
+            Semaphore resource = new Semaphore(0);
+            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                long value = mPedidoDao.insert(pedido);
+                result.set(value);
+                resource.release();
+            });
+            try {
+                resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+            } catch (Exception e) {
+                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+            }
+            return result.get();
+        }else{
+            return -1;
         }
-        return result.get();
+        
     }
 
     /** Inserta un plato
@@ -141,21 +153,26 @@ public class ComidasRepository {
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
     public long insert(Plato plato) {
-        AtomicLong result = new AtomicLong();
-        Semaphore resource = new Semaphore(0);
-        // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-        // that you're not doing any long running operations on the main thread, blocking the UI.
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            long value = mPlatoDao.insert(plato);
-            result.set(value);
-            resource.release();
-        });
-        try {
-            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        if(!plato.getNombre().isEmpty() && !plato.getIngredientes().isEmpty() && (plato.getCategoria().equals("PRIMERO") || plato.getCategoria().equals("SEGUNDO") || plato.getCategoria().equals("POSTRE"))
+        && plato.getPrecio() >= 0.0){
+            AtomicLong result = new AtomicLong();
+            Semaphore resource = new Semaphore(0);
+            // You must call this on a non-UI thread or your app will throw an exception. Room ensures
+            // that you're not doing any long running operations on the main thread, blocking the UI.
+            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                long value = mPlatoDao.insert(plato);
+                result.set(value);
+                resource.release();
+            });
+            try {
+                            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+            } catch (Exception e) {
+                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+            }
+            return result.get();
+        }else{
+            return -1;
         }
-        return result.get();
     }
 
     /** Inserta una racion
@@ -296,26 +313,4 @@ public class ComidasRepository {
      * @return un valor entero con el número de filas eliminadas.
      */
     public int delete(Racion racion) {
-        final int[] result = {0};
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mRacionDao.delete(racion);
-        });
-        return result[0];
-    }
-    public void deleteAllRaciones() {
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mRacionDao.deleteAll();
-        });
-    }
-    public void deleteAllPedidos() {
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPedidoDao.deleteAll();
-        });
-    }
-    public void deleteAllPlatos() {
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPlatoDao.deleteAll();
-        });
-    }
-
-}
+        final int

@@ -24,14 +24,20 @@ public class edit_plate extends AppCompatActivity {
 
     Button buttonCancelar;
     Button buttonConfirmar;
+    String[] opciones = {"PRIMERO", "SEGUNDO", "POSTRE"};
+    TextView editTextNombre;
+    TextView editTextIngredientes;
+    TextView editTextPrecio;
+    Spinner spinnerCategoria;
+    Plato plato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_plate);
-        Spinner spinner = findViewById(R.id.spinnerCategorias);
+        spinner = findViewById(R.id.spinnerCategorias);
 
-        String[] opciones = {"PRIMERO", "SEGUNDO", "POSTRE"};
+        
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
 
@@ -41,13 +47,13 @@ public class edit_plate extends AppCompatActivity {
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
 
-        TextView editTextNombre = findViewById(R.id.editTextNombre);
-        TextView editTextIngredientes = findViewById(R.id.editTextIngrediente);
-        TextView editTextPrecio = findViewById(R.id.editTextPrecio);
-        Spinner spinnerCategoria = findViewById(R.id.spinnerCategorias);
+        editTextNombre = findViewById(R.id.editTextNombre);
+        editTextIngredientes = findViewById(R.id.editTextIngrediente);
+        editTextPrecio = findViewById(R.id.editTextPrecio);
+        spinnerCategoria = findViewById(R.id.spinnerCategorias);
 
         Intent intentaux = getIntent();
-        Plato plato = (Plato) intentaux.getSerializableExtra("Objeto");
+        plato = (Plato) intentaux.getSerializableExtra("Objeto");
 
 
         editTextNombre.setText(plato.getNombre().toString());
@@ -67,20 +73,15 @@ public class edit_plate extends AppCompatActivity {
             startActivity(intent);
         });
         buttonConfirmar.setOnClickListener( view -> {
-            EditText editTextNombreMod = findViewById(R.id.editTextNombre);
-            EditText editTextIngredienteMod = findViewById(R.id.editTextIngrediente);
-            EditText editTextPrecioMod = findViewById(R.id.editTextPrecio);
-            Spinner spinnerCategoriaMod = findViewById(R.id.spinnerCategorias);
-
-            String nombre = editTextNombreMod.getText().toString();
-            String ingredientes = editTextIngredienteMod.getText().toString();
+            String nombre = editTextNombre.getText().toString();
+            String ingredientes = editTextIngrediente.getText().toString();
             Double precio;
             try{
                 precio = Double.parseDouble(editTextPrecio.getText().toString());
             }catch(NumberFormatException e){
                 precio = -1.0;
             }
-            String categoriaSeleccionada = spinnerCategoriaMod.getSelectedItem().toString();
+            String categoriaSeleccionada = spinnerCategoria.getSelectedItem().toString();
 
 
             if (nombre.isEmpty() || ingredientes.isEmpty()|| precio == -1.0){
