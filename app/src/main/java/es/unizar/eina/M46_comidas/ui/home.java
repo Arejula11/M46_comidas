@@ -52,6 +52,11 @@ public class home extends AppCompatActivity {
         buttonVolumen = findViewById(R.id.buttonVolumen);
         buttonEliminar = findViewById(R.id.buttonEliminarTodo);
 
+        buttonUnitarios.setOnClickListener(view->{
+            UnitTest unitTest = new UnitTest(this.getApplication());
+            unitTest.pruebas_unitarias();
+        });
+
         buttonVolumen.setOnClickListener(view -> {
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.prueba_volumen();

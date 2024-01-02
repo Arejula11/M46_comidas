@@ -26,16 +26,48 @@ public class UnitTest {
 
     //@Test
     public void pruebas_unitarias(){
+        //clases equivalencias validas para insertar plato
         prueba_insertar_plato_correcto_PRIMERO();
         prueba_insertar_plato_correcto_SEGUNDO();
         prueba_insertar_plato_correcto_POSTRE();
-        prueba_insertar_plato_incorrecto_nombre_null();
+
+        //clases equivalencias invalidas para insertar plato
+        //prueba_insertar_plato_incorrecto_nombre_null();
         prueba_insertar_plato_incorrecto_nombre_vacio();
-        //prueba_insertar_plato_incorrecto_nombre_no_string();
-        prueba_insertar_plato_incorrecto_descripcion_null();
-        prueba_insertar_plato_incorrecto_descripcion_vacio();
-        //prueba_insertar_plato_incorrecto_descripcion_no_string();
+        //prueba_insertar_plato_incorrecto_ingredientes_null();
+        prueba_insertar_plato_incorrecto_ingredientes_vacio();
         prueba_insertar_plato_incorrecto_OTRO();
+        //prueba_insertar_plato_incorrecto_precio_null();
+        prueba_insertar_plato_incorrecto_precio_negativo();
+
+        //clases equivalencias validas para editar plato
+        prueba_editar_plato_correcto_PRIMERO();
+        prueba_editar_plato_correcto_SEGUNDO();
+        prueba_editar_plato_correcto_POSTRE();
+
+        //clases equivalencias invalidas para editar plato
+        //prueba_editar_plato_incorrecto_nombre_null();
+        prueba_editar_plato_incorrecto_nombre_vacio();
+        //prueba_editar_plato_incorrecto_ingredientes_null();
+        prueba_editar_plato_incorrecto_ingredientes_vacio();
+        prueba_editar_plato_incorrecto_OTRO();
+        //prueba_editar_plato_incorrecto_precio_null();
+        prueba_editar_plato_incorrecto_precio_negativo();
+
+        //clases equivalencia validas para eliminar plato
+        prueba_eliminar_plato_correcto();
+
+        //clases equivalencias invalidas para eliminar plato
+        prueba_eliminar_plato_incorrecto_id_negativo();
+
+        //clases equivalencias validas para insertar pedido
+        //clases equivalencias invalidas para insertar pedido
+
+         //clases equivalencias validas para editar pedido
+        //clases equivalencias invalidas para editar pedido
+
+        //clases equivalencia validas para eliminar pedido
+        //clases equivalencias invalidas para eliminar pedido
 
         
 
@@ -69,33 +101,96 @@ public class UnitTest {
         Long resultado = mRepository.insert(plato);
         Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
     }
-    public void prueba_insertar_plato_incorrecto_nombre_no_string() {
-      //  Plato plato = new Plato(33, "Masa, tomate y queso ", "PRIMERO", 10.0);
-       // Long resultado = mRepository.insert(plato);
-       // Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
-    }
-    public void prueba_insertar_plato_incorrecto_descripcion_null() {
+   
+    public void prueba_insertar_plato_incorrecto_ingredientes_null() {
         Plato plato = new Plato("Pizza", null, "PRIMERO", 10.0);
         Long resultado = mRepository.insert(plato);
-        Log.d("TEST INCORRECTO DESCRIPCION NULL", String.valueOf(resultado));
+        Log.d("TEST INCORRECTO INGREDIENTES NULL", String.valueOf(resultado));
     }
-    public void prueba_insertar_plato_incorrecto_descripcion_vacio() {
+    public void prueba_insertar_plato_incorrecto_ingredientes_vacio() {
         Plato plato = new Plato("Pizza", "", "PRIMERO", 10.0);
         Long resultado = mRepository.insert(plato);
-        Log.d("TEST INCORRECTO DESCRIPCION NULL", String.valueOf(resultado));
+        Log.d("TEST INCORRECTO INGREDIENTES NULL", String.valueOf(resultado));
     }
      
-    public void prueba_insertar_plato_incorrecto_descripcion_no_string() {
-      //  Plato plato = new Plato("Pizza", 33, "PRIMERO", 10.0);
-      //  Long resultado = mRepository.insert(plato);
-      //  Log.d("TEST INCORRECTO DESCRIPCION NULL", String.valueOf(resultado));
-    }
+    
     public void prueba_insertar_plato_incorrecto_OTRO() {
         Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "OTRO", 10.0);
         Long resultado = mRepository.insert(plato);
-        Log.d("TEST CORRECTO POSTRE", String.valueOf(resultado));
+        Log.d("TEST INCORRECTO OTRO", String.valueOf(resultado));
     }
+    public void prueba_insertar_plato_incorrecto_precio_null() {
+        Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "PRIMERO", null);
+        Long resultado = mRepository.insert(plato);
+        Log.d("TEST INCORRECTO PRECIO NULL", String.valueOf(resultado));
+    }
+
+
+    public void prueba_insertar_plato_incorrecto_precio_negativo() {
+        Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "PRIMERO", -1.0);
+        Long resultado = mRepository.insert(plato);
+        Log.d("TEST INCORRECTO PRECIO NEGATIVO", String.valueOf(resultado));
+    }
+  
     
+  public void prueba_editar_plato_correcto_PRIMERO(){
+
+    }
+
+    public void prueba_editar_plato_correcto_SEGUNDO() {
+       
+     
+        
+    }
+    public void prueba_editar_plato_correcto_POSTRE() {
+       
+    }
+
+    public void prueba_editar_plato_incorrecto_nombre_null() {
+        
+    }
+    public void prueba_editar_plato_incorrecto_nombre_vacio() {
+        
+    }
+   
+    public void prueba_editar_plato_incorrecto_ingredientes_null() {
+        
+    }
+    public void prueba_editar_plato_incorrecto_ingredientes_vacio() {
+        
+    }
+     
+    
+    public void prueba_editar_plato_incorrecto_OTRO() {
+        
+    }
+    public void prueba_editar_plato_incorrecto_precio_null() {
+        
+    }
+
+
+    public void prueba_editar_plato_incorrecto_precio_negativo() {
+       
+    }
+
+    public void prueba_editar_plato_incorrecto_id_null() {
+       
+    }
+    public void prueba_editar_plato_incorrecto_id_negativo() {
+       
+    }
+    public void prueba_eliminar_plato_correcto() {
+       
+    }
+    public void prueba_eliminar_plato_incorrecto_id_negativo() {
+       
+    }
+
+
+
+
+
+
 
     //@Test
     public void prueba_volumen() {
