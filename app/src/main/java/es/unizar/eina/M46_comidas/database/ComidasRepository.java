@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class ComidasRepository {
@@ -103,24 +104,39 @@ public class ComidasRepository {
     public LiveData<Plato> getPlatoId(int id) {return mPlatoDao.getPlatoId(id);}
 
 
-    /** Inserta una nota
+    /** Inserta un pedido
      * @param pedido
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
-    public LiveData<Long> insert(Pedido pedido) {
-        final long[] result = {0};
-        // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-        // that you're not doing any long running operations on the main thread, blocking the UI.
-        MutableLiveData<Long> insertedId = new MutableLiveData<>();
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPedidoDao.insert(pedido);
-            insertedId.postValue(result[0]);
+    // public LiveData<Long> insert(Pedido pedido) {
+    //     final long[] result = {0};
+    //     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
+    //     // that you're not doing any long running operations on the main thread, blocking the UI.
+    //     MutableLiveData<Long> insertedId = new MutableLiveData<>();
+    //     ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+    //         result[0] = mPedidoDao.insert(pedido);
+    //         insertedId.postValue(result[0]);
 
-    });
-        return insertedId;
+    // });
+    //     return insertedId;
+    // }
+    public long insert(Pedido pedido){
+        AtomicLong result = new AtomicLong();
+        Semaphore resource = new Semaphore(0);
+        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+            long value = mPedidoDao.insert(pedido);
+            result.set(value);
+            resource.release();
+        });
+        try {
+            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        }
+        return result.get();
     }
 
-    /** Inserta una nota
+    /** Inserta un plato
      * @param plato
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
@@ -141,6 +157,11 @@ public class ComidasRepository {
         }
         return result.get();
     }
+
+    /** Inserta una racion
+     * @param racion
+     * @return un valor entero largo con el identificador de la nota que se ha creado.
+     */
     public long insert(Racion racion) {
         final long[] result = {0};
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
@@ -152,29 +173,64 @@ public class ComidasRepository {
     }
 
 
-    /** Modifica una nota
+    /** Modifica un pedido
      * @param pedido
      * @return un valor entero con el número de filas modificadas.
      */
     public int update(Pedido pedido) {
-        final int[] result = {0};
+        // final int[] result = {0};
+        // ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+        //     result[0] = mPedidoDao.update(pedido);
+        // });
+        // return result[0];
+        AtomicInteger result = new AtomicInteger();
+        Semaphore resource = new Semaphore(0);
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPedidoDao.update(pedido);
+            int value = mPedidoDao.update(pedido);
+            result.set(value);
+            resource.release();
         });
-        return result[0];
+        try {
+            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        }
+        return result.get();
+
+
     }
 
-    /** Modifica una nota
+    /** Modifica un plato
      * @param plato
      * @return un valor entero con el número de filas modificadas.
      */
     public int update(Plato plato) {
-        final int[] result = {0};
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPlatoDao.update(plato);
-        });
-        return result[0];
+    //     final int[] result = {0};
+    //     ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+    //         result[0] = mPlatoDao.update(plato);
+    //     });
+    //     return result[0];
+
+    AtomicInteger result = new AtomicInteger();
+    Semaphore resource = new Semaphore(0);
+    ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+        int value = mPlatoDao.update(plato);
+        result.set(value);
+        resource.release();
+    });
+    try {
+        resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+    } catch (Exception e) {
+        Log.d("ComidaRepository", "Exception: " + e.getMessage());
     }
+    return result.get();
+
+
+    }
+    /** Modifica una racion
+     * @param racion
+     * @return un valor entero con el número de filas modificadas.
+     */
     public int update(Racion racion) {
         final int[] result = {0};
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
@@ -184,29 +240,61 @@ public class ComidasRepository {
     }
 
 
-    /** Elimina una nota
+    /** Elimina un pedido
      * @param pedido
      * @return un valor entero con el número de filas eliminadas.
      */
     public int delete(Pedido pedido) {
-        final int[] result = {0};
+        // final int[] result = {0};
+        // ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+        //     result[0] = mPedidoDao.delete(pedido);
+        // });
+        // return result[0];
+
+        AtomicInteger result = new AtomicInteger();
+        Semaphore resource = new Semaphore(0);
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPedidoDao.delete(pedido);
+            int value = mPedidoDao.delete(pedido);
+            result.set(value);
+            resource.release();
         });
-        return result[0];
+        try {
+            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        }
+        return result.get();
     }
 
-    /** Elimina una nota
+    /** Elimina un plato
      * @param plato
      * @return un valor entero con el número de filas eliminadas.
      */
     public int delete(Plato plato) {
-        final int[] result = {0};
+        // final int[] result = {0};
+        // ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+        //     result[0] = mPlatoDao.delete(plato);
+        // });
+        // return result[0];
+        AtomicInteger result = new AtomicInteger();
+        Semaphore resource = new Semaphore(0);
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPlatoDao.delete(plato);
+            int value = mPlatoDao.delete(plato);
+            result.set(value);
+            resource.release();
         });
-        return result[0];
+        try {
+            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        }
+        return result.get();
     }
+
+    /** Elimina una racion
+     * @param racion
+     * @return un valor entero con el número de filas eliminadas.
+     */
     public int delete(Racion racion) {
         final int[] result = {0};
         ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
