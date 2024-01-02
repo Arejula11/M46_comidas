@@ -73,6 +73,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
     int id;
     TextView editTextPrecio;
     RecyclerView mRecyclerView;
+    Intent intentaux;
 
 
 
@@ -81,7 +82,7 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_order);
 
-        Intent intentaux = getIntent();
+        intentaux = getIntent();
 
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
 

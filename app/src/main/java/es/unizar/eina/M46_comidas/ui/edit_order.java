@@ -54,7 +54,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
     String[] opciones = {"Solicitado", "Preparado", "Recogido"};
     Spinner spinner;
-    
+    Intent intentaux;
+
     int id;
     
     @Override
@@ -72,7 +73,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
 
         spinner.setAdapter(adapter);
 
-        Intent intentaux = getIntent();
+        intentaux = getIntent();
 
         racionesSingleton = RacionesAddPedido.getInstance(pedido);
         racionesVis = racionesSingleton.getRaciones();

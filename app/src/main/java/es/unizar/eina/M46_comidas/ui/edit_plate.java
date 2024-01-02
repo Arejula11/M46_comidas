@@ -28,7 +28,7 @@ public class edit_plate extends AppCompatActivity {
     TextView editTextNombre;
     TextView editTextIngredientes;
     TextView editTextPrecio;
-    Spinner spinnerCategoria;
+    Spinner spinnerCategoria,spinner;
     Plato plato;
 
     @Override
@@ -74,7 +74,7 @@ public class edit_plate extends AppCompatActivity {
         });
         buttonConfirmar.setOnClickListener( view -> {
             String nombre = editTextNombre.getText().toString();
-            String ingredientes = editTextIngrediente.getText().toString();
+            String ingredientes = editTextIngredientes.getText().toString();
             Double precio;
             try{
                 precio = Double.parseDouble(editTextPrecio.getText().toString());
