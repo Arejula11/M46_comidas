@@ -125,57 +125,61 @@ public class ComidasRepository {
     //     return insertedId;
     // }
     public long insert(Pedido pedido){
-
-        SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
-        int dia = 1;
-        Date aux;
-        try {
-             aux = input.parse(pedido.getFecha().toString().substring(0,8));
-        }catch(ParseException e){
-            return -1;
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(aux);
-        dia = calendar.get(Calendar.DAY_OF_WEEK);
-
-        SimpleDateFormat input2 = new SimpleDateFormat("HHmm");
-        int hourOfDay = 0;
-        int minute = 0;
-        try{
-            aux = input2.parse(pedido.getFecha().toString().substring(8));
-        }catch (ParseException e){
-            return -1;
-        }
-
-        calendar = Calendar.getInstance();
-        calendar.setTime(aux);
-        hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
-
-
-        if(!pedido.getNombrecliente().isEmpty() &&
-                pedido.getTel().toString().length() == 9 &&
-                (pedido.getEstado().equals("SOLICITADO") ||
-                        pedido.getEstado().equals("PREPARADO") ||
-                        pedido.getEstado().equals("RECOGIDO")) &&
-                pedido.getPrecio() >= 0.0 && !(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
-            AtomicLong result = new AtomicLong();
-            Semaphore resource = new Semaphore(0);
-            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-                long value = mPedidoDao.insert(pedido);
-                result.set(value);
-                resource.release();
-            });
+        if(pedido.getNombrecliente() != null && pedido.getTel() != null && pedido.getEstado() != null && pedido.getFecha() != null && pedido.getPrecio() != null){
+            SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
+            int dia = 1;
+            Date aux;
             try {
-                resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-            } catch (Exception e) {
-                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+                aux = input.parse(pedido.getFecha().toString().substring(0,8));
+            }catch(ParseException e){
+                return -1;
             }
-            return result.get();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(aux);
+            dia = calendar.get(Calendar.DAY_OF_WEEK);
+
+            SimpleDateFormat input2 = new SimpleDateFormat("HHmm");
+            int hourOfDay = 0;
+            int minute = 0;
+            try{
+                aux = input2.parse(pedido.getFecha().toString().substring(8));
+            }catch (ParseException e){
+                return -1;
+            }
+
+            calendar = Calendar.getInstance();
+            calendar.setTime(aux);
+            hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+            minute = calendar.get(Calendar.MINUTE);
+
+
+            if(!pedido.getNombrecliente().isEmpty() &&
+                    pedido.getTel().toString().length() == 9 &&
+                    (pedido.getEstado().equals("SOLICITADO") ||
+                            pedido.getEstado().equals("PREPARADO") ||
+                            pedido.getEstado().equals("RECOGIDO")) &&
+                    pedido.getPrecio() >= 0.0 && !(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
+                AtomicLong result = new AtomicLong();
+                Semaphore resource = new Semaphore(0);
+                ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                    long value = mPedidoDao.insert(pedido);
+                    result.set(value);
+                    resource.release();
+                });
+                try {
+                    resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+                } catch (Exception e) {
+                    Log.d("ComidaRepository", "Exception: " + e.getMessage());
+                }
+                return result.get();
+            }else{
+                return -1;
+            }
         }else{
             return -1;
         }
+
         
     }
 
@@ -184,26 +188,31 @@ public class ComidasRepository {
      * @return un valor entero largo con el identificador de la nota que se ha creado.
      */
     public long insert(Plato plato) {
-        if(!plato.getNombre().isEmpty() && !plato.getIngredientes().isEmpty() && (plato.getCategoria().equals("PRIMERO") || plato.getCategoria().equals("SEGUNDO") || plato.getCategoria().equals("POSTRE"))
-        && plato.getPrecio() >= 0.0){
-            AtomicLong result = new AtomicLong();
-            Semaphore resource = new Semaphore(0);
-            // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-            // that you're not doing any long running operations on the main thread, blocking the UI.
-            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-                long value = mPlatoDao.insert(plato);
-                result.set(value);
-                resource.release();
-            });
-            try {
-                            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-            } catch (Exception e) {
-                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        if(plato.getNombre() != null && plato.getPrecio() != null && plato.getIngredientes() != null && plato.getCategoria() != null){
+            if(!plato.getNombre().isEmpty() && !plato.getIngredientes().isEmpty() && (plato.getCategoria().equals("PRIMERO") || plato.getCategoria().equals("SEGUNDO") || plato.getCategoria().equals("POSTRE"))
+                    && plato.getPrecio() >= 0.0){
+                AtomicLong result = new AtomicLong();
+                Semaphore resource = new Semaphore(0);
+                // You must call this on a non-UI thread or your app will throw an exception. Room ensures
+                // that you're not doing any long running operations on the main thread, blocking the UI.
+                ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                    long value = mPlatoDao.insert(plato);
+                    result.set(value);
+                    resource.release();
+                });
+                try {
+                    resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+                } catch (Exception e) {
+                    Log.d("ComidaRepository", "Exception: " + e.getMessage());
+                }
+                return result.get();
+            }else{
+                return -1;
             }
-            return result.get();
-        }else{
+        }else {
             return -1;
         }
+
     }
 
     /** Inserta una racion
@@ -259,19 +268,28 @@ public class ComidasRepository {
     //     });
     //     return result[0];
 
-    AtomicInteger result = new AtomicInteger();
-    Semaphore resource = new Semaphore(0);
-    ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-        int value = mPlatoDao.update(plato);
-        result.set(value);
-        resource.release();
-    });
-    try {
-        resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-    } catch (Exception e) {
-        Log.d("ComidaRepository", "Exception: " + e.getMessage());
-    }
-    return result.get();
+        if(plato.getNombre() != null && plato.getPrecio() != null && plato.getIngredientes() != null && plato.getCategoria() != null) {
+            if (!plato.getNombre().isEmpty() && !plato.getIngredientes().isEmpty() && (plato.getCategoria().equals("PRIMERO") || plato.getCategoria().equals("SEGUNDO") || plato.getCategoria().equals("POSTRE"))
+                    && plato.getPrecio() >= 0.0 && plato.getId() >= 0) {
+                AtomicInteger result = new AtomicInteger();
+                Semaphore resource = new Semaphore(0);
+                ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                    int value = mPlatoDao.update(plato);
+                    result.set(value);
+                    resource.release();
+                });
+                try {
+                    resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+                } catch (Exception e) {
+                    Log.d("ComidaRepository", "Exception: " + e.getMessage());
+                }
+                return result.get();
+            } else {
+                return -1;
+            }
+        }else{
+            return -1;
+        }
 
 
     }

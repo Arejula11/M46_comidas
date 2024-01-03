@@ -32,10 +32,10 @@ public class Pedido implements Serializable {
 
     @NonNull
     @ColumnInfo(name = "Precio")
-    private double precio;
+    private Double precio;
 
 
-    public Pedido(@NonNull String nombrecliente, @NonNull Integer tel, @NonNull Long fecha, @NonNull String estado, @NonNull double precio) {
+    public Pedido(@NonNull String nombrecliente, @NonNull Integer tel, @NonNull Long fecha, @NonNull String estado, @NonNull Double precio) {
         this.nombrecliente = nombrecliente;
         this.tel = tel;
         this.fecha = fecha;
