@@ -159,7 +159,7 @@ public class ComidasRepository {
                     (pedido.getEstado().equals("SOLICITADO") ||
                             pedido.getEstado().equals("PREPARADO") ||
                             pedido.getEstado().equals("RECOGIDO")) &&
-                    pedido.getPrecio() >= 0.0 && !(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
+                    pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
                 AtomicLong result = new AtomicLong();
                 Semaphore resource = new Semaphore(0);
                 ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
@@ -242,7 +242,7 @@ public class ComidasRepository {
         // return result[0];
         if(pedido.getNombrecliente() != null && pedido.getTel() != null && pedido.getEstado() != null && pedido.getFecha() != null && pedido.getPrecio() != null){
             SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
-            int dia = 1;
+            int dia = 2;
             Date aux;
             try {
                 aux = input.parse(pedido.getFecha().toString().substring(0,8));
@@ -274,7 +274,7 @@ public class ComidasRepository {
                     (pedido.getEstado().equals("SOLICITADO") ||
                             pedido.getEstado().equals("PREPARADO") ||
                             pedido.getEstado().equals("RECOGIDO")) &&
-                    pedido.getPrecio() >= 0.0 && !(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
+                    pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
                 AtomicInteger result = new AtomicInteger();
                 Semaphore resource = new Semaphore(0);
                 ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
@@ -360,19 +360,24 @@ public class ComidasRepository {
         // });
         // return result[0];
 
-        AtomicInteger result = new AtomicInteger();
-        Semaphore resource = new Semaphore(0);
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            int value = mPedidoDao.delete(pedido);
-            result.set(value);
-            resource.release();
-        });
-        try {
-            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        if(pedido.getId() >= 0){
+            AtomicInteger result = new AtomicInteger();
+            Semaphore resource = new Semaphore(0);
+            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                int value = mPedidoDao.delete(pedido);
+                result.set(value);
+                resource.release();
+            });
+            try {
+                resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+            } catch (Exception e) {
+                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+            }
+            return result.get();
+        }else{
+            return -1;
         }
-        return result.get();
+
     }
 
     /** Elimina un plato
@@ -385,19 +390,24 @@ public class ComidasRepository {
         //     result[0] = mPlatoDao.delete(plato);
         // });
         // return result[0];
-        AtomicInteger result = new AtomicInteger();
-        Semaphore resource = new Semaphore(0);
-        ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
-            int value = mPlatoDao.delete(plato);
-            result.set(value);
-            resource.release();
-        });
-        try {
-            resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            Log.d("ComidaRepository", "Exception: " + e.getMessage());
+        if(plato.getId() >= 0){
+            AtomicInteger result = new AtomicInteger();
+            Semaphore resource = new Semaphore(0);
+            ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
+                int value = mPlatoDao.delete(plato);
+                result.set(value);
+                resource.release();
+            });
+            try {
+                resource.tryAcquire(TIMEOUT, TimeUnit.MILLISECONDS);
+            } catch (Exception e) {
+                Log.d("ComidaRepository", "Exception: " + e.getMessage());
+            }
+            return result.get();
+        }else{
+            return -1;
         }
-        return result.get();
+
     }
 
     /** Elimina una racion

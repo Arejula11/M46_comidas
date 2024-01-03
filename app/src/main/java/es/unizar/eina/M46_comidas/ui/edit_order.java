@@ -144,7 +144,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             long fechaYhora = 0;
             String date = editTextDate.getText().toString();
             SimpleDateFormat input = new SimpleDateFormat("dd-MM-yyyy");
-            int dia = 1;
+            int dia = 2;
             try {
                 Date aux = input.parse(date);
                 Calendar calendar = Calendar.getInstance();
@@ -190,7 +190,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
 
-            }else if(dia == 1 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
+            }else if(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
                 Toast.makeText(getApplicationContext(), "Error: fecha de recogida inválida", Toast.LENGTH_LONG).show();
             }else {
                 racionesSingleton.reset();

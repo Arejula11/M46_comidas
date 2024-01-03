@@ -27,23 +27,23 @@ public class UnitTest {
     //@Test
     public void pruebas_unitarias(){
 
-        //Log.d("TEST INSERTAR PLATOS", "comienza");
+        Log.d("TEST INSERTAR PLATOS", "comienza");
         //clases equivalencias validas para insertar plato
-        //long id_primero = prueba_insertar_plato_correcto_PRIMERO();
-        //long id_segundo = prueba_insertar_plato_correcto_SEGUNDO();
-        //long id_postre = prueba_insertar_plato_correcto_POSTRE();
+        long id_primero = prueba_insertar_plato_correcto_PRIMERO();
+        long id_segundo = prueba_insertar_plato_correcto_SEGUNDO();
+        long id_postre = prueba_insertar_plato_correcto_POSTRE();
 
         //clases equivalencias invalidas para insertar plato
-        //prueba_insertar_plato_incorrecto_nombre_null();
-        //prueba_insertar_plato_incorrecto_nombre_vacio();
-        //prueba_insertar_plato_incorrecto_ingredientes_null();
-        //prueba_insertar_plato_incorrecto_ingredientes_vacio();
-        //prueba_insertar_plato_incorrecto_OTRO();
-        //prueba_insertar_plato_incorrecto_precio_null();
-        //prueba_insertar_plato_incorrecto_precio_negativo();
-        //prueba_insertar_plato_incorrecto_id_negativo();
+        prueba_insertar_plato_incorrecto_nombre_null();
+        prueba_insertar_plato_incorrecto_nombre_vacio();
+        prueba_insertar_plato_incorrecto_ingredientes_null();
+        prueba_insertar_plato_incorrecto_ingredientes_vacio();
+        prueba_insertar_plato_incorrecto_OTRO();
+        prueba_insertar_plato_incorrecto_precio_null();
+        prueba_insertar_plato_incorrecto_precio_negativo();
+        prueba_insertar_plato_incorrecto_id_negativo();
 
-        //Log.d("TEST EDITAR PLATOS", "comienza");
+        Log.d("TEST EDITAR PLATOS", "comienza");
         //Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "PRIMERO", 10.0);
         //Plato plato2 = new Plato("Pizza2", "Masa, tomate y queso ", "PRIMERO", 10.0);
         //long id = mRepository.insert(plato);
@@ -51,29 +51,29 @@ public class UnitTest {
         //plato2.setId(-1);
 
         //clases equivalencias validas para editar plato
-        //prueba_editar_plato_correcto_PRIMERO(id_primero);
-        //prueba_editar_plato_correcto_SEGUNDO(id_segundo);
-        //prueba_editar_plato_correcto_POSTRE(id_postre);
+        prueba_editar_plato_correcto_PRIMERO(id_primero);
+        prueba_editar_plato_correcto_SEGUNDO(id_segundo);
+        prueba_editar_plato_correcto_POSTRE(id_postre);
 
 
         //clases equivalencias invalidas para editar plato
-        //prueba_editar_plato_incorrecto_nombre_null(id_primero);
-        //prueba_editar_plato_incorrecto_nombre_vacio(id_primero);
-        //prueba_editar_plato_incorrecto_ingredientes_null(id_primero);
-        //prueba_editar_plato_incorrecto_ingredientes_vacio(id_primero);
-        //prueba_editar_plato_incorrecto_OTRO(id_primero);
-        //prueba_editar_plato_incorrecto_precio_null(id_primero);
-        //prueba_editar_plato_incorrecto_precio_negativo(id_primero);
+        prueba_editar_plato_incorrecto_nombre_null(id_primero);
+        prueba_editar_plato_incorrecto_nombre_vacio(id_primero);
+        prueba_editar_plato_incorrecto_ingredientes_null(id_primero);
+        prueba_editar_plato_incorrecto_ingredientes_vacio(id_primero);
+        prueba_editar_plato_incorrecto_OTRO(id_primero);
+        prueba_editar_plato_incorrecto_precio_null(id_primero);
+        prueba_editar_plato_incorrecto_precio_negativo(id_primero);
         //prueba_editar_plato_incorrecto_id_null(id_primero);
-        //prueba_editar_plato_incorrecto_id_negativo(id_primero);
+        prueba_editar_plato_incorrecto_id_negativo(id_primero);
 
         Log.d("TEST ELIMINAR PLATOS", "comienza");
 
         //clases equivalencia validas para eliminar plato
-        //prueba_eliminar_plato_correcto(id_primero); //revisar, no lo elimina
+        prueba_eliminar_plato_correcto(id_primero); //revisar, no lo elimina
         //mRepository.insert(plato);
         //clases equivalencias invalidas para eliminar plato
-        //prueba_eliminar_plato_incorrecto_id_negativo(plato2); //revisar el valor devuelto no es -1
+        prueba_eliminar_plato_incorrecto_id_negativo(id_segundo); //revisar el valor devuelto no es -1
 
 
         Log.d("TEST INSERTAR PEDIDOS", "comienza");
@@ -208,7 +208,7 @@ public class UnitTest {
 
     }
     public void prueba_editar_plato_correcto_POSTRE(long id) {
-        Plato platoMod = new Plato ("Arroz con leche", "leche, arroz y canela", "POSTRE", 4.0);
+        Plato platoMod = new Plato ("Arroz con leche", "Leche, arroz y canela", "POSTRE", 4.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO POSTRE", String.valueOf(resultado));
@@ -275,13 +275,15 @@ public class UnitTest {
         Log.d("TEST INCORRECTO EDITAR PLATO ID NEGATIVO", String.valueOf(resultado));
     }
     public void prueba_eliminar_plato_correcto(long id) {
-        Plato platoMod = new Plato ("Margarita", " tomate y queso", "PRIMERO", 0.0);
+        Plato platoMod = new Plato ("Margarita", "Tomate y queso", "PRIMERO", 0.0);
         platoMod.setId((int) id);
         int resultado = mRepository.delete(platoMod);
         Log.d("TEST CORRECTO ELIMINAR PLATO ", String.valueOf(resultado));
     }
-    public void prueba_eliminar_plato_incorrecto_id_negativo(Plato plato) {
-        int resultado = mRepository.delete(plato);
+    public void prueba_eliminar_plato_incorrecto_id_negativo(long id) {
+        Plato platoMod = new Plato ("Arroz con leche", "Leche, arroz y canela", "POSTRE", 4.0);
+        platoMod.setId(-1);
+        int resultado = mRepository.delete(platoMod);
         Log.d("TEST INCORRECTO ELIMINAR PLATO", String.valueOf(resultado));
     }
     //@Test
@@ -356,16 +358,19 @@ public class UnitTest {
     //@Test
     public void prueba_editar_pedido_correcto_SOLICITADO(long id) {
         Pedido pedido = new Pedido("Juan", 777777777, 202305182036L, "SOLICITADO", 10.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST CORRECTO EDITAR PEDIDO SOLICITADO", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_correcto_PREPARADO(long id) {
         Pedido pedido = new Pedido("Juan", 600000000, 202306182036L, "PREPARADO", 10.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST CORRECTO EDITAR PEDIDO PREPARADO", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_correcto_RECOGIDO(long id) {
         Pedido pedido = new Pedido("Juan", 600000000, 202305182036L, "RECOGIDO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST CORRECTO EDITAR PEDIDO RECOGIDO", String.valueOf(resultado));
     }
@@ -373,38 +378,45 @@ public class UnitTest {
 
     public void prueba_editar_pedido_incorrecto_nombre_null(long id) {
         Pedido pedido = new Pedido(null, 600000000, 202305182036L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO NOMBRE NULL ", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_nombre_vacio(long id) {
         Pedido pedido = new Pedido("", 600000000, 202305182036L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO NOMBRE VACIO ", String.valueOf(resultado));
     }
 
     public void prueba_editar_pedido_incorrecto_telefono_null(long id) {
         Pedido pedido = new Pedido("Juan", null, 202305182036L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO TELEFONO NULL ", String.valueOf(resultado));
     }
 
     public void prueba_editar_pedido_incorrecto_telefono_mal_formato(long id) {
         Pedido pedido = new Pedido("Juan", 1, 202305182036L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO TELEFONO MAL FORMATO ", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_OTRO(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 202305182036L, "OTRO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO OTRO  ", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_precio_null(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 202305182036L, "SOLICITADO", null);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO PRECIO NULL  ", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_precio_negativo(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 202305182036L, "SOLICITADO", -1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO PRECIO NEGATIVO ", String.valueOf(resultado));
     }
@@ -416,16 +428,19 @@ public class UnitTest {
     }
     public void prueba_editar_pedido_incorrecto_fecha_mal_formato(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 2024010120368L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO FECHA MAL FORMATO ", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_fecha_lunes(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 202401012036L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO FECHA LUNES", String.valueOf(resultado));
     }
     public void prueba_editar_pedido_incorrecto_fecha_horario_mal(long id) {
         Pedido pedido = new Pedido("Juan", 60000000, 202305180536L, "SOLICITADO", 1.0);
+        pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST INCORRECTO EDITAR PEDIDO FECHA HORARIO MAL  ", String.valueOf(resultado));
     }
@@ -434,13 +449,13 @@ public class UnitTest {
 
 
     public void prueba_eliminar_pedido_correcto(long id) {
-        Pedido pedidoMod = new Pedido ("Juan", 999999999, 202305182036L , "SOLCITADO",20.0);
+        Pedido pedidoMod = new Pedido ("Lucia", 622222222, 202307052036L, "RECOGIDO", 10.0);
         pedidoMod.setId((int) id);
         int resultado = mRepository.delete(pedidoMod);
         Log.d("TEST CORRECTO ELIMINAR PEDIDO ", String.valueOf(resultado));
     }
     public void prueba_eliminar_pedido_incorrecto_id_negativo() {
-        Pedido pedidoMod = new Pedido ("Juan", 999999999, 202305182036L , "SOLCITADO",20.0);
+        Pedido pedidoMod = new Pedido ("Pedro", 611111111, 202306202036L, "PREPARADO", 10.0);
         pedidoMod.setId( -1);
         int resultado = mRepository.delete(pedidoMod);
         Log.d("TEST INCORRECTO ELIMINAR PEDIDO", String.valueOf(resultado));
