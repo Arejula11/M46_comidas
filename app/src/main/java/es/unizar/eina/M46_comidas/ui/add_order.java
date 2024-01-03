@@ -194,12 +194,26 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
             for(RacionVisual aux : raciones){
                 precioTotal += aux.getPrecioVisual() * aux.racion.getCantidad();
             }
+            boolean pasada = false;
+            SimpleDateFormat input3 = new SimpleDateFormat("yyyyMMddHHmm");
+            Date fechafinal = null;
+            try{
+                fechafinal = input3.parse(date+time);
+                Calendar calendario = Calendar.getInstance();
+                calendario.setTime(fechafinal);
+                Calendar actual = Calendar.getInstance();
+                if(!actual.before(calendario)){
+                    pasada = true;
+                }
+            }catch (ParseException e){
+                pasada = true;
+            }
 
             //comprobar que no esten vacios
             if (nombreCliente2.isEmpty() || tel2.isEmpty() || precioTotal.equals(0.0) || time.isEmpty()||date.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Error: campos sin rellenar", Toast.LENGTH_LONG).show();
 
-            }else if(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
+            }else if(pasada || dia == 2 || hourOfDay < 19 || (hourOfDay == 19 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0)){
                 Toast.makeText(getApplicationContext(), "Error: fecha de recogida inválida", Toast.LENGTH_LONG).show();
             }else {
                 Intent intent = new Intent(this, orders_page.class);

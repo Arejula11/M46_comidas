@@ -126,32 +126,60 @@ public class ComidasRepository {
     // }
     public long insert(Pedido pedido){
         if(pedido.getNombrecliente() != null && pedido.getTel() != null && pedido.getEstado() != null && pedido.getFecha() != null && pedido.getPrecio() != null){
-            SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
-            int dia = 1;
+            //SimpleDateFormat input = new SimpleDateFormat("yyyyMMdd");
+            //int dia = 1;
+            //Date aux;
+            //try {
+            //    aux = input.parse(pedido.getFecha().toString().substring(0,8));
+            //}catch(ParseException e){
+            //    return -1;
+            //}
+
+            //Calendar calendar = Calendar.getInstance();
+            //calendar.setTime(aux);
+            //Calendar calendarAux = Calendar.getInstance();
+            //if(calendarAux.before(calendar)){
+            //    dia = calendar.get(Calendar.DAY_OF_WEEK);
+
+            //}else{
+            //    return -1;
+            //}
+
+            //SimpleDateFormat input2 = new SimpleDateFormat("HHmm");
+            //int hourOfDay = 0;
+            //int minute = 0;
+            //try{
+            //    aux = input2.parse(pedido.getFecha().toString().substring(8));
+            //}catch (ParseException e){
+            //    return -1;
+            //}
+
+            //calendar = Calendar.getInstance();
+            //calendar.setTime(aux);
+            //hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+            //minute = calendar.get(Calendar.MINUTE);
+
+            SimpleDateFormat input = new SimpleDateFormat("yyyyMMddHHmm");
+            int dia = 2;
+            int hourOfDay = 0;
+            int minute = 0;
             Date aux;
             try {
-                aux = input.parse(pedido.getFecha().toString().substring(0,8));
+                aux = input.parse(pedido.getFecha().toString());
             }catch(ParseException e){
                 return -1;
             }
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(aux);
-            dia = calendar.get(Calendar.DAY_OF_WEEK);
-
-            SimpleDateFormat input2 = new SimpleDateFormat("HHmm");
-            int hourOfDay = 0;
-            int minute = 0;
-            try{
-                aux = input2.parse(pedido.getFecha().toString().substring(8));
-            }catch (ParseException e){
+            Calendar calendarAux = Calendar.getInstance();
+            if(calendarAux.before(calendar)){
+                dia = calendar.get(Calendar.DAY_OF_WEEK);
+                hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+            }else{
                 return -1;
             }
-
-            calendar = Calendar.getInstance();
-            calendar.setTime(aux);
-            hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-            minute = calendar.get(Calendar.MINUTE);
 
 
             if(!pedido.getNombrecliente().isEmpty() &&
@@ -159,7 +187,7 @@ public class ComidasRepository {
                     (pedido.getEstado().equals("SOLICITADO") ||
                             pedido.getEstado().equals("PREPARADO") ||
                             pedido.getEstado().equals("RECOGIDO")) &&
-                    pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
+                    pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 19 || (hourOfDay == 19 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
                 AtomicLong result = new AtomicLong();
                 Semaphore resource = new Semaphore(0);
                 ComidasRoomDatabase.databaseWriteExecutor.execute(() -> {
