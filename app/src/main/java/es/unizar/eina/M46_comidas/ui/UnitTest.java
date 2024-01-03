@@ -52,8 +52,8 @@ public class UnitTest {
 
         //clases equivalencias validas para editar plato
         prueba_editar_plato_correcto_PRIMERO(id_primero);
-        prueba_editar_plato_correcto_SEGUNDO(id_segundo);
-        prueba_editar_plato_correcto_POSTRE(id_postre);
+        prueba_editar_plato_correcto_SEGUNDO(id_primero);
+        prueba_editar_plato_correcto_POSTRE(id_primero);
 
 
         //clases equivalencias invalidas para editar plato
@@ -142,7 +142,7 @@ public class UnitTest {
         return resultado;
     }
     public long prueba_insertar_plato_correcto_POSTRE() {
-        Plato plato = new Plato("Arroz con leche", "leche y arroz", "POSTRE", 4.0);
+        Plato plato = new Plato("Arroz con leche", "Leche y arroz", "POSTRE", 4.0);
         Long resultado = mRepository.insert(plato);
         Log.d("TEST CORRECTO INSERTAR PLATO POSTRE", String.valueOf(resultado));
         return resultado;
@@ -189,7 +189,7 @@ public class UnitTest {
         Log.d("TEST INCORRECTO INSERTAR PLATO PRECIO NEGATIVO", String.valueOf(resultado));
     }
     public void prueba_insertar_plato_incorrecto_id_negativo() {
-        Plato plato = new Plato("Pizza", "Masa, tomate y  queso ", "PRIMERO",  10.0);
+        Plato plato = new Plato("Pizza", "Masa, tomate y  queso", "PRIMERO",  10.0);
         plato.setId(-1);
         Long resultado = mRepository.insert(plato);
         Log.d("TEST INCORRECTO INSERTAR PEDIDO ID NEGATIVO ", String.valueOf(resultado));
@@ -197,7 +197,7 @@ public class UnitTest {
 
 
     public void prueba_editar_plato_correcto_PRIMERO(long id){
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso ", "PRIMERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "PRIMERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO PRIMERO" , String.valueOf(resultado));
@@ -205,7 +205,7 @@ public class UnitTest {
 
     }
     public void prueba_editar_plato_correcto_SEGUNDO(long id) {
-        Plato platoMod = new Plato ("Pollo con patatas", "Pollo y patatas", "SEGUNDO", 12.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "SEGUNDO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO SEGUNDO", String.valueOf(resultado));
@@ -214,33 +214,33 @@ public class UnitTest {
 
     }
     public void prueba_editar_plato_correcto_POSTRE(long id) {
-        Plato platoMod = new Plato ("Arroz con leche", "Leche, arroz y canela", "POSTRE", 4.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "POSTRE", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO POSTRE", String.valueOf(resultado));
     }
 
     public void prueba_editar_plato_incorrecto_nombre_null(long id) {
-        Plato platoMod = new Plato (null, "Masa, tomate y queso ", "PRIMERO", 10.0);
+        Plato platoMod = new Plato (null, "Masa, tomate y queso", "PRIMERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO NOMBRE NULL", String.valueOf(resultado));
     }
     public void prueba_editar_plato_incorrecto_nombre_vacio(long id) {
-        Plato platoMod = new Plato ("", "Masa, tomate y queso ", "PRIMERO", 10.0);
+        Plato platoMod = new Plato ("", "Masa, tomate y queso", "PRIMERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST CORRECTO EDITAR PLATO NOMBRE VACIO", String.valueOf(resultado));
     }
 
     public void prueba_editar_plato_incorrecto_ingredientes_null(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", null, "PRIMERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", null, "PRIMERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO INGREDIENTES NULL", String.valueOf(resultado));
     }
     public void prueba_editar_plato_incorrecto_ingredientes_vacio(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "", "PRIMERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", "", "PRIMERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO INGREDIENTES VACIO", String.valueOf(resultado));
@@ -248,13 +248,13 @@ public class UnitTest {
 
 
     public void prueba_editar_plato_incorrecto_OTRO(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso", "TERCERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "TERCERO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO OTRO", String.valueOf(resultado));
     }
     public void prueba_editar_plato_incorrecto_precio_null(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso", "PRIMERO", null);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "PRIMERO", null);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO PRECIO NULL", String.valueOf(resultado));
@@ -262,26 +262,21 @@ public class UnitTest {
 
 
     public void prueba_editar_plato_incorrecto_precio_negativo(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso", "PRIMERO", -10.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "PRIMERO", -10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO PRECIO NEGATIVO", String.valueOf(resultado));
     }
 
-    //no se hace nada especial
-    public void prueba_editar_plato_incorrecto_id_null(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso ", "PRIMERO", 10.0);
-        int resultado = mRepository.update(platoMod);
-        Log.d("TEST INCORRECTO EDITAR PLATO ID NULL", String.valueOf(resultado));
-    }
+
     public void prueba_editar_plato_incorrecto_id_negativo(long id) {
-        Plato platoMod = new Plato ("Pizza Margarita", "Masa, tomate y queso ", "PRIMERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso ", "PRIMERO", 10.0);
         platoMod.setId(-1);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO ID NEGATIVO", String.valueOf(resultado));
     }
     public void prueba_eliminar_plato_correcto(long id) {
-        Plato platoMod = new Plato ("Margarita", "Tomate y queso", "PRIMERO", 0.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, Tomate y queso", "PRIMERO", 0.0);
         platoMod.setId((int) id);
         int resultado = mRepository.delete(platoMod);
         Log.d("TEST CORRECTO ELIMINAR PLATO ", String.valueOf(resultado));
@@ -486,6 +481,7 @@ public class UnitTest {
         int resultado = mRepository.delete(pedidoMod);
         Log.d("TEST CORRECTO ELIMINAR PEDIDO ", String.valueOf(resultado));
     }
+
     public void prueba_eliminar_pedido_incorrecto_id_negativo() {
         Pedido pedidoMod = new Pedido ("Pedro", 611111111, 202406202036L, "PREPARADO", 10.0);
         pedidoMod.setId( -1);
