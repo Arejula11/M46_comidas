@@ -40,25 +40,32 @@ public class UnitTest {
         //prueba_insertar_plato_incorrecto_precio_null();
         prueba_insertar_plato_incorrecto_precio_negativo();
 
+        Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "PRIMERO", 10.0);
+        Plato plato2 = new Plato("Pizza2", "Masa, tomate y queso ", "PRIMERO", 10.0);
+        mRepository.insert(plato);
+        mRepository.insert(plato2);
+        plato2.setId(-1);
+
         //clases equivalencias validas para editar plato
-        prueba_editar_plato_correcto_PRIMERO();
-        prueba_editar_plato_correcto_SEGUNDO();
-        prueba_editar_plato_correcto_POSTRE();
+        prueba_editar_plato_correcto_PRIMERO(plato);
+        prueba_editar_plato_correcto_SEGUNDO(plato);
+        prueba_editar_plato_correcto_POSTRE(plato);
+
 
         //clases equivalencias invalidas para editar plato
-        //prueba_editar_plato_incorrecto_nombre_null();
-        prueba_editar_plato_incorrecto_nombre_vacio();
-        //prueba_editar_plato_incorrecto_ingredientes_null();
-        prueba_editar_plato_incorrecto_ingredientes_vacio();
-        prueba_editar_plato_incorrecto_OTRO();
-        //prueba_editar_plato_incorrecto_precio_null();
-        prueba_editar_plato_incorrecto_precio_negativo();
+        //prueba_editar_plato_incorrecto_nombre_null(plato);
+        prueba_editar_plato_incorrecto_nombre_vacio(plato);
+        //prueba_editar_plato_incorrecto_ingredientes_null(plato);
+        prueba_editar_plato_incorrecto_ingredientes_vacio(plato);
+        prueba_editar_plato_incorrecto_OTRO(plato);
+        //prueba_editar_plato_incorrecto_precio_null(plato);
+        prueba_editar_plato_incorrecto_precio_negativo(plato);
 
         //clases equivalencia validas para eliminar plato
-        prueba_eliminar_plato_correcto();
-
+        prueba_eliminar_plato_correcto(plato); //revisar, no lo elimina
+        mRepository.insert(plato);
         //clases equivalencias invalidas para eliminar plato
-        prueba_eliminar_plato_incorrecto_id_negativo();
+        prueba_eliminar_plato_incorrecto_id_negativo(plato2); //revisar el valor devuelto no es -1
 
         //clases equivalencias validas para insertar pedido
         //clases equivalencias invalidas para insertar pedido
@@ -69,7 +76,7 @@ public class UnitTest {
         //clases equivalencia validas para eliminar pedido
         //clases equivalencias invalidas para eliminar pedido
 
-        
+
 
     }
 
@@ -101,7 +108,7 @@ public class UnitTest {
         Long resultado = mRepository.insert(plato);
         Log.d("TEST INCORRECTO NOMBRE NULL", String.valueOf(resultado));
     }
-   
+
     public void prueba_insertar_plato_incorrecto_ingredientes_null() {
         Plato plato = new Plato("Pizza", null, "PRIMERO", 10.0);
         Long resultado = mRepository.insert(plato);
@@ -112,8 +119,8 @@ public class UnitTest {
         Long resultado = mRepository.insert(plato);
         Log.d("TEST INCORRECTO INGREDIENTES NULL", String.valueOf(resultado));
     }
-     
-    
+
+
     public void prueba_insertar_plato_incorrecto_OTRO() {
         Plato plato = new Plato("Pizza", "Masa, tomate y queso ", "OTRO", 10.0);
         Long resultado = mRepository.insert(plato);
@@ -131,59 +138,66 @@ public class UnitTest {
         Long resultado = mRepository.insert(plato);
         Log.d("TEST INCORRECTO PRECIO NEGATIVO", String.valueOf(resultado));
     }
-  
-    
-  public void prueba_editar_plato_correcto_PRIMERO(){
+
+
+  public void prueba_editar_plato_correcto_PRIMERO(Plato plato){
+        Plato platoMod = new Plato ("Pizza margarita", "Masa, tomate y mozzarella","PRIMERO",11.0);
+        platoMod.setId(plato.getId());
+        Long resultado = mRepository.update(platoMod);
+      Log.d("TEST CORRECTO EDITAR PLATO", String.valueOf(resultado));
+
+
+    }
+    public void prueba_editar_plato_correcto_SEGUNDO(Plato plato) {
+
+
+
+    }
+    public void prueba_editar_plato_correcto_POSTRE(Plato plato) {
 
     }
 
-    public void prueba_editar_plato_correcto_SEGUNDO() {
-       
-     
-        
+    public void prueba_editar_plato_incorrecto_nombre_null(Plato plato) {
+
     }
-    public void prueba_editar_plato_correcto_POSTRE() {
-       
+    public void prueba_editar_plato_incorrecto_nombre_vacio(Plato plato) {
+
     }
 
-    public void prueba_editar_plato_incorrecto_nombre_null() {
-        
+    public void prueba_editar_plato_incorrecto_ingredientes_null(Plato plato) {
+
     }
-    public void prueba_editar_plato_incorrecto_nombre_vacio() {
-        
-    }
-   
-    public void prueba_editar_plato_incorrecto_ingredientes_null() {
-        
-    }
-    public void prueba_editar_plato_incorrecto_ingredientes_vacio() {
-        
-    }
-     
-    
-    public void prueba_editar_plato_incorrecto_OTRO() {
-        
-    }
-    public void prueba_editar_plato_incorrecto_precio_null() {
-        
+    public void prueba_editar_plato_incorrecto_ingredientes_vacio(Plato plato) {
+
     }
 
 
-    public void prueba_editar_plato_incorrecto_precio_negativo() {
-       
+    public void prueba_editar_plato_incorrecto_OTRO(Plato plato) {
+
+    }
+    public void prueba_editar_plato_incorrecto_precio_null(Plato plato) {
+
     }
 
-    public void prueba_editar_plato_incorrecto_id_null() {
-       
+
+    public void prueba_editar_plato_incorrecto_precio_negativo(Plato plato) {
+
     }
-    public void prueba_editar_plato_incorrecto_id_negativo() {
-       
+
+    public void prueba_editar_plato_incorrecto_id_null(Plato plato) {
+
     }
-    public void prueba_eliminar_plato_correcto() {
-       
+    public void prueba_editar_plato_incorrecto_id_negativo(Plato plato) {
+
     }
-    public void prueba_eliminar_plato_incorrecto_id_negativo() {
-       
+    public void prueba_eliminar_plato_correcto(Plato plato) {
+
+        Long resultado = mRepository.delete(plato);
+        Log.d("TEST CORRECTO ELIMINAR PLATO", String.valueOf(resultado));
+    }
+    public void prueba_eliminar_plato_incorrecto_id_negativo(Plato plato) {
+        Long resultado = mRepository.delete(plato);
+        Log.d("TEST INCORRECTO ELIMINAR PLATO", String.valueOf(resultado));
     }
 
 
