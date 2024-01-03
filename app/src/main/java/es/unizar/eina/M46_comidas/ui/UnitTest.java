@@ -89,9 +89,12 @@ public class UnitTest {
         prueba_insertar_pedido_incorrecto_estado_OTRO();
         prueba_insertar_pedido_incorrecto_precio_null();
         prueba_insertar_pedido_incorrecto_precio_negativo();
-
+        prueba_insertar_pedido_incorrecto_id_negativo();
 
          //clases equivalencias validas para editar pedido
+        prueba_editar_pedido_correcto_SOLICITADO();
+        prueba_editar_pedido_correcto_PREPARADO();
+        prueba_editar_pedido_correcto_RECOGIDO();
         //clases equivalencias invalidas para editar pedido
 
         //clases equivalencia validas para eliminar pedido
@@ -319,6 +322,31 @@ public class UnitTest {
         Long resultado = mRepository.insert(pedido);
         Log.d("TEST CORRECTO SOLICITADO", String.valueOf(resultado));
     }
+    //@Test
+    public void prueba_insertar_pedido_incorrecto_id_negativo() {
+        Pedido pedido = new Pedido("Juan", 600000123, 202305182036L, "SOLICITADO", 10.0);
+        pedido.setId(-1);
+        Long resultado = mRepository.insert(pedido);
+        Log.d("TEST CORRECTO SOLICITADO", String.valueOf(resultado));
+    }
+    //@Test
+    public void prueba_editar_pedido_correcto_SOLICITADO() {
+        Pedido pedido = new Pedido("Juan", 777777777, 202305182036L, "SOLICITADO", 10.0);
+        int resultado = mRepository.update(pedido);
+        Log.d("TEST CORRECTO SOLICITADO", String.valueOf(resultado));
+    }
+    public void prueba_editar_pedido_correcto_PREPARADO() {
+        Pedido pedido = new Pedido("Juan", 600000000, 202306182036L, "PREPARADO", 10.0);
+        int resultado = mRepository.update(pedido);
+        Log.d("TEST CORRECTO SOLICITADO", String.valueOf(resultado));
+    }
+    public void prueba_editar_pedido_correcto_RECOGIDO() {
+        Pedido pedido = new Pedido("Juan", 600000000, 202305182036L, "SOLICITADO", 1.0);
+        int resultado = mRepository.update(pedido);
+        Log.d("TEST CORRECTO SOLICITADO", String.valueOf(resultado));
+    }
+
+
 
 
 
