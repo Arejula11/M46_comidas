@@ -46,7 +46,7 @@
         <!-- Añade más TextViews según tus datos -->
         <View
             android:layout_marginTop="10dp"
-            android:layout_width="340dp"
+            android:layout_width="320dp"
             android:layout_height="2dp"
             android:background="@color/colorPrimary"
             android:layout_gravity="center"
