@@ -38,6 +38,8 @@ public class orders_description extends AppCompatActivity {
     TextView textViewTelefono;
     TextView textViewFecha;
     Pedido pedido;
+    RecyclerView mRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +59,13 @@ public class orders_description extends AppCompatActivity {
         mRacionViewModel = new ViewModelProvider(this).get(RacionViewModel.class);
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
-        RecyclerView mRecyclerView;
         mRecyclerView = findViewById(R.id.recyclerViewPlates);
         mAdapter = new RacionListAdapter(new RacionListAdapter.RacionDiff(), getIntent());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         
-
+        mostrarInformacion();
 
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonEditar = findViewById(R.id.buttonEditarPedido);

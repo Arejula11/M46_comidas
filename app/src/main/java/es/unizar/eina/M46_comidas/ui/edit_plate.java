@@ -25,9 +25,9 @@ public class edit_plate extends AppCompatActivity {
     Button buttonCancelar;
     Button buttonConfirmar;
     String[] opciones = {"PRIMERO", "SEGUNDO", "POSTRE"};
-    TextView editTextNombre;
-    TextView editTextIngredientes;
-    TextView editTextPrecio;
+    EditText editTextNombre;
+    EditText editTextIngredientes;
+    EditText editTextPrecio;
     Spinner spinnerCategoria,spinner;
     Plato plato;
 
