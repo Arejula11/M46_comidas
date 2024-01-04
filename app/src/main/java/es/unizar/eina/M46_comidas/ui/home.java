@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.Toast;
 //import es.unizar.eina.M46_comidas.;
 import es.unizar.eina.M46_comidas.*;
 
@@ -53,20 +54,36 @@ public class home extends AppCompatActivity {
         buttonEliminar = findViewById(R.id.buttonEliminarTodo);
 
         buttonUnitarios.setOnClickListener(view->{
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Realizando pruebas unitarias",
+                    Toast.LENGTH_LONG).show();
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.pruebas_unitarias();
         });
 
         buttonVolumen.setOnClickListener(view -> {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Realizando prueba de volumen",
+                    Toast.LENGTH_LONG).show();
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.prueba_volumen();
         });
         buttonSobrecarga.setOnClickListener(view -> {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Realizando prueba de sobrecarga",
+                    Toast.LENGTH_LONG).show();
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.prueba_sobrecarga();
         });
 
         buttonEliminar.setOnClickListener(view -> {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Eliminando todos los platos y pedidos",
+                    Toast.LENGTH_LONG).show();
             UnitTest unitTest = new UnitTest(this.getApplication());
             unitTest.eliminar_datos();
         });
