@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:backgroundTint="#FFFFFF"
 
-    android:padding="10dp"
+    android:padding="6dp"
     android:visibility="visible"
     tools:visibility="visible"
     android:orientation="horizontal">
@@ -17,7 +17,8 @@
         android:layout_width="2dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <!-- Aquí añade TextViews para nombre, fecha, precio y número de teléfono -->
         <TextView
@@ -31,39 +32,31 @@
             android:layout_height="wrap_content"
             android:text="@string/recogida"/>
         <TextView
-            android:id="@+id/textViewPecioPedido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/precio"/>
-        <TextView
             android:id="@+id/textViewTfn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/telefono"/>
+        <TextView
+            android:id="@+id/textViewPecioPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/precio"/>
+
 
         <!-- Añade más TextViews según tus datos -->
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/dashed_line2" />
-    <!-- Segunda columna -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Aquí añade un RecyclerView o ListView para la lista de platos -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPlates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/recyclerview_raciones"
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="340dp"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center"
             />
-
     </LinearLayout>
+
+
+
+
+
+
 
 </LinearLayout>
