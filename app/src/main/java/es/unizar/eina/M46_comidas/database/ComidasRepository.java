@@ -64,9 +64,7 @@ public class ComidasRepository {
     public LiveData<List<Pedido>> getAllPedidosNombreCliente() {
         return mPedidoDao.getOrderedPedidosNombreCliente();
     }
-    public LiveData<List<Pedido>> getAllPedidosFiltrados(String estado) {
-        return mPedidoDao.getPedidosBy(estado);
-    }
+
     public LiveData<List<Pedido>> getAllPedidosNumTlfnAndFilter(String estado) {
         return mPedidoDao.getOrderedPedidosNumTlfnAndFilter(estado);
     }
