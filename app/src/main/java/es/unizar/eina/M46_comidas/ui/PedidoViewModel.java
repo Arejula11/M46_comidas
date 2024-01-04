@@ -35,16 +35,15 @@ public class PedidoViewModel extends AndroidViewModel{
 
     }
 
-    LiveData<List<Pedido>> getAllPedidos() { return mAllPedidos; }
-    LiveData<List<Pedido>> getAllPedidosNumTlfn() { return mAllPedidosNumTlfn; }
-    LiveData<List<Pedido>> getAllPedidosFecha() { return mAllPedidosFecha; }
-    LiveData<List<Pedido>> getAllPedidosNombreCliente() { return mAllPedidosNombreCliente; }
-    LiveData<List<Pedido>> getAllPedidosAndFilter(String estado) { return mRepository.getAllPedidosFiltradosAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosNumTlfnAndFilter(String estado) { return mRepository.getAllPedidosNumTlfnAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosFechaAndFilter(String estado) { return mRepository.getAllPedidosFechaAndFilter(estado); }
-    LiveData<List<Pedido>> getAllPedidosNombreClienteAndFilter(String estado) { return mRepository.getAllPedidosNombreClienteAndFilter(estado); }
+    public LiveData<List<Pedido>> getAllPedidos() { return mAllPedidos; }
+    public LiveData<List<Pedido>> getAllPedidosNumTlfn() { return mAllPedidosNumTlfn; }
+    public LiveData<List<Pedido>> getAllPedidosFecha() { return mAllPedidosFecha; }
+    public LiveData<List<Pedido>> getAllPedidosNombreCliente() { return mAllPedidosNombreCliente; }
+    public LiveData<List<Pedido>> getAllPedidosAndFilter(String estado) { return mRepository.getAllPedidosFiltradosAndFilter(estado); }
+    public LiveData<List<Pedido>> getAllPedidosNumTlfnAndFilter(String estado) { return mRepository.getAllPedidosNumTlfnAndFilter(estado); }
+    public LiveData<List<Pedido>> getAllPedidosFechaAndFilter(String estado) { return mRepository.getAllPedidosFechaAndFilter(estado); }
+    public LiveData<List<Pedido>> getAllPedidosNombreClienteAndFilter(String estado) { return mRepository.getAllPedidosNombreClienteAndFilter(estado); }
 
-    //public LiveData<Long> insert(Pedido pedido) { return mRepository.insert(pedido); }
     public long insert(Pedido pedido) { return mRepository.insert(pedido); }
     public void update(Pedido pedido) { mRepository.update(pedido); }
     public void delete(Pedido pedido) { mRepository.delete(pedido); }

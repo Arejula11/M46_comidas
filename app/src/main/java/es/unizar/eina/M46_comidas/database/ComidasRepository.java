@@ -92,9 +92,6 @@ public class ComidasRepository {
         return mPlatoDao.getOrderedPlatosNombreCategoria();
     }
 
-    public LiveData<String> getNombrePlatoId(int id){
-        return mPlatoDao.getNombrePlatoId(id);
-    }
 
     public LiveData<List<Racion>> getAllRaciones(int id){
         return mRacionDao.getRaciones(id);

@@ -29,11 +29,8 @@ public class RacionViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<Racion>> getAllRaciones(int id) { return mRepository.getAllRaciones(id); }
+    public LiveData<List<Racion>> getAllRaciones(int id) { return mRepository.getAllRaciones(id); }
 
-    public LiveData<String> getNombrePlatoId(int id){
-        return mRepository.getNombrePlatoId(id);
-    }
 
 
     public void insert(Racion racion) { mRepository.insert(racion); }

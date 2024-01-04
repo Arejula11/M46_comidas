@@ -29,16 +29,13 @@ public class PlatoViewModel extends AndroidViewModel{
 
     }
 
-    LiveData<List<Plato>> getAllPlatos() { return mAllPlatos; }
-    LiveData<List<Plato>> getAllPlatosNombre() { return mRepository.getAllPlatosNombre(); }
-    LiveData<List<Plato>> getAllPlatosCategoria() { return mRepository.getAllPlatosCategoria(); }
-    LiveData<List<Plato>> getAllPlatosNombreCategoria() { return mRepository.getAllPlatosNombreCategoria(); }
+    public LiveData<List<Plato>> getAllPlatos() { return mAllPlatos; }
+    public LiveData<List<Plato>> getAllPlatosNombre() { return mRepository.getAllPlatosNombre(); }
+    public LiveData<List<Plato>> getAllPlatosCategoria() { return mRepository.getAllPlatosCategoria(); }
+    public LiveData<List<Plato>> getAllPlatosNombreCategoria() { return mRepository.getAllPlatosNombreCategoria(); }
 
-    LiveData<Double> getPrecioPlatoId(int id) { LiveData<Double> aux =  mRepository.getPrecioPlatoId(id);
-        Log.d("Observation", String.valueOf(aux));
-    return aux;}
 
-    LiveData<Plato> getPlatoId(int id) { return mRepository.getPlatoId(id);}
+    public LiveData<Plato> getPlatoId(int id) { return mRepository.getPlatoId(id);}
 
     public void insert(Plato plato) { mRepository.insert(plato); }
 
