@@ -248,7 +248,7 @@ public class UnitTest {
 
 
     public void prueba_editar_plato_incorrecto_OTRO(long id) {
-        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "TERCERO", 10.0);
+        Plato platoMod = new Plato ("Pizza", "Masa, tomate y queso", "OTRO", 10.0);
         platoMod.setId((int) id);
         int resultado = mRepository.update(platoMod);
         Log.d("TEST INCORRECTO EDITAR PLATO OTRO", String.valueOf(resultado));
@@ -353,7 +353,7 @@ public class UnitTest {
     }
     //@Test
     public void prueba_insertar_pedido_incorrecto_estado_OTRO() {
-        Pedido pedido = new Pedido("Juan", 600000000, 202405182036L, "TERCERO", 10.0);
+        Pedido pedido = new Pedido("Juan", 600000000, 202405182036L, "OTRO", 10.0);
         Long resultado = mRepository.insert(pedido);
         Log.d("TEST INCORRECTO INSERTAR PEDIDO OTRO", String.valueOf(resultado));
     }
