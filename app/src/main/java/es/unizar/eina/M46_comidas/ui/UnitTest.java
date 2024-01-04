@@ -371,14 +371,14 @@ public class UnitTest {
     }
     //@Test
     public void prueba_insertar_pedido_incorrecto_id_negativo() {
-        Pedido pedido = new Pedido("Juan", 600000123, 202405182036L, "SOLICITADO", 10.0);
+        Pedido pedido = new Pedido("Juan", 600000000, 202405182036L, "SOLICITADO", 10.0);
         pedido.setId(-1);
         Long resultado = mRepository.insert(pedido);
         Log.d("TEST INCORRECTO INSERTAR PEDIDO ID NEGATIVO ", String.valueOf(resultado));
     }
     //@Test
     public void prueba_editar_pedido_correcto_SOLICITADO(long id) {
-        Pedido pedido = new Pedido("Juan", 777777777, 202405182036L, "SOLICITADO", 10.0);
+        Pedido pedido = new Pedido("Juan", 600000000, 202405182036L, "SOLICITADO", 10.0);
         pedido.setId((int)id);
         int resultado = mRepository.update(pedido);
         Log.d("TEST CORRECTO EDITAR PEDIDO SOLICITADO", String.valueOf(resultado));
