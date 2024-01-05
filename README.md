@@ -22,7 +22,7 @@ Miguel Aréjula Aísa
 - [ ] Eliminar Plato PABLO
 - [ ] Mostrar Platos
 - [ ] Mostrar Pedidos
-- [ ] Ordenar Plato 
+- [ ] Ordenar Plato MIGUEL
 - [ ] Ordenar Pedidos
 - [ ] Filtrar Pedidos
 - [ ] Enviar Pedido
