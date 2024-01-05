@@ -25,10 +25,11 @@ Miguel Aréjula Aísa
 - [x] Ordenar Plato MIGUEL
 - [x] Ordenar Pedidos MIGUEL
 - [ ] Filtrar Pedidos PABLO
-- [ ] Enviar Pedido
+- [ ] Enviar Pedido MIGUEL
 - [X] Inicializar Platos PABLO
 - [X] Inicialziar Pedidos PABLO
 - [ ] Modificar diagrama de paquetes MIGUEL (preguntar profesor)
-- [ ] Diagrama clases bridge MIGUEL
+- [x] Diagrama clases bridge MIGUEL
 - [x] Modificar diagrama de despliegue MIGUEL
+- [x] Incluir en el diagrama de clases de la actividad patron bridge MIGUEL
 
