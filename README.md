@@ -16,7 +16,7 @@ Miguel Aréjula Aísa
 - [x] Poner lo de atomic en todas las operaciones con la base de datos, solo esta puesto en un insert
 - [ ] Crear Plato PABLO
 - [ ] Crear Pedido
-- [ ] Editar Plato
+- [ ] Editar Plato PABLO
 - [ ] Eliminar Plato PABLO
 - [ ] Ordenar Plato PABLO
 - [ ] Ordenar Pedidos
