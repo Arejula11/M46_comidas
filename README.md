@@ -26,7 +26,7 @@ Miguel Aréjula Aísa
 - [ ] Ordenar Pedidos
 - [ ] Filtrar Pedidos
 - [ ] Enviar Pedido
-- [ ] Inicializar Platos
+- [ ] Inicializar Platos PABLO
 - [ ] Inicialziar Pedidos
 
 
