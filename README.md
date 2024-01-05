@@ -15,16 +15,16 @@ Miguel Aréjula Aísa
 - [x] A la hora de introducir el precio por primera vez no deja poner decimales
 - [x] Poner lo de atomic en todas las operaciones con la base de datos, solo esta puesto en un insert
 - [X] Crear Plato PABLO
-- [ ] Crear Pedido PABLO
+- [X] Crear Pedido PABLO
 - [X] Editar Plato PABLO
-- [ ] Editar Pedidos PABLO
+- [X] Editar Pedidos PABLO
 - [X] Eliminar Pedidos PABLO
 - [X] Eliminar Plato PABLO
 - [X] Mostrar Platos PABLO
 - [X] Mostrar Pedidos PABLO
 - [x] Ordenar Plato MIGUEL
 - [x] Ordenar Pedidos MIGUEL
-- [ ] Filtrar Pedidos MIGUEL
+- [ ] Filtrar Pedidos PABLO
 - [ ] Enviar Pedido
 - [X] Inicializar Platos PABLO
 - [X] Inicialziar Pedidos PABLO
