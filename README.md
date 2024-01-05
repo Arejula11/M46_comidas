@@ -24,11 +24,11 @@ Miguel Aréjula Aísa
 - [ ] Mostrar Pedidos
 - [x] Ordenar Plato MIGUEL
 - [x] Ordenar Pedidos MIGUEL
-- [ ] Filtrar Pedidos
+- [ ] Filtrar Pedidos MIGUEL
 - [ ] Enviar Pedido
 - [X] Inicializar Platos PABLO
 - [ ] Inicialziar Pedidos
 - [ ] Modificar diagrama de paquetes MIGUEL
-- [ ] Diagrama clases bridge
+- [ ] Diagrama clases bridge 
 - [ ] Modificar diagrama de despliegue MIGUEL
 
