@@ -24,8 +24,8 @@ Miguel Aréjula Aísa
 - [X] Mostrar Pedidos PABLO
 - [x] Ordenar Plato MIGUEL
 - [x] Ordenar Pedidos MIGUEL
-- [ ] Filtrar Pedidos PABLO
-- [ ] Enviar Pedido MIGUEL
+- [x] Filtrar Pedidos PABLO
+- [x] Enviar Pedido MIGUEL
 - [X] Inicializar Platos PABLO
 - [X] Inicialziar Pedidos PABLO
 - [ ] Modificar diagrama de paquetes MIGUEL (preguntar profesor)

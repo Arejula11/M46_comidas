@@ -103,7 +103,7 @@ public class orders_description extends AppCompatActivity {
 
         buttonEnviarSMS.setOnClickListener(view ->{
             // Obtener el pedido seleccionado (aquí suponemos el primero de la lista)
-            Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
+            //Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
 
             // Crear una instancia de SendAbstractionImpl en onCreate o donde sea apropiado
             SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "SMS");
@@ -116,7 +116,7 @@ public class orders_description extends AppCompatActivity {
         });
         buttonEnviarWhatsApp.setOnClickListener(view ->{
             // Obtener el pedido seleccionado (aquí suponemos el primero de la lista)
-            Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
+            //Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
 
             // Crear una instancia de SendAbstractionImpl en onCreate o donde sea apropiado
             SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "WhatsApp");
