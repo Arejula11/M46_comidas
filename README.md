@@ -17,7 +17,7 @@ Miguel Aréjula Aísa
 - [X] Crear Plato PABLO
 - [ ] Crear Pedido PABLO
 - [X] Editar Plato PABLO
-- [ ] Editar Pedidos 
+- [ ] Editar Pedidos PABLO
 - [X] Eliminar Pedidos PABLO
 - [X] Eliminar Plato PABLO
 - [X] Mostrar Platos PABLO
@@ -28,7 +28,7 @@ Miguel Aréjula Aísa
 - [ ] Enviar Pedido
 - [X] Inicializar Platos PABLO
 - [X] Inicialziar Pedidos PABLO
-- [ ] Modificar diagrama de paquetes MIGUEL
-- [ ] Diagrama clases bridge 
+- [ ] Modificar diagrama de paquetes MIGUEL (preguntar profesor)
+- [ ] Diagrama clases bridge MIGUEL
 - [x] Modificar diagrama de despliegue MIGUEL
 
