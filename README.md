@@ -15,7 +15,7 @@ Miguel Aréjula Aísa
 - [x] A la hora de introducir el precio por primera vez no deja poner decimales
 - [x] Poner lo de atomic en todas las operaciones con la base de datos, solo esta puesto en un insert
 - [X] Crear Plato PABLO
-- [ ] Crear Pedido
+- [ ] Crear Pedido PABLO
 - [X] Editar Plato PABLO
 - [ ] Editar Pedidos 
 - [ ] Eliminar Pedidos
