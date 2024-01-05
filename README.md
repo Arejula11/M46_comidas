@@ -28,7 +28,7 @@ Miguel Aréjula Aísa
 - [ ] Enviar Pedido
 - [X] Inicializar Platos PABLO
 - [ ] Inicialziar Pedidos
-- [ ] Modificar diagrama de paquetes
+- [ ] Modificar diagrama de paquetes MIGUEL
 - [ ] Diagrama clases bridge
-- [ ] Modificar diagrama de despliegue
+- [ ] Modificar diagrama de despliegue MIGUEL
 
