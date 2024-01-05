@@ -21,13 +21,13 @@ Miguel Aréjula Aísa
 - [ ] Eliminar Pedidos PABLO
 - [X] Eliminar Plato PABLO
 - [X] Mostrar Platos PABLO
-- [ ] Mostrar Pedidos
+- [X] Mostrar Pedidos PABLO
 - [x] Ordenar Plato MIGUEL
 - [x] Ordenar Pedidos MIGUEL
 - [ ] Filtrar Pedidos MIGUEL
 - [ ] Enviar Pedido
 - [X] Inicializar Platos PABLO
-- [ ] Inicialziar Pedidos PABLO
+- [X] Inicialziar Pedidos PABLO
 - [ ] Modificar diagrama de paquetes MIGUEL
 - [ ] Diagrama clases bridge 
 - [ ] Modificar diagrama de despliegue MIGUEL
