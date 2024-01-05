@@ -17,8 +17,8 @@ Miguel Aréjula Aísa
 - [ ] Crear Plato PABLO
 - [ ] Crear Pedido
 - [ ] Editar Plato
-- [ ] Eliminar Plato
-- [ ] Ordenar Plato
+- [ ] Eliminar Plato PABLO
+- [ ] Ordenar Plato PABLO
 - [ ] Ordenar Pedidos
 - [ ] Eliminar Pedidos
 - [ ] Filtrar Pedidos
