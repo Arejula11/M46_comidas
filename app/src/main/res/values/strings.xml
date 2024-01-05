@@ -29,7 +29,8 @@
     <string name="recogido">Recogido</string>
     <string name="eliminar">ELIMINAR</string>
     <string name="editar">EDITAR</string>
-    <string name="enviar">ENVIAR</string>
+    <string name="enviarWhatsapp">WHATSAPP</string>
+    <string name="enviarSMS">SMS</string>
     <string name="guardar">GUARDAR</string>
     <string name="cliente">CLIENTE</string>
     <string name="fecha">FECHA</string>

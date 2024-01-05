@@ -26,7 +26,8 @@ public class orders_description extends AppCompatActivity {
     Button buttonAtras;
     Button buttonEditar;
     Button buttonEliminar;
-    Button buttonEnviar;
+    Button buttonEnviarSMS;
+    Button buttonEnviarWhatsApp;
     RacionListAdapter mAdapter;
 
     private PedidoViewModel mPedidoViewModel;
@@ -70,7 +71,8 @@ public class orders_description extends AppCompatActivity {
         buttonAtras = findViewById(R.id.buttonAtras);
         buttonEditar = findViewById(R.id.buttonEditarPedido);
         buttonEliminar = findViewById(R.id.buttonEliminarPedido);
-        buttonEnviar = findViewById(R.id.buttonEnviarPedido);
+        buttonEnviarSMS = findViewById(R.id.buttonEnviarPedidoSMS);
+        buttonEnviarWhatsApp = findViewById(R.id.buttonEnviarPedidoWhatsapp);
         buttonAtras.setOnClickListener(view -> {
             Intent intent = new Intent(this, orders_page.class);
             intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
@@ -99,12 +101,25 @@ public class orders_description extends AppCompatActivity {
             startActivity(intent);
         });
 
-        buttonEnviar.setOnClickListener(view ->{
+        buttonEnviarSMS.setOnClickListener(view ->{
             // Obtener el pedido seleccionado (aquí suponemos el primero de la lista)
             Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
 
             // Crear una instancia de SendAbstractionImpl en onCreate o donde sea apropiado
-            SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "M46_comidas");
+            SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "SMS");
+
+            // Enviar el pedido utilizando la instancia de SendAbstractionImpl
+
+            sendAbstraction.send(pedido.getTel().toString(),pedido.getNombrecliente().toString()+  String.valueOf(pedido.getPrecio()));
+
+
+        });
+        buttonEnviarWhatsApp.setOnClickListener(view ->{
+            // Obtener el pedido seleccionado (aquí suponemos el primero de la lista)
+            Pedido selectedPedido = pedido; // Cambia esto para obtener el pedido adecuado
+
+            // Crear una instancia de SendAbstractionImpl en onCreate o donde sea apropiado
+            SendAbstraction sendAbstraction = new SendAbstractionImpl(this, "WhatsApp");
 
             // Enviar el pedido utilizando la instancia de SendAbstractionImpl
 
