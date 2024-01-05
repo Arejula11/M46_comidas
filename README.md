@@ -17,14 +17,16 @@ Miguel Aréjula Aísa
 - [ ] Crear Plato PABLO
 - [ ] Crear Pedido
 - [ ] Editar Plato PABLO
-- [ ] Eliminar Plato PABLO
-- [ ] Ordenar Plato PABLO
-- [ ] Ordenar Pedidos
-- [ ] Eliminar Pedidos
-- [ ] Filtrar Pedidos
 - [ ] Editar Pedidos 
-- [ ] Enviar Pedido
+- [ ] Eliminar Pedidos
+- [ ] Eliminar Plato PABLO
 - [ ] Mostrar Platos
 - [ ] Mostrar Pedidos
+- [ ] Ordenar Plato PABLO
+- [ ] Ordenar Pedidos
+- [ ] Filtrar Pedidos
+- [ ] Enviar Pedido
+- [ ] Inicializar Platos
+- [ ] Inicialziar Pedidos
 
 
