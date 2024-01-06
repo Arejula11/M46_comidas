@@ -179,9 +179,9 @@ public class ComidasRepository {
 
             if(!pedido.getNombrecliente().isEmpty() &&
                     pedido.getTel().toString().length() == 9 &&
-                    (pedido.getEstado().equals("SOLICITADO") ||
-                            pedido.getEstado().equals("PREPARADO") ||
-                            pedido.getEstado().equals("RECOGIDO")) &&
+                    (pedido.getEstado().equals("Solicitado") ||
+                            pedido.getEstado().equals("Preparado") ||
+                            pedido.getEstado().equals("Recogido")) &&
                     pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 19 || (hourOfDay == 19 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
                 AtomicLong result = new AtomicLong();
                 Semaphore resource = new Semaphore(0);
@@ -294,9 +294,9 @@ public class ComidasRepository {
 
             if(!pedido.getNombrecliente().isEmpty() &&
                     pedido.getTel().toString().length() == 9 &&
-                    (pedido.getEstado().equals("SOLICITADO") ||
-                            pedido.getEstado().equals("PREPARADO") ||
-                            pedido.getEstado().equals("RECOGIDO")) &&
+                    (pedido.getEstado().equals("Solicitado") ||
+                            pedido.getEstado().equals("Preparado") ||
+                            pedido.getEstado().equals("Recogido")) &&
                     pedido.getPrecio() >= 0.0 && !(dia == 2 || hourOfDay < 7 || (hourOfDay == 7 && minute < 30) || hourOfDay > 23 || (hourOfDay == 23 && minute > 0))){
                 AtomicInteger result = new AtomicInteger();
                 Semaphore resource = new Semaphore(0);

@@ -506,16 +506,16 @@ public class UnitTest {
 
     //@Test
     public void prueba_sobrecarga() {
-        String ingr = "00000000000000000000000000000";
+        String ingr = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         for(int i =0; i<200; i++){
-
-            Plato plato = new Plato("PlatoPrueba", ingr, "PRIMERO", Double.valueOf(i));
+            ingr+=ingr;
+            Plato plato = new Plato("PlatoPrueba",ingr, "PRIMERO", Double.valueOf(i));
             mRepository.insert(plato);
-            for(int x = 0; x < 1000000; x++){
-                ingr += ('a');
-
-            }
-            Log.d("VALOR", String.valueOf(i));
+            //for(int x = 0; x < 5000; x++){
+            //    ingr += ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//
+            //}
+            Log.d("VALOR", String.valueOf(ingr.length()));
         }
 
     }

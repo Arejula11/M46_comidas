@@ -113,6 +113,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
         mAdapter.setTextChangedListener((position, text) -> this.onTextChanged(position, text));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mostrarInformacion();
         buttonAddRacion = findViewById(R.id.buttonAddRacion);
         buttonAddRacion.setOnClickListener(view -> {
             int telefono = 0;
@@ -228,6 +229,7 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("Pedido", pedido); // Puedes cambiar "getAllPlatos" según tus necesidades
             startActivity(intent);
         });
+        añadirRacionALista();
 
     }
     private void añadirRacionALista(){
