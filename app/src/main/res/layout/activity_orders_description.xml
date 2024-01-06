@@ -14,25 +14,14 @@
         tools:layout_editor_absoluteY="41dp"
         tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/textViewNombreClientePedidoDes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-
-            android:textColor="#163172"
-            android:textSize="38sp" />
-
 
         <Button
             android:id="@+id/buttonAtras"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewNombreClientePedidoDes"
             android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="-50dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/custom_button2"
             android:text="atras"
             android:textColor="#FFF" />
@@ -50,60 +39,77 @@
             tools:visibility="visible">
 
             />
-
-            <TextView
-                android:id="@+id/textViewNombreCliente"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre del Cliente" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textViewNombreClienteFill"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                <!-- Primer LinearLayout (primera columna) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewNombreEstado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Estado: " />
+                    <!-- Contenido del primer LinearLayout -->
+                    <TextView
+                        android:id="@+id/textViewNombreCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre del Cliente" />
+                    <TextView
+                        android:id="@+id/textViewNombreClienteFill"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textViewEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado: " />
+                    <TextView
+                        android:id="@+id/textViewEstadoFill"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textViewPrecioPedido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Precio:" />
+                    <TextView
+                        android:id="@+id/textViewPrecioFill"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewNombreEstadoFill"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/textViewPrecioPedido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Precio:" />
+                <!-- Segundo LinearLayout (segunda columna) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewPrecioFill"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                    <!-- Contenido del segundo LinearLayout -->
+                    <TextView
+                        android:id="@+id/textViewTelefonoPedido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Telefono:" />
+                    <TextView
+                        android:id="@+id/textViewTelefonoFill"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textViewFechaPedido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha recogida:" />
+                    <TextView
+                        android:id="@+id/textViewFechaFill"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewTelefonoPedido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teléfono:" />
-
-            <TextView
-                android:id="@+id/textViewTelefonoFill"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textViewFechaPedido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha recogida:" />
-
-            <TextView
-                android:id="@+id/textViewFechaFill"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
@@ -158,9 +164,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buttonEliminarPedido"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="240dp"
+            android:layout_marginStart="53dp"
             android:background="@drawable/custom_button2"
             android:text="@string/enviarWhatsapp" />
 

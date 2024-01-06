@@ -24,6 +24,7 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder {
 
 
 
+
     private PlatoViewHolder(View itemView) {
         super(itemView);
         mNombreTextView = itemView.findViewById(R.id.textViewNombre);

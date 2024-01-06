@@ -13,16 +13,17 @@ public class PedidoViewHolder extends RecyclerView.ViewHolder {
     private final TextView mNombreClienteTextView;
     private final TextView mTelefonoTextView;
     private final TextView mFechaTextView;
-    private final TextView mRacionesTextView;
     private final TextView mPrecioTextView;
+    private final TextView mEstadoTextView;
+
 
     private PedidoViewHolder(View itemView) {
         super(itemView);
         mNombreClienteTextView = itemView.findViewById(R.id.textViewNameCliente);
         mTelefonoTextView = itemView.findViewById(R.id.textViewTfn);
         mFechaTextView = itemView.findViewById(R.id.textViewFechaPedido);
-        mRacionesTextView = itemView.findViewById(R.id.textViewRacion);
         mPrecioTextView = itemView.findViewById(R.id.textViewPecioPedido);
+        mEstadoTextView = itemView.findViewById(R.id.textViewEstadoPedido);
     }
 
     public void bind(Pedido pedido) {
@@ -32,7 +33,7 @@ public class PedidoViewHolder extends RecyclerView.ViewHolder {
                 + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
                 + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
         mPrecioTextView.setText("Precio: " + pedido.getPrecio());
-       // mRacionesTextView.setText("Raciones: " + pedido.getRaciones());
+        mEstadoTextView.setText("Estado: " + pedido.getEstado());
     }
 
     static PedidoViewHolder create(ViewGroup parent) {

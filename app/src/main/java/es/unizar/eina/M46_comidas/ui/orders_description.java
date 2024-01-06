@@ -38,6 +38,7 @@ public class orders_description extends AppCompatActivity {
     TextView textViewPrecio;
     TextView textViewTelefono;
     TextView textViewFecha;
+    TextView textViewEstado;
     Pedido pedido;
     RecyclerView mRecyclerView;
 
@@ -51,6 +52,7 @@ public class orders_description extends AppCompatActivity {
         textViewPrecio = findViewById(R.id.textViewPrecioFill);
         textViewTelefono = findViewById(R.id.textViewTelefonoFill);
         textViewFecha = findViewById(R.id.textViewFechaFill);
+        textViewEstado = findViewById(R.id.textViewEstadoFill);
 
         Intent intentaux = getIntent();
         pedido = (Pedido) intentaux.getSerializableExtra("Pedido");
@@ -110,8 +112,9 @@ public class orders_description extends AppCompatActivity {
 
             // Enviar el pedido utilizando la instancia de SendAbstractionImpl
 
-            sendAbstraction.send(pedido.getTel().toString(),pedido.getNombrecliente().toString()+  String.valueOf(pedido.getPrecio()));
-
+            sendAbstraction.send(pedido.getTel().toString(),"Cliente: "+pedido.getNombrecliente().toString()+"\nPrecio: "+   String.valueOf(pedido.getPrecio())+"\nFecha de recogida:"+ pedido.getFecha().toString().substring(0,4) + '-'
+                    + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
+                    + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
 
         });
         buttonEnviarWhatsApp.setOnClickListener(view ->{
@@ -123,8 +126,9 @@ public class orders_description extends AppCompatActivity {
 
             // Enviar el pedido utilizando la instancia de SendAbstractionImpl
 
-            sendAbstraction.send(pedido.getTel().toString(),pedido.getNombrecliente().toString()+  String.valueOf(pedido.getPrecio()));
-
+            sendAbstraction.send(pedido.getTel().toString(),"Cliente: "+pedido.getNombrecliente().toString()+"\nPrecio: "+   String.valueOf(pedido.getPrecio())+"\nFecha de recogida:"+ pedido.getFecha().toString().substring(0,4) + '-'
+                    + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
+                    + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));
 
         });
 
@@ -151,6 +155,7 @@ public class orders_description extends AppCompatActivity {
         textViewNombreCliente.setText(pedido.getNombrecliente().toString());
         textViewPrecio.setText(String.valueOf(pedido.getPrecio()));
         textViewTelefono.setText(pedido.getTel().toString());
+        textViewEstado.setText(pedido.getEstado().toString());
         textViewFecha.setText("Fecha: " + pedido.getFecha().toString().substring(0,4) + '-'
                 + pedido.getFecha().toString().substring(4,6) + '-' + pedido.getFecha().toString().substring(6,8)
                 + ' ' + pedido.getFecha().toString().substring(8,10) + ':' + pedido.getFecha().toString().substring(10));

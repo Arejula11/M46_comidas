@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -48,8 +49,8 @@ public class edit_order extends AppCompatActivity implements View.OnClickListene
     RacionViewModel mRacionViewModel;
     RacionListAdapter mAdapter;
     Double precioTotal;
-    EditText editTextPrecio, editTextNombreCliente, editTextTelefono, editTextDate, editTextTime;
-
+    EditText editTextNombreCliente, editTextTelefono, editTextDate, editTextTime;
+    TextView editTextPrecio;
     RecyclerView mRecyclerView;
 
     String[] opciones = {"Solicitado", "Preparado", "Recogido"};

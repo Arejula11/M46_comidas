@@ -41,6 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/precio"/>
+        <TextView
+            android:id="@+id/textViewEstadoPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado:"/>
 
 
         <!-- Añade más TextViews según tus datos -->
