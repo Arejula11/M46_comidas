@@ -219,14 +219,19 @@ public class add_order extends AppCompatActivity implements View.OnClickListener
                 Intent intent = new Intent(this, orders_page.class);
                 pedido = new Pedido(nombreCliente2, telefono, Long.valueOf(date + time), "Solicitado", precioTotal);
                 Long insertedId = mPedidoViewModel.insert(pedido);
+
+                if(insertedId != -1){
                     for (RacionVisual aux : racionesSingleton.getRaciones()) {
                         aux.racion.setPedidoId(insertedId.intValue());
                         mRacionViewModel.insert(aux.racion);
                     }
+                    racionesSingleton.reset();
+                    intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error: compruebe los campos", Toast.LENGTH_LONG).show();
+                }
 
-                racionesSingleton.reset();
-                intent.putExtra("operacion", "getAllPedidos"); // Puedes cambiar "getAllPlatos" según tus necesidades
-                startActivity(intent);
             }
         });
         Button buttonAtras = findViewById(R.id.buttonAtras);
